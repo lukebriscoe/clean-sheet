@@ -9,7 +9,7 @@
 // means you can edit the JSON, re-run, and the library just catches up.
 
 import { readFile } from 'node:fs/promises'
-import { existsSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
 import { createInterface } from 'node:readline/promises'
@@ -82,6 +82,25 @@ function connect() {
         'If you set it with `export VAR=$(ls …)` and the file was not there, the\n' +
         'variable ends up as an empty string. Download the key first, then re-run.',
     )
+  }
+
+  // existsSync is not enough on macOS: stat succeeds inside ~/Downloads,
+  // ~/Documents and ~/Desktop while reads are refused by TCC, so the file looks
+  // present and then fails with a bare EPERM from deep inside firebase-admin.
+  try {
+    readFileSync(keyPath)
+  } catch (caught) {
+    if (caught.code === 'EPERM' || caught.code === 'EACCES') {
+      die(
+        `Not allowed to read:\n  ${keyPath}\n\n` +
+          'macOS restricts access to Downloads, Documents and Desktop. Move the key\n' +
+          'somewhere else and point at it there — e.g. into this project, where the\n' +
+          'filename is already git-ignored:\n\n' +
+          `  mv "${keyPath}" ./service-account.json\n` +
+          '  export GOOGLE_APPLICATION_CREDENTIALS=./service-account.json',
+      )
+    }
+    die(`Could not read the service-account key at:\n  ${keyPath}\n\n${caught.message}`)
   }
 
   initializeApp({ credential: cert(keyPath), projectId })
