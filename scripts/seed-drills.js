@@ -9,10 +9,11 @@
 // means you can edit the JSON, re-run, and the library just catches up.
 
 import { readFile } from 'node:fs/promises'
+import { existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
 import { createInterface } from 'node:readline/promises'
-import { initializeApp, cert, applicationDefault } from 'firebase-admin/app'
+import { initializeApp, cert } from 'firebase-admin/app'
 import { getFirestore, FieldValue } from 'firebase-admin/firestore'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
@@ -42,19 +43,48 @@ function connect() {
   }
 
   delete process.env.FIRESTORE_EMULATOR_HOST // never let a stray env var point prod at localhost
-  const keyPath = process.env.GOOGLE_APPLICATION_CREDENTIALS
-  const projectId = process.env.FIREBASE_PROJECT_ID
+  const keyPath = process.env.GOOGLE_APPLICATION_CREDENTIALS?.trim()
+  const projectId = process.env.FIREBASE_PROJECT_ID?.trim()
 
-  if (!keyPath && !projectId) {
-    console.error(
-      'Seeding the live project needs credentials. Either:\n' +
-        '  export GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json\n' +
-        'or run `gcloud auth application-default login` and set FIREBASE_PROJECT_ID.',
-    )
+  const die = message => {
+    console.error(`\n${message}\n`)
     process.exit(1)
   }
 
-  initializeApp({ credential: keyPath ? cert(keyPath) : applicationDefault(), projectId })
+  if (!keyPath && !projectId) {
+    die(
+      'Seeding the live project needs credentials.\n\n' +
+        'Download a key from the Firebase console:\n' +
+        '  Project settings → Service accounts → Generate new private key\n\n' +
+        'then:\n' +
+        '  export GOOGLE_APPLICATION_CREDENTIALS=/path/to/that-file.json\n' +
+        '  export FIREBASE_PROJECT_ID=your-project-id',
+    )
+  }
+
+  // A GOOGLE_APPLICATION_CREDENTIALS that is set but points nowhere is the most
+  // likely mistake here — `export VAR=$(ls …)` quietly yields an empty string
+  // when the glob matches nothing. Left unchecked it falls through to Google's
+  // application-default lookup and fails with "Could not load the default
+  // credentials", which says nothing about the actual problem.
+  if (keyPath && !existsSync(keyPath)) {
+    die(
+      `No service-account key at:\n  ${keyPath}\n\n` +
+        'Check the file downloaded, and that the path is right. To pick the newest\n' +
+        'key in your Downloads folder automatically:\n' +
+        '  export GOOGLE_APPLICATION_CREDENTIALS=$(ls -1t ~/Downloads/*firebase-adminsdk*.json | head -1)',
+    )
+  }
+
+  if (!keyPath) {
+    die(
+      'GOOGLE_APPLICATION_CREDENTIALS is empty.\n\n' +
+        'If you set it with `export VAR=$(ls …)` and the file was not there, the\n' +
+        'variable ends up as an empty string. Download the key first, then re-run.',
+    )
+  }
+
+  initializeApp({ credential: cert(keyPath), projectId })
   console.log(`→ LIVE project ${projectId ?? '(from credentials)'}`)
 }
 
