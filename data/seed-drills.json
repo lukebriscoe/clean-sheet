@@ -1,0 +1,3960 @@
+{
+  "schemaVersion": 1,
+  "about": [
+    "The starter drill library for Clean Sheet.",
+    "",
+    "Every entry here is written from scratch in our own words. Nothing is copied from",
+    "The FA's England Football Learning site, the FIFA Training Centre, or anywhere else.",
+    "Where a drill overlaps with a published FA or FIFA resource we link out to it as",
+    "further reading in `references` — we never reproduce their text, images or video.",
+    "See docs/content-policy.md before adding anything to this file.",
+    "",
+    "References deliberately point at section landing pages rather than deep article",
+    "URLs, which rot quickly and would send coaches to a 404 mid-session."
+  ],
+  "drills": [
+    {
+      "name": "Traffic Lights",
+      "summary": "Ball-mastery warm-up where colours tell players to stop, go, or turn.",
+      "description": "Every player has a ball inside the grid and dribbles freely. The coach calls a colour and the players react: **green** is dribble at speed into space, **amber** is slow it down with lots of small touches, **red** is stop the ball dead with the sole of the foot.\n\nIt gets a whole squad moving with a ball each inside thirty seconds, which is exactly what you want on a cold Tuesday when players are arriving in dribs and drabs. Add and remove players without stopping the activity.",
+      "setup": "A 20x20 yard grid marked with cones. One ball per player. Adjust the grid so it feels slightly crowded — players should have to lift their heads to avoid each other.",
+      "coachingPoints": [
+        "Head up between touches — can you see the space before you move into it?",
+        "Use the sole of the foot to stop the ball cleanly on 'red'",
+        "Little touches when you're near someone, bigger touches when you're in space",
+        "Use both feet — try the next 'red' with your other foot"
+      ],
+      "progressions": [
+        "Add a colour for a turn (e.g. 'blue' = drag-back and go the other way)",
+        "Call two colours in a row so players have to hold a sequence in their head",
+        "Shrink the grid to increase the number of near-misses"
+      ],
+      "regressions": [
+        "Use just green and red until the group is confident",
+        "Make the grid bigger so there is less traffic to deal with"
+      ],
+      "themes": [
+        "dribbling",
+        "physical",
+        "funandconfidence"
+      ],
+      "ageGroups": [
+        "u6",
+        "u7",
+        "u8",
+        "u9",
+        "u10"
+      ],
+      "sessionPhase": "warmup",
+      "minPlayers": 4,
+      "maxPlayers": 20,
+      "durationMins": 10,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones"
+      ],
+      "references": [
+        {
+          "label": "England Football Learning — coaching the youngest age groups",
+          "url": "https://learn.englandfootball.com/",
+          "source": "fa"
+        }
+      ],
+      "diagram": {
+        "area": {
+          "w": 20,
+          "h": 20,
+          "unit": "yd"
+        },
+        "caption": "Everyone has a ball; the coach calls a colour.",
+        "shapes": [
+          {
+            "t": "player",
+            "team": "a",
+            "x": 20,
+            "y": 22
+          },
+          {
+            "t": "ball",
+            "x": 25,
+            "y": 26
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 62,
+            "y": 18
+          },
+          {
+            "t": "ball",
+            "x": 67,
+            "y": 22
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 35,
+            "y": 55
+          },
+          {
+            "t": "ball",
+            "x": 40,
+            "y": 59
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 78,
+            "y": 48
+          },
+          {
+            "t": "ball",
+            "x": 83,
+            "y": 52
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 18,
+            "y": 80
+          },
+          {
+            "t": "ball",
+            "x": 23,
+            "y": 84
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 58,
+            "y": 76
+          },
+          {
+            "t": "ball",
+            "x": 63,
+            "y": 80
+          },
+          {
+            "t": "dribble",
+            "from": [
+              25,
+              26
+            ],
+            "to": [
+              45,
+              38
+            ]
+          },
+          {
+            "t": "dribble",
+            "from": [
+              67,
+              22
+            ],
+            "to": [
+              80,
+              34
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Passing Gates",
+      "summary": "Pairs score a point every time they pass cleanly through any gate.",
+      "description": "Scatter small cone gates around the area. In pairs with one ball, players move around and pass to each other through any gate they can find. A pass counts only if the ball goes through a gate and the partner controls it on the other side.\n\nThe scoring is what makes it work — pairs start hunting for gates rather than standing still, so you get movement, scanning and passing without ever telling anyone to move.",
+      "setup": "A 25x25 yard area with 8-10 gates made from pairs of cones, roughly 2 yards wide, scattered at all angles. One ball between two.",
+      "coachingPoints": [
+        "Look for the gate before you receive, not after",
+        "Pass firmly — a soft pass through a gate is easy to intercept in a real game",
+        "Move to a new angle straight after you pass",
+        "Talk to your partner: tell them which gate you're heading for"
+      ],
+      "progressions": [
+        "Count as a pair and ask them to beat their own score in the next 90 seconds",
+        "No repeating the same gate twice in a row",
+        "Add two defenders who intercept and win the ball for their own count"
+      ],
+      "regressions": [
+        "Make the gates wider",
+        "Let the receiving player use as many touches as they need"
+      ],
+      "themes": [
+        "passing",
+        "receiving",
+        "movement"
+      ],
+      "ageGroups": [
+        "u7",
+        "u8",
+        "u9",
+        "u10",
+        "u11",
+        "u12"
+      ],
+      "sessionPhase": "warmup",
+      "minPlayers": 4,
+      "maxPlayers": 20,
+      "durationMins": 12,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones"
+      ],
+      "references": [
+        {
+          "label": "England Football Learning — practice design and session planning",
+          "url": "https://learn.englandfootball.com/",
+          "source": "fa"
+        }
+      ],
+      "diagram": {
+        "area": {
+          "w": 25,
+          "h": 25,
+          "unit": "yd"
+        },
+        "caption": "Pairs score a point for every clean pass through any gate.",
+        "shapes": [
+          {
+            "t": "gate",
+            "x": 30,
+            "y": 20,
+            "angle": 0
+          },
+          {
+            "t": "gate",
+            "x": 70,
+            "y": 30,
+            "angle": 90
+          },
+          {
+            "t": "gate",
+            "x": 22,
+            "y": 60,
+            "angle": 45
+          },
+          {
+            "t": "gate",
+            "x": 60,
+            "y": 72,
+            "angle": 0
+          },
+          {
+            "t": "gate",
+            "x": 85,
+            "y": 55,
+            "angle": 90
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 18,
+            "y": 22
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 46,
+            "y": 20
+          },
+          {
+            "t": "ball",
+            "x": 23,
+            "y": 24
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 48,
+            "y": 62
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 80,
+            "y": 70
+          },
+          {
+            "t": "ball",
+            "x": 53,
+            "y": 64
+          },
+          {
+            "t": "pass",
+            "from": [
+              23,
+              24
+            ],
+            "to": [
+              42,
+              20
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              53,
+              64
+            ],
+            "to": [
+              57,
+              72
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Sharks and Minnows",
+      "summary": "Dribble across the area without losing your ball to the sharks.",
+      "description": "The minnows line up on one side with a ball each. One or two sharks start in the middle with no ball. On the call, the minnows dribble to the far side. Sharks try to kick the balls out of the area.\n\nA minnow who loses their ball becomes a shark, so the game gets harder as it goes and the last player standing has earned it. Everyone is involved the whole time — nobody is queuing.",
+      "setup": "A 20x25 yard area. One ball per minnow. Start with one shark for every eight players.",
+      "coachingPoints": [
+        "Keep the ball close when a shark is near, push it further when the path is clear",
+        "Look up and pick the gap before you set off",
+        "Use your body between the shark and the ball",
+        "Change direction rather than running into trouble"
+      ],
+      "progressions": [
+        "Sharks must dribble the won ball out rather than just kicking it away",
+        "Narrow the area so there is less space to escape into"
+      ],
+      "regressions": [
+        "Widen the area",
+        "Sharks can only move sideways along the middle line",
+        "A player who loses the ball can retrieve it and rejoin as a minnow"
+      ],
+      "themes": [
+        "dribbling",
+        "defending",
+        "funandconfidence"
+      ],
+      "ageGroups": [
+        "u6",
+        "u7",
+        "u8",
+        "u9",
+        "u10"
+      ],
+      "sessionPhase": "warmup",
+      "minPlayers": 6,
+      "maxPlayers": 20,
+      "durationMins": 10,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones"
+      ],
+      "references": [],
+      "diagram": {
+        "area": {
+          "w": 20,
+          "h": 25,
+          "unit": "yd"
+        },
+        "caption": "Minnows dribble across; sharks try to win the balls.",
+        "shapes": [
+          {
+            "t": "zone",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 14,
+            "label": "START"
+          },
+          {
+            "t": "zone",
+            "x": 0,
+            "y": 86,
+            "w": 100,
+            "h": 14,
+            "label": "SAFE"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 15,
+            "y": 7
+          },
+          {
+            "t": "ball",
+            "x": 15,
+            "y": 12
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 38,
+            "y": 7
+          },
+          {
+            "t": "ball",
+            "x": 38,
+            "y": 12
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 62,
+            "y": 7
+          },
+          {
+            "t": "ball",
+            "x": 62,
+            "y": 12
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 85,
+            "y": 7
+          },
+          {
+            "t": "ball",
+            "x": 85,
+            "y": 12
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 35,
+            "y": 48
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 70,
+            "y": 52
+          },
+          {
+            "t": "dribble",
+            "from": [
+              15,
+              14
+            ],
+            "to": [
+              12,
+              84
+            ]
+          },
+          {
+            "t": "dribble",
+            "from": [
+              62,
+              14
+            ],
+            "to": [
+              72,
+              84
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Pass and Follow Triangle",
+      "summary": "Continuous passing round a triangle where you always follow your pass.",
+      "description": "Three cones form a triangle with players split between them. Player passes to the next cone, then jogs to join the back of the queue they just passed to. The ball moves round the triangle continuously.\n\nIt looks simple, and it is — that is the point of a warm-up. What it does buy you is a lot of repetitions of a clean pass and a first touch out of the feet, plus a chance to see who is comfortable on their weaker side.",
+      "setup": "Three cones in a triangle roughly 8-10 yards apart. Two to four players at each cone. One ball per triangle; add a second ball once it is flowing.",
+      "coachingPoints": [
+        "First touch out of your feet and into the direction you're passing",
+        "Pass along the ground with the inside of the foot",
+        "Call the name of the player you're passing to",
+        "Follow your pass at a jog, not a walk"
+      ],
+      "progressions": [
+        "Add a second ball going the other way round",
+        "Two touches maximum, then one",
+        "Receive with the back foot and open your body before passing"
+      ],
+      "regressions": [
+        "Shorten the distance between cones",
+        "Unlimited touches while players find their rhythm"
+      ],
+      "themes": [
+        "passing",
+        "receiving"
+      ],
+      "ageGroups": [
+        "u8",
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "warmup",
+      "minPlayers": 6,
+      "maxPlayers": 18,
+      "durationMins": 10,
+      "intensity": "low",
+      "equipment": [
+        "balls",
+        "cones"
+      ],
+      "references": [],
+      "diagram": {
+        "area": {
+          "w": 12,
+          "h": 12,
+          "unit": "yd"
+        },
+        "caption": "Pass, then follow your pass to the next cone.",
+        "shapes": [
+          {
+            "t": "cone",
+            "x": 50,
+            "y": 12
+          },
+          {
+            "t": "cone",
+            "x": 15,
+            "y": 82
+          },
+          {
+            "t": "cone",
+            "x": 85,
+            "y": 82
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 22
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 18,
+            "y": 74
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 82,
+            "y": 74
+          },
+          {
+            "t": "ball",
+            "x": 50,
+            "y": 28
+          },
+          {
+            "t": "pass",
+            "from": [
+              50,
+              26
+            ],
+            "to": [
+              22,
+              70
+            ]
+          },
+          {
+            "t": "run",
+            "from": [
+              56,
+              24
+            ],
+            "to": [
+              80,
+              68
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              20,
+              80
+            ],
+            "to": [
+              78,
+              80
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Ball Mastery Grid",
+      "summary": "Individual ball work: sole rolls, toe taps, drag-backs and turns.",
+      "description": "Each player has a ball in their own small square. The coach demonstrates a move, players copy it for 45 seconds, then everyone dribbles to a new square before the next move.\n\nRotate through: sole rolls side to side, toe taps on top of the ball, drag-back turns, inside-outside touches, and the Cruyff turn. The moving-square bit matters — it keeps it feeling like a game rather than a drill, and it gets heads up between reps.",
+      "setup": "A grid of small 3x3 yard squares, one per player, marked with four cones each (or one cone if you're short). One ball per player.",
+      "coachingPoints": [
+        "Quality over speed — get it right slowly first",
+        "Both feet, every time",
+        "Head up for a moment between each repetition",
+        "Stay on your toes, not flat-footed"
+      ],
+      "progressions": [
+        "Speed it up and count repetitions in 30 seconds",
+        "Players invent a move and teach it to the group",
+        "Perform the move then accelerate out of the square for three touches"
+      ],
+      "regressions": [
+        "Fewer moves, more time on each",
+        "Demonstrate alongside a player who has it, so there are two models to watch"
+      ],
+      "themes": [
+        "dribbling",
+        "physical",
+        "funandconfidence"
+      ],
+      "ageGroups": [
+        "u7",
+        "u8",
+        "u9",
+        "u10",
+        "u11",
+        "u12"
+      ],
+      "sessionPhase": "warmup",
+      "minPlayers": 2,
+      "maxPlayers": 20,
+      "durationMins": 12,
+      "intensity": "low",
+      "equipment": [
+        "balls",
+        "cones"
+      ],
+      "references": [
+        {
+          "label": "FIFA Training Centre — grassroots coaching resources",
+          "url": "https://www.fifatrainingcentre.com/",
+          "source": "fifa"
+        }
+      ],
+      "diagram": {
+        "area": {
+          "w": 15,
+          "h": 15,
+          "unit": "yd"
+        },
+        "caption": "One small square each; move to a new one between moves.",
+        "shapes": [
+          {
+            "t": "zone",
+            "x": 8,
+            "y": 12,
+            "w": 24,
+            "h": 26
+          },
+          {
+            "t": "zone",
+            "x": 40,
+            "y": 12,
+            "w": 24,
+            "h": 26
+          },
+          {
+            "t": "zone",
+            "x": 72,
+            "y": 12,
+            "w": 24,
+            "h": 26
+          },
+          {
+            "t": "zone",
+            "x": 8,
+            "y": 55,
+            "w": 24,
+            "h": 26
+          },
+          {
+            "t": "zone",
+            "x": 40,
+            "y": 55,
+            "w": 24,
+            "h": 26
+          },
+          {
+            "t": "zone",
+            "x": 72,
+            "y": 55,
+            "w": 24,
+            "h": 26
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 20,
+            "y": 25
+          },
+          {
+            "t": "ball",
+            "x": 24,
+            "y": 29
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 52,
+            "y": 25
+          },
+          {
+            "t": "ball",
+            "x": 56,
+            "y": 29
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 84,
+            "y": 25
+          },
+          {
+            "t": "ball",
+            "x": 88,
+            "y": 29
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 20,
+            "y": 68
+          },
+          {
+            "t": "ball",
+            "x": 24,
+            "y": 72
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 52,
+            "y": 68
+          },
+          {
+            "t": "ball",
+            "x": 56,
+            "y": 72
+          },
+          {
+            "t": "run",
+            "from": [
+              52,
+              68
+            ],
+            "to": [
+              84,
+              68
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Rondo 4v1",
+      "summary": "Four players keep the ball in a square while one defender tries to win it.",
+      "description": "Four attackers stand around the edges of a square, one defender inside. The attackers keep the ball away from the defender. If the defender wins it or forces it out, the player responsible goes in.\n\nThe rondo is the most efficient possession practice there is — high touches, constant decisions, and the defender never gets a rest. Keep the groups small so nobody is waiting.",
+      "setup": "A 10x10 yard square per group of five. Attackers stay on the edges; the defender works inside. One ball per square.",
+      "coachingPoints": [
+        "Open your body before the ball arrives so you can see both ways out",
+        "Play the pass you can see, not the one you want to see",
+        "Move along your edge to open a passing line",
+        "Defender: close the nearest passing lane rather than chasing the ball"
+      ],
+      "progressions": [
+        "Two touches maximum, then one touch",
+        "Add a second defender to make it 4v2",
+        "A pass split between the two defenders counts double"
+      ],
+      "regressions": [
+        "Make the square bigger",
+        "Allow unlimited touches",
+        "Defender starts passive, only closing down at walking pace"
+      ],
+      "themes": [
+        "possession",
+        "passing",
+        "receiving"
+      ],
+      "ageGroups": [
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 5,
+      "maxPlayers": 20,
+      "durationMins": 15,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs"
+      ],
+      "references": [
+        {
+          "label": "England Football Learning — possession and playing out",
+          "url": "https://learn.englandfootball.com/",
+          "source": "fa"
+        }
+      ],
+      "diagram": {
+        "area": {
+          "w": 10,
+          "h": 10,
+          "unit": "yd"
+        },
+        "caption": "Four on the edges, one defender inside.",
+        "shapes": [
+          {
+            "t": "cone",
+            "x": 6,
+            "y": 6
+          },
+          {
+            "t": "cone",
+            "x": 94,
+            "y": 6
+          },
+          {
+            "t": "cone",
+            "x": 6,
+            "y": 94
+          },
+          {
+            "t": "cone",
+            "x": 94,
+            "y": 94
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 8
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 92,
+            "y": 50
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 92
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 8,
+            "y": 50
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 50,
+            "y": 50
+          },
+          {
+            "t": "ball",
+            "x": 50,
+            "y": 14
+          },
+          {
+            "t": "pass",
+            "from": [
+              50,
+              14
+            ],
+            "to": [
+              86,
+              48
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              90,
+              56
+            ],
+            "to": [
+              54,
+              88
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Third-Man Runs in a Diamond",
+      "summary": "Practise the pass that sets up the pass — receiving from a player you didn't pass to.",
+      "description": "Four players in a diamond. The player at the base passes to a side player, who sets it back or sideways, and the ball is then played on to the player at the top — who was moving before the ball came. The receiver at the top is the 'third man': they get the ball from a pass they were never part of.\n\nThis is one of the harder ideas to teach and one of the most valuable. Start slow and unopposed. The moment they see it work in a game it clicks.",
+      "setup": "A diamond of four cones roughly 10 yards apart. Four players per diamond, one ball. Rotate one position clockwise every two minutes.",
+      "coachingPoints": [
+        "Third man: start your run before the second pass is played",
+        "Set the ball back with a firm, accurate touch — a bobbling set-back kills the move",
+        "Scan over your shoulder before you receive",
+        "Time the run so you arrive as the ball does, not before"
+      ],
+      "progressions": [
+        "Add a passive defender in the middle",
+        "Limit to two touches throughout",
+        "Finish the sequence with a shot or a pass into a target goal"
+      ],
+      "regressions": [
+        "Walk through the pattern with no ball first",
+        "Let the third man stand still and receive to feet"
+      ],
+      "themes": [
+        "passing",
+        "movement",
+        "possession"
+      ],
+      "ageGroups": [
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 4,
+      "maxPlayers": 16,
+      "durationMins": 20,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones"
+      ],
+      "references": [
+        {
+          "label": "England Football Learning — attacking principles and combination play",
+          "url": "https://learn.englandfootball.com/",
+          "source": "fa"
+        }
+      ],
+      "diagram": {
+        "area": {
+          "w": 14,
+          "h": 14,
+          "unit": "yd"
+        },
+        "caption": "Base to side, set, then in behind to the third man.",
+        "shapes": [
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 88,
+            "label": "1"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 14,
+            "y": 50,
+            "label": "2"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 86,
+            "y": 50
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 12,
+            "label": "3"
+          },
+          {
+            "t": "ball",
+            "x": 50,
+            "y": 82
+          },
+          {
+            "t": "pass",
+            "from": [
+              48,
+              82
+            ],
+            "to": [
+              18,
+              56
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              16,
+              44
+            ],
+            "to": [
+              46,
+              20
+            ]
+          },
+          {
+            "t": "run",
+            "from": [
+              62,
+              30
+            ],
+            "to": [
+              54,
+              14
+            ]
+          },
+          {
+            "t": "label",
+            "x": 74,
+            "y": 78,
+            "text": "3rd man"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Two-Touch Passing Squares",
+      "summary": "Four players, one square, one ball — control and pass, endlessly.",
+      "description": "Players stand on the four corners of a square. The ball goes round the square with two touches: one to control, one to pass. After ten clean circuits, change direction. After twenty, switch to diagonal passes across the square.\n\nUnfussy and repetitive on purpose. Use it when the group needs to settle down and get some quality touches in before something more demanding.",
+      "setup": "A 12x12 yard square, one player per corner, one ball. Multiple squares run in parallel.",
+      "coachingPoints": [
+        "First touch away from your body, into space",
+        "Second touch is the pass — no dawdling",
+        "Weight the pass so it arrives at a comfortable pace",
+        "Point at where you want the ball before it comes"
+      ],
+      "progressions": [
+        "One touch only",
+        "Follow your pass and swap corners",
+        "Add a second ball travelling the opposite way"
+      ],
+      "regressions": [
+        "Three touches allowed",
+        "Shrink the square so passes are shorter"
+      ],
+      "themes": [
+        "passing",
+        "receiving"
+      ],
+      "ageGroups": [
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 4,
+      "maxPlayers": 16,
+      "durationMins": 12,
+      "intensity": "low",
+      "equipment": [
+        "balls",
+        "cones"
+      ],
+      "references": [],
+      "diagram": {
+        "area": {
+          "w": 12,
+          "h": 12,
+          "unit": "yd"
+        },
+        "caption": "One touch to control, one to pass, round the square.",
+        "shapes": [
+          {
+            "t": "cone",
+            "x": 8,
+            "y": 8
+          },
+          {
+            "t": "cone",
+            "x": 92,
+            "y": 8
+          },
+          {
+            "t": "cone",
+            "x": 92,
+            "y": 92
+          },
+          {
+            "t": "cone",
+            "x": 8,
+            "y": 92
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 12,
+            "y": 12
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 88,
+            "y": 12
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 88,
+            "y": 88
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 12,
+            "y": 88
+          },
+          {
+            "t": "ball",
+            "x": 20,
+            "y": 12
+          },
+          {
+            "t": "pass",
+            "from": [
+              20,
+              12
+            ],
+            "to": [
+              80,
+              12
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              90,
+              20
+            ],
+            "to": [
+              90,
+              80
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              80,
+              90
+            ],
+            "to": [
+              22,
+              90
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "First Touch Turn Gates",
+      "summary": "Receive with your back to the pitch, turn, and dribble through a gate.",
+      "description": "A server plays a firm pass into a player standing with their back to the gates. The receiver takes one touch to turn out of the pass, then dribbles through any gate behind them. Then they become the server.\n\nThe skill being trained is the turn — the touch that takes you from facing the wrong way to facing the right way in a single movement. Encourage them to try different turns rather than always using the same one.",
+      "setup": "Servers on one line, receivers 8 yards away with their backs to three gates set 10 yards behind them. One ball per pair.",
+      "coachingPoints": [
+        "Check over your shoulder before the ball arrives — which gate is free?",
+        "Open your hips as the ball comes so the first touch takes you round",
+        "Touch the ball into space, not under your feet",
+        "Accelerate away after the turn"
+      ],
+      "progressions": [
+        "Add a defender pressing from behind",
+        "Server calls the gate number as they pass",
+        "Two-touch limit: turn and go"
+      ],
+      "regressions": [
+        "Softer, slower service",
+        "Allow a controlling touch before the turning touch"
+      ],
+      "themes": [
+        "receiving",
+        "dribbling",
+        "movement"
+      ],
+      "ageGroups": [
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 4,
+      "maxPlayers": 16,
+      "durationMins": 15,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones"
+      ],
+      "references": [],
+      "diagram": {
+        "area": {
+          "w": 18,
+          "h": 16,
+          "unit": "yd"
+        },
+        "caption": "Receive with your back to the gates, turn, and go through one.",
+        "shapes": [
+          {
+            "t": "gate",
+            "x": 20,
+            "y": 10,
+            "angle": 0
+          },
+          {
+            "t": "gate",
+            "x": 50,
+            "y": 10,
+            "angle": 0
+          },
+          {
+            "t": "gate",
+            "x": 80,
+            "y": 10,
+            "angle": 0
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 48
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 50,
+            "y": 62,
+            "label": "S"
+          },
+          {
+            "t": "ball",
+            "x": 50,
+            "y": 70
+          },
+          {
+            "t": "pass",
+            "from": [
+              50,
+              68
+            ],
+            "to": [
+              50,
+              54
+            ]
+          },
+          {
+            "t": "dribble",
+            "from": [
+              46,
+              44
+            ],
+            "to": [
+              22,
+              16
+            ]
+          },
+          {
+            "t": "label",
+            "x": 50,
+            "y": 88,
+            "text": "server"
+          }
+        ]
+      }
+    },
+    {
+      "name": "1v1 Gate Duels",
+      "summary": "Attacker tries to dribble through any of three gates; defender tries to stop them.",
+      "description": "One attacker with a ball starts 10 yards from a defender. Behind the defender are three gates. The attacker scores by dribbling through any gate under control. The defender scores by winning the ball or forcing it out.\n\nThree gates rather than one is the whole trick: the defender cannot simply stand in the way, so the attacker has to look up, pick a side, and commit. Swap roles every turn so everyone gets both jobs.",
+      "setup": "A 15x12 yard channel. Three gates spread across the end line, each 2 yards wide. Attackers queue at one end with a ball each.",
+      "coachingPoints": [
+        "Attacker: run at the defender with the ball, not away from it — make them decide",
+        "Change of pace beats change of direction on its own",
+        "Defender: side-on stance, show them to one side, don't dive in",
+        "Defender: stay on your toes and close the space slowly"
+      ],
+      "progressions": [
+        "Reduce to two gates so decisions come faster",
+        "Defender starts closer, giving the attacker less time",
+        "Winner stays on and faces the next player"
+      ],
+      "regressions": [
+        "Widen the gates",
+        "Defender starts passive and only becomes live after the attacker's second touch"
+      ],
+      "themes": [
+        "dribbling",
+        "defending",
+        "funandconfidence"
+      ],
+      "ageGroups": [
+        "u8",
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 4,
+      "maxPlayers": 16,
+      "durationMins": 15,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones"
+      ],
+      "references": [
+        {
+          "label": "England Football Learning — 1v1 and individual possession",
+          "url": "https://learn.englandfootball.com/",
+          "source": "fa"
+        }
+      ],
+      "diagram": {
+        "area": {
+          "w": 15,
+          "h": 12,
+          "unit": "yd"
+        },
+        "caption": "Three gates to attack — the defender cannot cover them all.",
+        "shapes": [
+          {
+            "t": "gate",
+            "x": 18,
+            "y": 8,
+            "angle": 0
+          },
+          {
+            "t": "gate",
+            "x": 50,
+            "y": 8,
+            "angle": 0
+          },
+          {
+            "t": "gate",
+            "x": 82,
+            "y": 8,
+            "angle": 0
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 50,
+            "y": 40
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 80
+          },
+          {
+            "t": "ball",
+            "x": 50,
+            "y": 88
+          },
+          {
+            "t": "dribble",
+            "from": [
+              46,
+              78
+            ],
+            "to": [
+              20,
+              14
+            ]
+          },
+          {
+            "t": "run",
+            "from": [
+              54,
+              40
+            ],
+            "to": [
+              30,
+              22
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Beat the Defender Channels",
+      "summary": "Repeated 1v1s in narrow channels, so nobody hides and nobody queues.",
+      "description": "Split the pitch into three or four narrow channels running end to end. Each channel has an attacker and a defender working continuously: attacker tries to reach the far line under control, then turns and goes back the other way against the same defender. Swap after 90 seconds.\n\nThe narrow channel forces a genuine 1v1 — there's nowhere to run around the problem. Short, sharp bursts with real rest in between.",
+      "setup": "Channels roughly 8 yards wide by 20 yards long, marked with cones. One ball per channel, two players per channel.",
+      "coachingPoints": [
+        "Attacker: get the defender moving before you commit to a direction",
+        "Protect the ball with your body when the defender gets close",
+        "Defender: don't let them turn you — stay goal-side and patient",
+        "Defender: force them onto their weaker foot"
+      ],
+      "progressions": [
+        "Narrow the channel further",
+        "Add a time limit — 8 seconds to get to the far line",
+        "Winner of each duel moves up a channel, loser moves down"
+      ],
+      "regressions": [
+        "Widen the channel",
+        "Defender may only tackle inside the final five yards"
+      ],
+      "themes": [
+        "dribbling",
+        "defending",
+        "physical"
+      ],
+      "ageGroups": [
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 4,
+      "maxPlayers": 16,
+      "durationMins": 15,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs"
+      ],
+      "references": [],
+      "diagram": {
+        "area": {
+          "w": 24,
+          "h": 20,
+          "unit": "yd"
+        },
+        "caption": "Narrow channels — nowhere to run around the problem.",
+        "shapes": [
+          {
+            "t": "zone",
+            "x": 4,
+            "y": 6,
+            "w": 26,
+            "h": 88
+          },
+          {
+            "t": "zone",
+            "x": 37,
+            "y": 6,
+            "w": 26,
+            "h": 88
+          },
+          {
+            "t": "zone",
+            "x": 70,
+            "y": 6,
+            "w": 26,
+            "h": 88
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 17,
+            "y": 78
+          },
+          {
+            "t": "ball",
+            "x": 17,
+            "y": 86
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 17,
+            "y": 40
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 78
+          },
+          {
+            "t": "ball",
+            "x": 50,
+            "y": 86
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 50,
+            "y": 40
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 83,
+            "y": 78
+          },
+          {
+            "t": "ball",
+            "x": 83,
+            "y": 86
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 83,
+            "y": 40
+          },
+          {
+            "t": "dribble",
+            "from": [
+              17,
+              74
+            ],
+            "to": [
+              17,
+              12
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Shooting Ladder",
+      "summary": "Three shooting stations at increasing distance, run as a rotation.",
+      "description": "Set three shooting positions: close range inside the box, edge of the box, and just outside. Players work round all three, one shot at each, then collect their ball and rejoin.\n\nThe point of the ladder is that the technique has to change with the distance — a side-foot finish close in, a firmer laces strike further out. Ask them what changed rather than telling them.",
+      "setup": "A goal with a keeper (or a target goal if you have none). Three cone positions at roughly 6, 14 and 20 yards. A supply of balls beside each position.",
+      "coachingPoints": [
+        "Look at the goal before you look at the ball",
+        "Close range: side foot, accuracy over power, pick your corner",
+        "Longer range: laces, non-kicking foot alongside the ball, follow through",
+        "Head still and over the ball to keep the shot down"
+      ],
+      "progressions": [
+        "Add a pass in before the shot, so it's a moving ball",
+        "One-touch finishes only at the close station",
+        "Add a recovering defender chasing from behind"
+      ],
+      "regressions": [
+        "Move every station closer",
+        "Stationary ball, unlimited time"
+      ],
+      "themes": [
+        "shooting"
+      ],
+      "ageGroups": [
+        "u8",
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 4,
+      "maxPlayers": 16,
+      "durationMins": 15,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones",
+        "goals"
+      ],
+      "references": [],
+      "diagram": {
+        "area": {
+          "w": 30,
+          "h": 24,
+          "unit": "yd"
+        },
+        "caption": "Three stations — the technique changes with the distance.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 6,
+            "facing": "up"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 24,
+            "label": "GK"
+          },
+          {
+            "t": "cone",
+            "x": 36,
+            "y": 42
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 42
+          },
+          {
+            "t": "ball",
+            "x": 50,
+            "y": 50
+          },
+          {
+            "t": "cone",
+            "x": 36,
+            "y": 64
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 64
+          },
+          {
+            "t": "ball",
+            "x": 50,
+            "y": 72
+          },
+          {
+            "t": "cone",
+            "x": 36,
+            "y": 88
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 88
+          },
+          {
+            "t": "pass",
+            "from": [
+              50,
+              46
+            ],
+            "to": [
+              50,
+              16
+            ]
+          },
+          {
+            "t": "label",
+            "x": 78,
+            "y": 42,
+            "text": "6 yd"
+          },
+          {
+            "t": "label",
+            "x": 78,
+            "y": 64,
+            "text": "14 yd"
+          },
+          {
+            "t": "label",
+            "x": 78,
+            "y": 88,
+            "text": "20 yd"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Cross and Finish Waves",
+      "summary": "Wide player delivers, two attackers arrive at the near and far post.",
+      "description": "A wide player dribbles to the by-line and crosses. Two attackers start centrally and time their runs — one to the near post, one to the far. Alternate the side the cross comes from so both feet get used.\n\nAt younger ages the crossing itself is hard, so lower the expectation on the delivery and coach the runs. A cut-back along the ground counts as a cross and is often the better ball anyway.",
+      "setup": "Half a pitch with a goal and a keeper. Wide starting cones on both flanks, a queue of attackers in the centre circle. Plenty of balls with the wide players.",
+      "coachingPoints": [
+        "Near-post runner: attack the ball, get in front of your defender",
+        "Far-post runner: stay wide and behind, arrive late",
+        "Crosser: head up before you deliver — where are they?",
+        "A cut-back along the ground is often better than a high cross"
+      ],
+      "progressions": [
+        "Add one or two defenders in the box",
+        "Add a third runner arriving at the edge of the area for the cut-back",
+        "First-time finishes only"
+      ],
+      "regressions": [
+        "Crosser can carry the ball to a set position and deliver unopposed with time",
+        "Attackers walk their runs through first with no ball"
+      ],
+      "themes": [
+        "shooting",
+        "movement",
+        "passing"
+      ],
+      "ageGroups": [
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 6,
+      "maxPlayers": 18,
+      "durationMins": 20,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones",
+        "goals"
+      ],
+      "references": [],
+      "diagram": {
+        "area": {
+          "w": 40,
+          "h": 30,
+          "unit": "yd"
+        },
+        "caption": "Near-post and far-post runs, timed to the delivery.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 6,
+            "facing": "up"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 24,
+            "label": "GK"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 10,
+            "y": 40
+          },
+          {
+            "t": "ball",
+            "x": 10,
+            "y": 46
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 46,
+            "y": 78
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 64,
+            "y": 84
+          },
+          {
+            "t": "dribble",
+            "from": [
+              10,
+              46
+            ],
+            "to": [
+              14,
+              22
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              16,
+              20
+            ],
+            "to": [
+              40,
+              22
+            ]
+          },
+          {
+            "t": "run",
+            "from": [
+              46,
+              74
+            ],
+            "to": [
+              38,
+              26
+            ]
+          },
+          {
+            "t": "run",
+            "from": [
+              64,
+              80
+            ],
+            "to": [
+              66,
+              30
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Press the Cone",
+      "summary": "Teach the approach: closing down under control rather than sprinting in.",
+      "description": "A defender starts 10 yards from a cone with a ball on it. On the call they close the ball down, arriving side-on with short steps in the final two yards, and touch the ball with the sole of the foot without knocking the cone over.\n\nStripping out the attacker for a few minutes lets you actually coach the approach — which is the part most young defenders get wrong. Then put an attacker back in and see if it holds up.",
+      "setup": "Cones spread out with a ball resting beside each. Defenders in pairs, one working, one watching and giving feedback.",
+      "coachingPoints": [
+        "Fast for the first two-thirds, slow for the last third",
+        "Arrive side-on, not square — show them one way",
+        "Small steps at the end so you can react either way",
+        "Stay on your toes with a low centre of gravity"
+      ],
+      "progressions": [
+        "Replace the cone with a live attacker who may go either way",
+        "Two defenders press together, one pressing and one covering",
+        "Add a time limit on the approach"
+      ],
+      "regressions": [
+        "Walk the approach through in slow motion",
+        "Shorten the starting distance"
+      ],
+      "themes": [
+        "defending"
+      ],
+      "ageGroups": [
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 2,
+      "maxPlayers": 16,
+      "durationMins": 12,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones"
+      ],
+      "references": [
+        {
+          "label": "England Football Learning — defending principles",
+          "url": "https://learn.englandfootball.com/",
+          "source": "fa"
+        }
+      ],
+      "diagram": {
+        "area": {
+          "w": 14,
+          "h": 12,
+          "unit": "yd"
+        },
+        "caption": "Fast for two-thirds, slow and side-on for the last third.",
+        "shapes": [
+          {
+            "t": "cone",
+            "x": 50,
+            "y": 22
+          },
+          {
+            "t": "ball",
+            "x": 56,
+            "y": 24
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 50,
+            "y": 84
+          },
+          {
+            "t": "run",
+            "from": [
+              50,
+              78
+            ],
+            "to": [
+              50,
+              46
+            ]
+          },
+          {
+            "t": "run",
+            "from": [
+              50,
+              44
+            ],
+            "to": [
+              50,
+              32
+            ]
+          },
+          {
+            "t": "label",
+            "x": 80,
+            "y": 60,
+            "text": "fast"
+          },
+          {
+            "t": "label",
+            "x": 80,
+            "y": 38,
+            "text": "slow"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Goalkeeper Handling Circuit",
+      "summary": "Three stations of handling work — low, mid-height and diving.",
+      "description": "Three short stations for your keeper (or keepers) to rotate through: rolled balls to gather low, waist-height balls into a secure chest catch, and balls thrown wide to dive and hold.\n\nMost grassroots keepers get no specific work at all, so ten focused minutes goes a long way. If you only have one keeper, pair them with an outfield player who fancies a go — it usually reveals someone.",
+      "setup": "One goal or a marked 5-yard area. A server with a supply of balls at each station. Cones marking the working area.",
+      "coachingPoints": [
+        "Hands behind the ball, fingers spread, thumbs together for high balls",
+        "Get your body behind the line of the ball wherever possible",
+        "Low balls: get down early, don't reach with hands alone",
+        "Hold it if you can, push it wide of the post if you can't"
+      ],
+      "progressions": [
+        "Serve without announcing the height",
+        "Add a shot from a moving ball",
+        "Keeper distributes accurately to a target after each save"
+      ],
+      "regressions": [
+        "Slow underarm serves, straight at the keeper",
+        "Kneeling starts for the diving station so there is less to think about"
+      ],
+      "themes": [
+        "goalkeeping"
+      ],
+      "ageGroups": [
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 2,
+      "maxPlayers": 6,
+      "durationMins": 12,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones",
+        "goals"
+      ],
+      "references": [
+        {
+          "label": "FIFA Training Centre — goalkeeping resources",
+          "url": "https://www.fifatrainingcentre.com/",
+          "source": "fifa"
+        }
+      ],
+      "diagram": {
+        "area": {
+          "w": 12,
+          "h": 10,
+          "unit": "yd"
+        },
+        "caption": "Low, mid-height, then diving — rotate through.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 10,
+            "facing": "up"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 30,
+            "label": "GK"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 18,
+            "y": 82
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 88
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 82,
+            "y": 82
+          },
+          {
+            "t": "pass",
+            "from": [
+              20,
+              76
+            ],
+            "to": [
+              42,
+              36
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              50,
+              82
+            ],
+            "to": [
+              50,
+              40
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              80,
+              76
+            ],
+            "to": [
+              60,
+              34
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Y-Drill Combination",
+      "summary": "Pass, set, spin — a repeatable three-player combination ending in a shot.",
+      "description": "A midfielder passes into a striker who has come short. The striker sets it first-time to a supporting player, who plays it into the path of the midfielder spinning off into the space behind. Finish with a shot.\n\nUnopposed to begin with, so the pattern lands. It is the same idea as the third-man run but with a goal at the end, which tends to hold attention better.",
+      "setup": "A Y shape of cones on the edge of the final third, with a goal. Three players per repetition, plus a keeper. Rotate positions after each go.",
+      "coachingPoints": [
+        "Striker: come towards the ball, don't wait for it",
+        "The set-back must be first time and firm",
+        "Spin off the shoulder as the set is played, not before",
+        "Take the shot early — the space closes fast"
+      ],
+      "progressions": [
+        "Add a defender marking the striker",
+        "One touch throughout the combination",
+        "Alternate sides so both feet are used"
+      ],
+      "regressions": [
+        "Walk the pattern with no defenders and no time pressure",
+        "Allow two touches on the set-back"
+      ],
+      "themes": [
+        "passing",
+        "movement",
+        "shooting"
+      ],
+      "ageGroups": [
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 4,
+      "maxPlayers": 16,
+      "durationMins": 18,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones",
+        "goals"
+      ],
+      "references": [],
+      "diagram": {
+        "area": {
+          "w": 24,
+          "h": 22,
+          "unit": "yd"
+        },
+        "caption": "Pass in, set back, spin off into the space behind.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 6,
+            "facing": "up"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 16,
+            "label": "GK"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 42,
+            "label": "2"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 20,
+            "y": 62,
+            "label": "3"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 86,
+            "label": "1"
+          },
+          {
+            "t": "ball",
+            "x": 50,
+            "y": 80
+          },
+          {
+            "t": "pass",
+            "from": [
+              50,
+              78
+            ],
+            "to": [
+              50,
+              48
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              46,
+              44
+            ],
+            "to": [
+              26,
+              58
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              22,
+              56
+            ],
+            "to": [
+              46,
+              34
+            ]
+          },
+          {
+            "t": "run",
+            "from": [
+              56,
+              80
+            ],
+            "to": [
+              56,
+              40
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "4v4 Four-Goal Game",
+      "summary": "Two teams, four mini goals — attack whichever one is unguarded.",
+      "description": "Two teams of four play in a square with two small goals to attack on opposite sides. Because there are two goals to defend, teams get pulled apart and space appears constantly.\n\nThis is the small-sided game we come back to most. Everyone touches the ball, the picture changes every few seconds, and switching play stops being an abstract instruction and becomes the obvious thing to do.",
+      "setup": "A 30x25 yard area. Two mini goals (or cone goals) on each end line, set wide apart. Bibs for one team. One ball, with spares around the edge to keep it flowing.",
+      "coachingPoints": [
+        "Which goal is less protected? Attack that one",
+        "Switch the ball quickly when one side gets crowded",
+        "Spread out when you have the ball, squeeze together when you don't",
+        "First defender presses, everyone else slides across"
+      ],
+      "progressions": [
+        "Must score in a different goal from the last one",
+        "Three-touch maximum",
+        "Add a neutral player who always plays for the team in possession"
+      ],
+      "regressions": [
+        "Bigger area, fewer players",
+        "Widen the goals",
+        "Remove touch limits entirely"
+      ],
+      "themes": [
+        "possession",
+        "transition",
+        "movement"
+      ],
+      "ageGroups": [
+        "u8",
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "ssg",
+      "minPlayers": 8,
+      "maxPlayers": 16,
+      "durationMins": 20,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "minigoals"
+      ],
+      "references": [
+        {
+          "label": "England Football Learning — small-sided games and youth formats",
+          "url": "https://learn.englandfootball.com/",
+          "source": "fa"
+        },
+        {
+          "label": "FIFA Training Centre — grassroots small-sided football",
+          "url": "https://www.fifatrainingcentre.com/",
+          "source": "fifa"
+        }
+      ],
+      "diagram": {
+        "area": {
+          "w": 30,
+          "h": 25,
+          "unit": "yd"
+        },
+        "caption": "Two goals each to attack — the pitch keeps stretching.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 28,
+            "y": 5,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 72,
+            "y": 5,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 28,
+            "y": 95,
+            "facing": "down"
+          },
+          {
+            "t": "goal",
+            "x": 72,
+            "y": 95,
+            "facing": "down"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 30,
+            "y": 30
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 66,
+            "y": 26
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 24,
+            "y": 58
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 70,
+            "y": 62
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 46,
+            "y": 40
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 38,
+            "y": 72
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 76,
+            "y": 44
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 58,
+            "y": 80
+          },
+          {
+            "t": "ball",
+            "x": 34,
+            "y": 32
+          },
+          {
+            "t": "pass",
+            "from": [
+              34,
+              32
+            ],
+            "to": [
+              66,
+              30
+            ]
+          },
+          {
+            "t": "run",
+            "from": [
+              70,
+              62
+            ],
+            "to": [
+              74,
+              24
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "3v3 End Zone Game",
+      "summary": "Score by dribbling or passing into the end zone and controlling the ball there.",
+      "description": "Two teams of three. Instead of goals, each team attacks an end zone: a point is scored when a player controls the ball inside the opposition zone, having received it there or dribbled in.\n\nTaking the goals away shifts the focus onto getting the ball forward and supporting the player who has it. It also means no keeper, so all six players are in the game.",
+      "setup": "A 25x20 yard area with 3-yard end zones marked at each end. Bibs for one team. One ball.",
+      "coachingPoints": [
+        "Support in front of and behind the ball, not alongside",
+        "Can you play forward? If not, keep it and wait",
+        "Time your run into the end zone — don't camp in it",
+        "Defenders: protect the zone first, press the ball second"
+      ],
+      "progressions": [
+        "Ball must be passed into the zone, not dribbled",
+        "Two-touch limit",
+        "Play 3v3 plus a floating neutral"
+      ],
+      "regressions": [
+        "Deeper end zones",
+        "Larger area",
+        "Allow a player to stand permanently in the end zone as a target"
+      ],
+      "themes": [
+        "possession",
+        "movement",
+        "passing"
+      ],
+      "ageGroups": [
+        "u8",
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13"
+      ],
+      "sessionPhase": "ssg",
+      "minPlayers": 6,
+      "maxPlayers": 12,
+      "durationMins": 18,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs"
+      ],
+      "references": [],
+      "diagram": {
+        "area": {
+          "w": 25,
+          "h": 20,
+          "unit": "yd"
+        },
+        "caption": "Control the ball in the end zone to score.",
+        "shapes": [
+          {
+            "t": "zone",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 12,
+            "label": "END ZONE"
+          },
+          {
+            "t": "zone",
+            "x": 0,
+            "y": 88,
+            "w": 100,
+            "h": 12,
+            "label": "END ZONE"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 28,
+            "y": 34
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 60,
+            "y": 26
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 46,
+            "y": 62
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 40,
+            "y": 44
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 70,
+            "y": 52
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 24,
+            "y": 70
+          },
+          {
+            "t": "ball",
+            "x": 32,
+            "y": 36
+          },
+          {
+            "t": "pass",
+            "from": [
+              32,
+              36
+            ],
+            "to": [
+              56,
+              30
+            ]
+          },
+          {
+            "t": "run",
+            "from": [
+              46,
+              62
+            ],
+            "to": [
+              66,
+              14
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "2v2 Continuous Duels",
+      "summary": "Rolling 2v2s to goal — win it, attack it, and the next pair comes straight on.",
+      "description": "Two attackers take on two defenders towards a goal with a keeper. As soon as the ball goes dead, the coach serves a new ball to the next waiting pair from the opposite side, and the previous defenders become the new attackers.\n\nContinuous means nobody stands still and the transition moment — the second the ball changes hands — happens over and over, which is exactly the moment most goals come from.",
+      "setup": "Half a pitch, one goal with a keeper. Two queues of pairs on either side of the halfway line. A big supply of balls with the coach.",
+      "coachingPoints": [
+        "Attackers: one goes, one supports — never both in the same space",
+        "Attack the goal quickly before the defenders are set",
+        "Defenders: one presses, one covers behind",
+        "React the instant the ball turns over — first two seconds decide it"
+      ],
+      "progressions": [
+        "Serve to the defenders sometimes, so they must counter-attack",
+        "10-second time limit to score",
+        "Make it 3v2 to create an overload"
+      ],
+      "regressions": [
+        "Longer gaps between serves so players can reset",
+        "Play 2v1 in the attackers' favour"
+      ],
+      "themes": [
+        "transition",
+        "defending",
+        "dribbling",
+        "shooting"
+      ],
+      "ageGroups": [
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "ssg",
+      "minPlayers": 8,
+      "maxPlayers": 18,
+      "durationMins": 20,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "goals"
+      ],
+      "references": [],
+      "diagram": {
+        "area": {
+          "w": 35,
+          "h": 30,
+          "unit": "yd"
+        },
+        "caption": "Ball goes dead, next pair comes straight on.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 5,
+            "facing": "up"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 21,
+            "label": "GK"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 38,
+            "y": 44
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 60,
+            "y": 40
+          },
+          {
+            "t": "ball",
+            "x": 38,
+            "y": 50
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 44,
+            "y": 26
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 64,
+            "y": 24
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 10,
+            "y": 90
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 20,
+            "y": 90
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 80,
+            "y": 90
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 90,
+            "y": 90
+          },
+          {
+            "t": "dribble",
+            "from": [
+              38,
+              50
+            ],
+            "to": [
+              42,
+              22
+            ]
+          },
+          {
+            "t": "run",
+            "from": [
+              60,
+              40
+            ],
+            "to": [
+              66,
+              20
+            ]
+          },
+          {
+            "t": "label",
+            "x": 50,
+            "y": 92,
+            "text": "next pairs"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Overload 4v2 to Goal",
+      "summary": "Four attackers against two defenders — use the extra players properly.",
+      "description": "Four attackers try to score against two defenders and a keeper. If the defenders win the ball, they score by dribbling over the halfway line.\n\nThe overload is deliberate: with a two-player advantage there is almost always a free player, and the coaching is about finding them rather than forcing it. Give the defenders a real way to score or they stop trying.",
+      "setup": "Half a pitch, goal and keeper at one end, halfway line as the defenders' target. Bibs for the defenders. Rotate roles every three minutes.",
+      "coachingPoints": [
+        "Find the free player — there is always one",
+        "Move the defenders with the ball before you commit",
+        "Width first, then attack the space it creates",
+        "Defenders: stay compact and delay; don't both go to the ball"
+      ],
+      "progressions": [
+        "Reduce to 4v3",
+        "Two-touch limit for the attackers",
+        "Attackers must score within 15 seconds"
+      ],
+      "regressions": [
+        "Make it 5v2",
+        "Defenders start passive for the first three passes"
+      ],
+      "themes": [
+        "possession",
+        "transition",
+        "defending"
+      ],
+      "ageGroups": [
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "ssg",
+      "minPlayers": 7,
+      "maxPlayers": 16,
+      "durationMins": 18,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "goals"
+      ],
+      "references": [],
+      "diagram": {
+        "area": {
+          "w": 35,
+          "h": 28,
+          "unit": "yd"
+        },
+        "caption": "Two spare players — the coaching is finding them.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 5,
+            "facing": "up"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 22,
+            "label": "GK"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 20,
+            "y": 52
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 44,
+            "y": 44
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 66,
+            "y": 48
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 84,
+            "y": 58
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 38,
+            "y": 28
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 62,
+            "y": 30
+          },
+          {
+            "t": "ball",
+            "x": 24,
+            "y": 54
+          },
+          {
+            "t": "pass",
+            "from": [
+              26,
+              52
+            ],
+            "to": [
+              60,
+              48
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              70,
+              44
+            ],
+            "to": [
+              84,
+              36
+            ]
+          },
+          {
+            "t": "zone",
+            "x": 0,
+            "y": 88,
+            "w": 100,
+            "h": 12,
+            "label": "DEFENDERS' TARGET"
+          }
+        ]
+      }
+    },
+    {
+      "name": "5v5 Two-Touch Game",
+      "summary": "A normal small-sided game with a two-touch limit to speed up the thinking.",
+      "description": "A standard 5v5 with goals and keepers, but nobody may take more than two touches. The restriction forces players to decide where the ball is going before it arrives.\n\nUse it as a follow-on once a passing theme has been introduced. Expect it to be scrappy for the first three minutes — let them work through that rather than stopping it.",
+      "setup": "A 40x30 yard pitch with a goal at each end. Bibs for one team. Spare balls behind each goal.",
+      "coachingPoints": [
+        "Decide before the ball arrives — scan early and often",
+        "First touch sets up the second, so make it count",
+        "Off the ball: give them an easy option, quickly",
+        "Angles, not straight lines — make yourself passable to"
+      ],
+      "progressions": [
+        "One touch only for two minutes",
+        "A goal scored first-time counts double"
+      ],
+      "regressions": [
+        "Three touches",
+        "Remove the limit in your own half only",
+        "Bigger pitch to buy more time"
+      ],
+      "themes": [
+        "passing",
+        "possession",
+        "movement"
+      ],
+      "ageGroups": [
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "ssg",
+      "minPlayers": 8,
+      "maxPlayers": 14,
+      "durationMins": 20,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "goals"
+      ],
+      "references": [],
+      "diagram": {
+        "area": {
+          "w": 40,
+          "h": 30,
+          "unit": "yd"
+        },
+        "caption": "Two touches maximum — decide before it arrives.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 4,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 96,
+            "facing": "down"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 21,
+            "label": "GK"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 79,
+            "label": "GK"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 30,
+            "y": 34
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 62,
+            "y": 30
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 46,
+            "y": 52
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 76,
+            "y": 56
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 38,
+            "y": 46
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 66,
+            "y": 44
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 28,
+            "y": 66
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 58,
+            "y": 70
+          },
+          {
+            "t": "ball",
+            "x": 34,
+            "y": 36
+          },
+          {
+            "t": "pass",
+            "from": [
+              34,
+              36
+            ],
+            "to": [
+              58,
+              32
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              66,
+              28
+            ],
+            "to": [
+              50,
+              16
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Score in Any Goal",
+      "summary": "Four goals scattered around the area, both teams can score in any of them.",
+      "description": "Set four mini goals at random points inside the playing area rather than on the lines. Both teams may score in any goal, from either side. Defenders have to think about four targets at once, so they can never be fully organised.\n\nChaotic in the best way. Brilliant for younger groups and for the end of a session when concentration is fading but energy isn't.",
+      "setup": "A 30x30 yard area with four mini goals (or cone goals) placed inside it, well away from the edges. Bibs for one team.",
+      "coachingPoints": [
+        "Head up — which goal has nobody near it?",
+        "Change direction quickly when a goal gets covered",
+        "Look for the goal behind the defence, not just in front of you",
+        "Defend the ball and the nearest goal at the same time"
+      ],
+      "progressions": [
+        "Must use a different goal each time",
+        "Only score with a first-time finish"
+      ],
+      "regressions": [
+        "Fewer players in the same area",
+        "Widen the goals"
+      ],
+      "themes": [
+        "transition",
+        "movement",
+        "funandconfidence"
+      ],
+      "ageGroups": [
+        "u7",
+        "u8",
+        "u9",
+        "u10",
+        "u11",
+        "u12"
+      ],
+      "sessionPhase": "ssg",
+      "minPlayers": 6,
+      "maxPlayers": 16,
+      "durationMins": 15,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "minigoals"
+      ],
+      "references": [],
+      "diagram": {
+        "area": {
+          "w": 30,
+          "h": 30,
+          "unit": "yd"
+        },
+        "caption": "Four goals inside the area — look for the empty one.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 26,
+            "y": 24,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 74,
+            "y": 30,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 30,
+            "y": 74,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 76,
+            "y": 70,
+            "facing": "up"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 46,
+            "y": 46
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 18,
+            "y": 56
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 66,
+            "y": 52
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 38,
+            "y": 34
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 60,
+            "y": 66
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 84,
+            "y": 44
+          },
+          {
+            "t": "ball",
+            "x": 48,
+            "y": 50
+          },
+          {
+            "t": "dribble",
+            "from": [
+              48,
+              50
+            ],
+            "to": [
+              34,
+              70
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Playing Out From the Back 6v4",
+      "summary": "Build from the keeper against a pressing forward line and beat the first press.",
+      "description": "A keeper plus a back four and a midfielder try to play out of their own third against four pressing attackers. The defending team succeeds by getting the ball under control past a line of cones at the halfway point. The attackers score in the goal if they win it.\n\nThe realistic bit is the pressure — if the attackers aren't genuinely trying, nobody learns anything. Give them a real incentive to win it back.",
+      "setup": "One third of a pitch, a full goal and keeper at one end, a line of cones marking the target line. Bibs for the pressing team.",
+      "coachingPoints": [
+        "Get wide and deep early to stretch the press",
+        "The keeper is a player — use them to switch the ball",
+        "Play through the press when you can, over it when you can't",
+        "If the first option isn't on, go back and around — don't force it"
+      ],
+      "progressions": [
+        "Add a fifth presser",
+        "Two-touch limit for the defending team",
+        "Attackers must press within three seconds of the ball being played"
+      ],
+      "regressions": [
+        "Fewer pressers, making it 6v3",
+        "Pressers may not enter the penalty area",
+        "Walk it through unopposed once first"
+      ],
+      "themes": [
+        "possession",
+        "passing",
+        "goalkeeping"
+      ],
+      "ageGroups": [
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "phase-of-play",
+      "minPlayers": 10,
+      "maxPlayers": 16,
+      "durationMins": 20,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "goals"
+      ],
+      "references": [
+        {
+          "label": "England Football Learning — playing out from the back",
+          "url": "https://learn.englandfootball.com/",
+          "source": "fa"
+        }
+      ],
+      "diagram": {
+        "area": {
+          "w": 40,
+          "h": 25,
+          "unit": "yd"
+        },
+        "caption": "Beat the press and get the ball over the line under control.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 4,
+            "facing": "up"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 20,
+            "label": "GK"
+          },
+          {
+            "t": "ball",
+            "x": 59,
+            "y": 24
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 14,
+            "y": 42
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 34,
+            "y": 34
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 68,
+            "y": 34
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 88,
+            "y": 42
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 64
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 30,
+            "y": 58
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 70,
+            "y": 58
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 50,
+            "y": 46
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 40,
+            "y": 26
+          },
+          {
+            "t": "pass",
+            "from": [
+              56,
+              26
+            ],
+            "to": [
+              20,
+              40
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              18,
+              48
+            ],
+            "to": [
+              46,
+              60
+            ]
+          },
+          {
+            "t": "zone",
+            "x": 0,
+            "y": 88,
+            "w": 100,
+            "h": 12,
+            "label": "TARGET LINE"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Defending the Middle Third",
+      "summary": "A back four and two midfielders defend as a unit against an attacking six.",
+      "description": "Six attackers try to get through the middle third and score. Six defenders work as a unit to stop them, scoring themselves by winning it and playing into either of two wide target zones.\n\nThe focus is the shape between the players rather than the individual tackle. Freeze it occasionally and ask the defenders where they'd be if the ball were five yards further left.",
+      "setup": "The middle third of a pitch plus a goal at one end. Two wide target zones behind the defending team's starting position. Bibs for one team.",
+      "coachingPoints": [
+        "Press the ball, everyone else shifts across together",
+        "Stay compact — no gaps between the lines for them to play into",
+        "Show them wide, away from the middle",
+        "Communicate: someone tells the unit when to step up"
+      ],
+      "progressions": [
+        "Give the attackers a time limit to break through",
+        "Add a seventh attacker to create an overload",
+        "Defenders must make three passes after winning it"
+      ],
+      "regressions": [
+        "Reduce the attackers to five",
+        "Narrow the playing area",
+        "Walk the shifting shape through slowly with the ball being moved by hand"
+      ],
+      "themes": [
+        "defending",
+        "movement",
+        "transition"
+      ],
+      "ageGroups": [
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "phase-of-play",
+      "minPlayers": 10,
+      "maxPlayers": 18,
+      "durationMins": 20,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "goals"
+      ],
+      "references": [
+        {
+          "label": "England Football Learning — defending as a team",
+          "url": "https://learn.englandfootball.com/",
+          "source": "fa"
+        }
+      ],
+      "diagram": {
+        "area": {
+          "w": 40,
+          "h": 28,
+          "unit": "yd"
+        },
+        "caption": "Press the ball, everyone else shifts across together.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 4,
+            "facing": "up"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 22,
+            "label": "GK"
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 24,
+            "y": 40
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 42,
+            "y": 38
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 60,
+            "y": 38
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 78,
+            "y": 40
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 38,
+            "y": 58
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 62,
+            "y": 58
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 20,
+            "y": 74
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 44,
+            "y": 78
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 68,
+            "y": 76
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 88,
+            "y": 72
+          },
+          {
+            "t": "ball",
+            "x": 22,
+            "y": 78
+          },
+          {
+            "t": "run",
+            "from": [
+              38,
+              58
+            ],
+            "to": [
+              26,
+              70
+            ]
+          },
+          {
+            "t": "run",
+            "from": [
+              62,
+              58
+            ],
+            "to": [
+              52,
+              60
+            ]
+          },
+          {
+            "t": "run",
+            "from": [
+              78,
+              40
+            ],
+            "to": [
+              66,
+              44
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Attacking Wide Areas 7v5",
+      "summary": "Attack with an overload and use the width to create a chance.",
+      "description": "Seven attackers play against five defenders and a keeper in the attacking half. Wide channels are marked, and a goal scored from a cross or cut-back originating in a channel counts double.\n\nThe double-points rule does the coaching for you — players start looking for the wide player without being told. Rotate the defending group often; it's hard work.",
+      "setup": "Half a pitch, one goal with a keeper. Wide channels 6 yards deep marked down both flanks. Bibs for the defenders.",
+      "coachingPoints": [
+        "Get the ball wide early, before the defence is set",
+        "Someone must attack the near post every single time",
+        "Cut-backs beat high crosses more often than you'd think",
+        "Overlap or underlap — give the wide player a decision to make"
+      ],
+      "progressions": [
+        "Reduce to 6v5",
+        "Limit the attack to 20 seconds",
+        "Defenders counter into a target goal on halfway"
+      ],
+      "regressions": [
+        "Only one defender allowed in each wide channel",
+        "Make it 8v4"
+      ],
+      "themes": [
+        "movement",
+        "shooting",
+        "passing"
+      ],
+      "ageGroups": [
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "phase-of-play",
+      "minPlayers": 12,
+      "maxPlayers": 18,
+      "durationMins": 20,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "goals"
+      ],
+      "references": [],
+      "diagram": {
+        "area": {
+          "w": 40,
+          "h": 32,
+          "unit": "yd"
+        },
+        "caption": "A goal from a wide delivery counts double.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 5,
+            "facing": "up"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 22,
+            "label": "GK"
+          },
+          {
+            "t": "zone",
+            "x": 0,
+            "y": 20,
+            "w": 14,
+            "h": 76
+          },
+          {
+            "t": "zone",
+            "x": 86,
+            "y": 20,
+            "w": 14,
+            "h": 76
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 7,
+            "y": 44
+          },
+          {
+            "t": "ball",
+            "x": 7,
+            "y": 52
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 93,
+            "y": 50
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 38,
+            "y": 40
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 56,
+            "y": 36
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 70,
+            "y": 46
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 46,
+            "y": 66
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 40,
+            "y": 24
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 58,
+            "y": 26
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 30,
+            "y": 46
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 70,
+            "y": 30
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 50,
+            "y": 54
+          },
+          {
+            "t": "dribble",
+            "from": [
+              7,
+              52
+            ],
+            "to": [
+              9,
+              24
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              12,
+              22
+            ],
+            "to": [
+              44,
+              26
+            ]
+          },
+          {
+            "t": "run",
+            "from": [
+              46,
+              62
+            ],
+            "to": [
+              50,
+              30
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Conditioned Match: Three Passes",
+      "summary": "A normal match, but a team must string three passes together before scoring.",
+      "description": "Play a regular match with one condition: three consecutive passes by the attacking team before a goal counts. It rewards the group that keeps the ball rather than the one that hoofs it and chases.\n\nDrop the condition for the last five minutes and just let them play. That final stretch of free football is the bit most of them came for, and it's worth protecting.",
+      "setup": "The largest pitch and biggest goals you have. Even teams, bibs for one side. Spare balls all round the outside so restarts are quick.",
+      "coachingPoints": [
+        "Count the passes out loud as a team",
+        "Keep the pitch big when you have it, small when you don't",
+        "Look forward first — the condition isn't an excuse to go sideways",
+        "Support the player on the ball quickly"
+      ],
+      "progressions": [
+        "Increase to five passes",
+        "Passes must include a switch from one side to the other"
+      ],
+      "regressions": [
+        "Two passes",
+        "Remove the condition and play freely"
+      ],
+      "themes": [
+        "possession",
+        "passing",
+        "funandconfidence"
+      ],
+      "ageGroups": [
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "scrimmage",
+      "minPlayers": 8,
+      "maxPlayers": 22,
+      "durationMins": 20,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "goals"
+      ],
+      "references": [],
+      "diagram": {
+        "area": {
+          "w": 45,
+          "h": 30,
+          "unit": "yd"
+        },
+        "caption": "Three consecutive passes before a goal counts.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 4,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 96,
+            "facing": "down"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 23,
+            "label": "GK"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 77,
+            "label": "GK"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 26,
+            "y": 40
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 36
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 74,
+            "y": 42
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 38,
+            "y": 60
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 64,
+            "y": 62
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 34,
+            "y": 28
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 58,
+            "y": 26
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 46,
+            "y": 48
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 24,
+            "y": 66
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 72,
+            "y": 52
+          },
+          {
+            "t": "ball",
+            "x": 31,
+            "y": 48
+          },
+          {
+            "t": "pass",
+            "from": [
+              32,
+              46
+            ],
+            "to": [
+              50,
+              40
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              54,
+              34
+            ],
+            "to": [
+              72,
+              44
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              74,
+              38
+            ],
+            "to": [
+              52,
+              16
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Free Play Match",
+      "summary": "Let them play. Coach with questions, not instructions.",
+      "description": "A straight match with no conditions. The coach stays quiet for long stretches and, when the ball goes out, asks a question rather than giving an answer: *what did you see there?*, *what else could you have done?*, *what would you try next time?*\n\nThis is the hardest thing on the list to do well, because the instinct is to shout. Resist it. The players' own answers stick far better than anything shouted from the touchline.",
+      "setup": "The biggest pitch you can mark out, proper goals if you have them. Even teams. Bibs. Spare balls around the edges.",
+      "coachingPoints": [
+        "Ask, don't tell — one question per stoppage at most",
+        "Let mistakes play out; the game is the teacher",
+        "Praise the attempt, not just the outcome",
+        "Rotate positions so nobody gets stuck in one role every week"
+      ],
+      "progressions": [
+        "Rotate positions every five minutes",
+        "Give each player one individual challenge to work on"
+      ],
+      "regressions": [
+        "Smaller pitch and fewer players so everyone gets more touches",
+        "Play in two separate smaller games rather than one big one"
+      ],
+      "themes": [
+        "funandconfidence",
+        "transition",
+        "movement"
+      ],
+      "ageGroups": [
+        "u6",
+        "u7",
+        "u8",
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "scrimmage",
+      "minPlayers": 6,
+      "maxPlayers": 22,
+      "durationMins": 20,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "goals"
+      ],
+      "references": [
+        {
+          "label": "England Football Learning — player-centred coaching",
+          "url": "https://learn.englandfootball.com/",
+          "source": "fa"
+        },
+        {
+          "label": "FIFA Training Centre — grassroots coaching philosophy",
+          "url": "https://www.fifatrainingcentre.com/",
+          "source": "fifa"
+        }
+      ]
+    },
+    {
+      "name": "Cool-Down Circle",
+      "summary": "Gentle movement, then two questions that make the session stick.",
+      "description": "Bring everyone into a circle. Two minutes of easy movement and stretching while you talk, then ask two questions: *what's one thing you did well tonight?* and *what's one thing you'll try next week?*\n\nGoing round the circle means every player says something out loud, including the quiet ones. It takes three minutes and it is the part players most often repeat to their parents in the car.",
+      "setup": "A circle in the middle of the pitch. No equipment needed. Balls collected and bagged first so nobody is fiddling with one.",
+      "coachingPoints": [
+        "Every player speaks — go round the circle, don't take volunteers",
+        "Accept every answer without correcting it",
+        "Name one specific thing you saw from each player if you can",
+        "Finish on time; parents are waiting and it builds trust"
+      ],
+      "progressions": [
+        "Players nominate a teammate for something they did well",
+        "Set an individual challenge for the week ahead"
+      ],
+      "regressions": [
+        "One question instead of two",
+        "Thumbs up or down instead of speaking, for shy groups"
+      ],
+      "themes": [
+        "funandconfidence",
+        "physical"
+      ],
+      "ageGroups": [
+        "u6",
+        "u7",
+        "u8",
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "cooldown",
+      "minPlayers": 2,
+      "maxPlayers": 24,
+      "durationMins": 5,
+      "intensity": "low",
+      "equipment": [
+        "none"
+      ],
+      "references": [
+        {
+          "label": "England Football Learning — reflection and player development",
+          "url": "https://learn.englandfootball.com/",
+          "source": "fa"
+        }
+      ],
+      "diagram": {
+        "area": {
+          "w": 12,
+          "h": 12,
+          "unit": "yd"
+        },
+        "caption": "Everyone speaks — go round the circle rather than taking hands up.",
+        "shapes": [
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 12
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 78,
+            "y": 22
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 90,
+            "y": 50
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 78,
+            "y": 78
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 88
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 22,
+            "y": 78
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 10,
+            "y": 50
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 22,
+            "y": 22
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 50,
+            "label": "C"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Juggling Challenge Cool-Down",
+      "summary": "Low-intensity individual and partner juggling to wind down.",
+      "description": "Each player takes a ball and sees how many touches they can keep going. Then in pairs, working together to keep one ball up between them.\n\nCalm, individual, and genuinely good for touch. It also gives you a couple of minutes to have a quiet word with one or two players without stopping the whole group.",
+      "setup": "Anywhere with space. One ball per player, then one between two.",
+      "coachingPoints": [
+        "Small, soft touches — don't kick it, cushion it",
+        "Laces or thigh, keep the ankle locked",
+        "Beat your own score, not anyone else's",
+        "In pairs, tell your partner before you play it to them"
+      ],
+      "progressions": [
+        "Alternate feet on every touch",
+        "Add a knee or head touch into the sequence",
+        "In pairs, one touch each before it goes back"
+      ],
+      "regressions": [
+        "Allow a bounce between touches",
+        "Catch after every two touches, then restart"
+      ],
+      "themes": [
+        "receiving",
+        "physical",
+        "funandconfidence"
+      ],
+      "ageGroups": [
+        "u8",
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "cooldown",
+      "minPlayers": 1,
+      "maxPlayers": 24,
+      "durationMins": 8,
+      "intensity": "low",
+      "equipment": [
+        "balls"
+      ],
+      "references": []
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+/* ---------------------------------------------------------------------------
+   Print.
+   The screen theme is already paper-and-ink, so printing is mostly a matter of
+   removing chrome rather than inverting a dark theme. Everything goes to solid
+   black — mid-grey secondary text is fine on a backlit screen and unreadable on
+   a folded sheet in a coat pocket.
+   --------------------------------------------------------------------------- */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 14mm 12mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 10.5pt;
+  }
+
+  .no-print,
+  nav,
+  button {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  /* Flatten every surface back to paper. */
+  .surface,
+  [class*='bg-chalk'],
+  [class*='bg-paper'],
+  [class*='bg-pitch'] {
+    background: #fff !important;
+    box-shadow: none !important;
+    border-color: #999 !important;
+  }
+
+  /* Everything prints black — a blanket rule rather than a list of utilities,
+     because colour is set in several places (utilities, .prose-drill, .label-sm). */
+  body * {
+    color: #000 !important;
+  }
+
+  /* Section labels recede by weight and size, not by colour. */
+  .label-sm {
+    color: #555 !important;
+  }
+
+  /* The touchline rail survives into print — it is the thing that makes the
+     sheet read as a schedule rather than a list, and it is what a coach follows
+     down the page pitchside. Solid black, slightly thinner than on screen. */
+  .rail-track::before {
+    background: #000 !important;
+    width: 1.5px !important;
+  }
+  .rail-tick {
+    background: #000 !important;
+  }
+  /* The "now" marker is a screen aid — it would be wrong on a printed plan that
+     gets reused next week. */
+  .rail-track[data-now='true']::after {
+    display: none !important;
+  }
+
+  /* Mown-stripe banding is screen-only; on paper it prints as grey blocks. */
+  .mown > *:nth-child(even) {
+    background: #fff !important;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+
+  /* Print the destination of "see also" links — the paper copy is often the only
+     thing a coach has, and a bare link label is useless on paper. */
+  .print-url::after {
+    content: ' (' attr(href) ')';
+    font-size: 8pt;
+    word-break: break-all;
+  }
+
+  /* Diagrams: the most useful thing on the page, but at screen size they push a
+     five-block session onto six sheets. 78mm is about a third of the text column
+     — still legible at arm's length, and it keeps a plan pocket-sized. */
+  figure svg[role='img'] {
+    max-width: 78mm !important;
+    margin-left: 0 !important;
+  }
+
+  /* Never split a drill across a page break — half a set of coaching points on
+     the touchline is worse than a slightly short page. */
+  .print-block {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border: 1px solid #999 !important;
+    margin-bottom: 5mm;
+  }
+
+  .print-break-before {
+    break-before: page;
+  }
+
+  details {
+    display: block !important;
+  }
+  details > summary {
+    display: none !important;
+  }
+
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Hidden on screen, revealed by the block above. */
+.print-only {
+  display: none;
+}

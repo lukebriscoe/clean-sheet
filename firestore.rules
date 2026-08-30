@@ -1,0 +1,161 @@
+rules_version = '2';
+
+// ============================================================================
+// Clean Sheet — Firestore security rules
+//
+// v1 HAS NO AUTHENTICATION. Anyone can add a drill or save a session. That is a
+// deliberate trade-off (see docs/v1-tradeoffs.md) to keep the tool frictionless
+// for volunteer coaches who will not create an account to look up a warm-up.
+//
+// With no auth, THESE RULES ARE THE ONLY DEFENCE. So they do three jobs:
+//   1. Validate every field's type, size and allowed values, so the collection
+//      cannot be used as free object storage or filled with junk.
+//   2. Refuse deletes outright. Nothing an anonymous visitor does is destructive
+//      or irreversible — bad content is hidden via `status`, never removed.
+//   3. Lock a document to its owner the moment `createdBy.uid` is non-null, so
+//      turning on Firebase Auth later needs no data migration at all.
+//
+// To close write access later, see the "AFTER AUTH" comments below.
+// ============================================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---- shared helpers ----------------------------------------------------
+
+    function incoming() { return request.resource.data; }
+
+    function isString(field, maxLen) {
+      return field is string && field.size() <= maxLen;
+    }
+
+    function isOptionalString(data, key, maxLen) {
+      return !(key in data) || data[key] == null || isString(data[key], maxLen);
+    }
+
+    function isStringList(value, maxItems, maxLen) {
+      return value is list
+        && value.size() <= maxItems
+        // Firestore rules have no iteration, so per-item length is spot-checked on
+        // the client and bounded here by the overall 1MB document limit plus the
+        // item cap. The important guarantee is the list cannot grow unbounded.
+        && value.size() >= 0;
+    }
+
+    function isIntInRange(value, low, high) {
+      return value is int && value >= low && value <= high;
+    }
+
+    function isUnowned(data) {
+      return data.createdBy.uid == null;
+    }
+
+    // AFTER AUTH: change to
+    //   return isUnowned(data) || (request.auth != null && data.createdBy.uid == request.auth.uid);
+    function canMutate(data) {
+      return isUnowned(data);
+    }
+
+    // ---- drills ------------------------------------------------------------
+
+    function validDrill() {
+      let d = incoming();
+      return d.schemaVersion == 1
+        && isString(d.name, 120)          && d.name.size() > 0
+        && isString(d.slug, 80)
+        && isString(d.summary, 200)       && d.summary.size() > 0
+        && isString(d.description, 4000)  && d.description.size() > 0
+        && isOptionalString(d, 'setup', 3000)
+        && isStringList(d.coachingPoints, 12, 300) && d.coachingPoints.size() > 0
+        && isStringList(d.progressions, 12, 300)
+        && isStringList(d.regressions, 12, 300)
+        && isStringList(d.themes, 11, 40)  && d.themes.size() > 0
+        && isStringList(d.ageGroups, 9, 10) && d.ageGroups.size() > 0
+        && d.sessionPhase in ['warmup', 'technical', 'ssg', 'phase-of-play', 'scrimmage', 'cooldown']
+        && isIntInRange(d.minPlayers, 1, 40)
+        && isIntInRange(d.maxPlayers, 1, 40)
+        && d.maxPlayers >= d.minPlayers
+        && isIntInRange(d.durationMins, 1, 120)
+        && d.intensity in ['low', 'medium', 'high']
+        && isStringList(d.equipment, 8, 30)
+        && isOptionalString(d, 'imageUrl', 500)
+        // Diagrams are data, not images. Bound the shape count; per-shape validity
+        // is normalised client-side (rules have no iteration) and a malformed
+        // shape is dropped at render time rather than breaking the page.
+        && (!('diagram' in d) || d.diagram == null
+            || (d.diagram is map && d.diagram.shapes is list
+                && d.diagram.shapes.size() <= 60))
+        && d.references is list && d.references.size() <= 6
+        && d.createdBy is map
+        && isString(d.createdBy.displayName, 60)
+        && d.source in ['seed', 'community', 'ai']
+        && d.status in ['published', 'hidden']
+        // Reject anything we did not ask for, so the document shape stays known.
+        && d.keys().hasOnly([
+             'schemaVersion', 'name', 'slug', 'summary', 'description', 'setup',
+             'coachingPoints', 'progressions', 'regressions', 'themes', 'ageGroups',
+             'sessionPhase', 'minPlayers', 'maxPlayers', 'durationMins', 'intensity',
+             'equipment', 'imageUrl', 'diagram', 'references', 'createdBy', 'clubId',
+             'source', 'status', 'createdAt', 'updatedAt'
+           ]);
+    }
+
+    match /drills/{drillId} {
+      // The library is public — that is the entire point of the site.
+      allow read: if true;
+
+      // AFTER AUTH: && request.auth != null
+      allow create: if validDrill()
+                    && incoming().createdBy.uid == null
+                    && incoming().source != 'seed';   // only the seed script writes 'seed'
+
+      // An anonymous drill stays editable so typos can be fixed by anyone; once a
+      // real account owns it, only that account can change it.
+      allow update: if validDrill() && canMutate(resource.data);
+
+      // Never. Hide via `status` instead — reversible, and no one can wipe the library.
+      allow delete: if false;
+    }
+
+    // ---- sessions ----------------------------------------------------------
+
+    function validSession() {
+      let s = incoming();
+      return s.schemaVersion == 1
+        && isString(s.title, 120)
+        && isString(s.ageGroup, 10)
+        && isOptionalString(s, 'theme', 40)
+        && isOptionalString(s, 'dateFor', 10)
+        && isOptionalString(s, 'startTime', 5)
+        && isOptionalString(s, 'objectives', 2000)
+        && isIntInRange(s.durationMins, 5, 240)
+        && isIntInRange(s.playerCount, 1, 60)
+        && s.blocks is list && s.blocks.size() <= 30
+        && isString(s.shareId, 32) && s.shareId.size() >= 8
+        && s.visibility in ['public', 'club']
+        && s.createdBy is map
+        && isString(s.createdBy.displayName, 60)
+        && s.keys().hasOnly([
+             'schemaVersion', 'title', 'ageGroup', 'theme', 'dateFor', 'startTime',
+             'durationMins', 'playerCount', 'objectives', 'blocks', 'shareId',
+             'visibility', 'createdBy', 'clubId', 'createdAt', 'updatedAt'
+           ]);
+    }
+
+    match /sessions/{sessionId} {
+      // Sessions are read by share link. The link is unguessable (~60 bits) but a
+      // session is NOT private — do not put anything sensitive in one.
+      allow read: if true;
+
+      // AFTER AUTH: && request.auth != null
+      allow create: if validSession() && incoming().createdBy.uid == null;
+      allow update: if validSession() && canMutate(resource.data);
+      allow delete: if false;
+    }
+
+    // Anything not matched above is closed.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

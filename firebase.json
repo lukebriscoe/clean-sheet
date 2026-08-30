@@ -1,0 +1,12 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "emulators": {
+    "_comment": "8088, not the usual 8080 — that port is contended by too many other local dev servers to be a sensible default. Must match src/firebase.js and the dev:seed script.",
+    "firestore": { "port": 8088 },
+    "ui": { "enabled": true, "port": 4001 },
+    "singleProjectMode": true
+  }
+}

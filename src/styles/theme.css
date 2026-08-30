@@ -1,0 +1,249 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   Clean Sheet — "grey matchday"
+   ---------------------------------------------------------------------------
+   The palette is built from an overcast UK training night, not a sunny pitch.
+   Green is demoted to INK AND LINE — it is never a filled hero banner, which is
+   the reflex move for every football product. The page is cool paper; the green
+   does the structural work; high-vis appears only to say "now".
+
+   Every colour lives here as an RGB triplet and is mapped to a name in
+   tailwind.config.js. Components must not hard-code colours.
+   --------------------------------------------------------------------------- */
+:root {
+  --paper: 241 243 239; /* #F1F3EF — cool off-white, faint green cast. NOT cream. */
+  --chalk: 255 255 255; /* card surfaces and the line markings */
+  --pitch: 15 59 42; /*   #0F3B2A — primary. Dark enough to set body text in.   */
+  --pitch-mid: 46 107 79; /* #2E6B4F — rail ticks, phase marks, quiet fills     */
+  --ink: 26 33 29; /*      #1A211D — body text: near-black with a green cast    */
+  --mist: 90 102 95; /*    #5A665F — secondary text, 5.4:1 on paper            */
+  --line: 214 220 213; /*  hairline borders                                     */
+
+  /* ACCENT — "now" only. See the contrast rule below before using it. */
+  --hivis: 242 194 48; /*  #F2C230 */
+
+  /* Warning state only. Not a brand colour; never use it decoratively. */
+  --whistle: 178 58 47; /* #B23A2F */
+}
+
+/* ---------------------------------------------------------------------------
+   THE HIVIS RULE
+   --hivis is ~1.7:1 against --paper. It must NEVER carry text on the background
+   and must never be a text colour on a light surface. It is only ever:
+     · a fill sitting behind --ink text, or
+     · a solid bar / rail segment at least 3px thick.
+   Breaking this makes the one piece of "look here" signalling unreadable in the
+   exact conditions this app is for — bright daylight, glanced at, one-handed.
+   --------------------------------------------------------------------------- */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-paper font-body text-ink antialiased;
+    min-height: 100dvh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-bold text-pitch;
+    letter-spacing: -0.015em;
+  }
+
+  /* Tabular figures everywhere a number can change — times, durations, counts.
+     Chivo has real tabular figures, which is why the mono face could go. */
+  .tnum,
+  time,
+  input[type='number'],
+  input[type='time'] {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Two-tone focus ring: a single colour vanishes on a same-coloured surface,
+     so the outer ring is pitch and the inner is chalk. Visible on paper, on
+     white cards, and on the dark green buttons alike. */
+  :focus-visible {
+    outline: 2px solid rgb(var(--pitch));
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px rgb(var(--chalk));
+  }
+
+  ::selection {
+    background: rgb(var(--hivis) / 0.45);
+  }
+}
+
+@layer components {
+  /* ---- surfaces ---------------------------------------------------------- */
+
+  /* A white card on paper. Hairline border, no drop shadow — separation comes
+     from the paper/white value step, not from a floating-card effect. */
+  .surface {
+    @apply rounded-md border border-line bg-chalk;
+  }
+
+  /* Section label. Replaces the tracked-out mono micro-label of the old theme,
+     which was the strongest AI-UI tell in the build. */
+  .label-sm {
+    @apply font-display text-[0.7rem] font-bold uppercase tracking-[0.08em] text-mist;
+  }
+
+  /* ---- the touchline rail ------------------------------------------------
+     The signature element. A vertical line with 5-minute tick marks, drawn the
+     way a pitch is marked out in yards. Times sit on it; blocks hang off it. */
+  /* -my-3 cancels the row's vertical padding so consecutive rails meet: the
+     line must read as ONE continuous measure down the whole session, not as a
+     fragment per block. That continuity is the entire point of the device. */
+  .rail-track {
+    @apply relative -my-3 w-3 shrink-0 self-stretch;
+  }
+  .rail-track::before {
+    content: '';
+    @apply absolute inset-y-0 left-1/2 w-[2px] -translate-x-1/2 bg-pitch/45;
+  }
+  .rail-track[data-first='true']::before {
+    top: 1.4rem;
+  }
+  .rail-track[data-last='true']::before {
+    bottom: 0;
+  }
+
+  /* The boundary tick at the top of each block — the "yard marking". */
+  /* The boundary tick at the head of each block — the heavy yard marking. */
+  .rail-tick {
+    @apply absolute left-1/2 top-[1.35rem] h-[2px] w-3 -translate-x-1/2 bg-pitch;
+  }
+
+  /* Filled segment marking the block a coach is on right now. The one place
+     --hivis appears at full strength, as a bar — never as text. */
+  .rail-track[data-now='true']::after {
+    content: '';
+    @apply absolute inset-y-0 left-1/2 w-[6px] -translate-x-1/2 rounded-full bg-hivis;
+  }
+
+  /* The minute markings: a light tick every five minutes between the heavy
+     block boundaries, the way a pitch carries small markings between the lines
+     that actually matter. This is what stops the rail reading as a generic
+     timeline and makes it read as something measured out. */
+  .rail-minutes {
+    @apply absolute inset-x-0 top-[1.35rem] bottom-0;
+    background-image: linear-gradient(
+      to bottom,
+      rgb(var(--pitch) / 0.35) 0 1px,
+      transparent 1px 100%
+    );
+    background-size: 100% 0.9rem;
+    background-position: 0 0.45rem;
+    -webkit-mask-image: linear-gradient(to right, transparent 30%, #000 30%, #000 70%, transparent 70%);
+    mask-image: linear-gradient(to right, transparent 30%, #000 30%, #000 70%, transparent 70%);
+  }
+
+  /* ---- controls ---------------------------------------------------------
+     Every interactive control is at least 44px tall. Coaches use this
+     one-handed on a phone while holding a clipboard. */
+  .btn {
+    @apply inline-flex min-h-[2.75rem] items-center justify-center gap-2 rounded-md px-4
+           text-[0.95rem] font-semibold transition-colors duration-[120ms]
+           disabled:cursor-not-allowed disabled:opacity-40;
+  }
+
+  .btn-primary {
+    @apply btn bg-pitch text-chalk hover:bg-pitch-mid;
+  }
+
+  .btn-ghost {
+    @apply btn border border-line bg-chalk text-pitch hover:border-pitch/40 hover:bg-paper;
+  }
+
+  .btn-quiet {
+    @apply btn min-h-[2.75rem] px-3 font-medium text-mist hover:bg-paper hover:text-pitch;
+  }
+
+  /* Square icon button — reorder arrows, close, remove. Kept at 44px so it is
+     genuinely thumb-sized; the old build had these at 28px. */
+  .btn-icon {
+    @apply inline-flex h-11 w-11 items-center justify-center rounded-md text-mist
+           transition-colors duration-[120ms] hover:bg-paper hover:text-pitch
+           disabled:cursor-not-allowed disabled:opacity-25;
+  }
+
+  .field {
+    @apply min-h-[2.75rem] w-full rounded-md border border-line bg-chalk px-3 py-2
+           text-ink placeholder:text-mist/70 focus:border-pitch focus:outline-none;
+  }
+
+  /* Filter toggle. Selected state is a solid green fill, not a coloured chip —
+     the palette carries two greens and one yellow, not a six-hue rainbow. */
+  .chip {
+    @apply inline-flex min-h-[2.75rem] items-center gap-1.5 rounded-md border px-3
+           text-sm transition-colors duration-[120ms];
+  }
+  .chip-off {
+    @apply chip border-line bg-chalk text-ink hover:border-pitch/40;
+  }
+  .chip-on {
+    @apply chip border-pitch bg-pitch text-chalk;
+  }
+
+  /* ---- drill prose ------------------------------------------------------- */
+  .prose-drill {
+    @apply text-[0.95rem] leading-[1.6] text-ink;
+  }
+  .prose-drill p {
+    @apply mb-3;
+  }
+  .prose-drill strong {
+    @apply font-bold text-pitch;
+  }
+  .prose-drill em {
+    @apply italic;
+  }
+  .prose-drill ul,
+  .prose-drill ol {
+    @apply mb-3 ml-5 space-y-1;
+  }
+  .prose-drill ul {
+    @apply list-disc;
+  }
+  .prose-drill ol {
+    @apply list-decimal;
+  }
+  .prose-drill a {
+    @apply font-semibold text-pitch underline underline-offset-2;
+  }
+  .prose-drill code {
+    @apply rounded bg-paper px-1 py-0.5 text-[0.9em];
+  }
+  .prose-drill h1,
+  .prose-drill h2,
+  .prose-drill h3 {
+    @apply mb-2 mt-4 font-display;
+  }
+
+  /* ---- mown stripes ------------------------------------------------------
+     Zebra banding on the running order. Functional (row separation) and
+     thematic (a mown pitch) at once — the only place the stripe idea appears,
+     because ambient background texture bands badly on cheap phone screens. */
+  .mown > *:nth-child(even) {
+    @apply bg-paper;
+  }
+}
+
+/* Motion is limited to colour transitions on controls plus the "now" marker.
+   No entrance staggers, no scattered hover effects. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,26 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vite
+
+# Local env — .env.example is the committed template
+.env
+.env.*
+!.env.example
+
+# Firebase
+.firebase
+firebase-debug.log
+firestore-debug.log
+emulator-data
+*-firebase-adminsdk-*.json
+service-account*.json
+
+# Cloudflare Worker (phase 2)
+worker/.wrangler
+worker/node_modules
+
+# Screenshots from `npm run verify`
+.verify-shots

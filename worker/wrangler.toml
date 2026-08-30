@@ -1,0 +1,16 @@
+name = "clean-sheet-ai"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+# Per-IP rate limiting is backed by KV. Create the namespace and paste its id here:
+#   npx wrangler kv namespace create RATE_LIMIT_KV
+#
+# The worker FAILS CLOSED without this binding — it will refuse every request
+# rather than forward unlimited traffic to a paid API. That is deliberate.
+# [[kv_namespaces]]
+# binding = "RATE_LIMIT_KV"
+# id = "paste-the-id-from-the-command-above"
+
+# ANTHROPIC_API_KEY is a Secret and is NOT stored in this file. Set it after
+# deploying with:
+#   npx wrangler secret put ANTHROPIC_API_KEY

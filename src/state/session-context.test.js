@@ -1,0 +1,167 @@
+import { describe, it, expect } from 'vitest'
+import { sessionReducer, insertByPhase } from './session-context.jsx'
+import { emptySession } from '../lib/schema.js'
+
+const drill = (overrides = {}) => ({
+  id: 'drl_1',
+  name: 'Rondo 4v1',
+  summary: 'Keep the ball',
+  setup: 'A 10x10 square',
+  description: 'Four out, one in.',
+  coachingPoints: ['Open your body'],
+  progressions: ['Two touch'],
+  regressions: ['Bigger square'],
+  equipment: ['balls', 'bibs'],
+  sessionPhase: 'technical',
+  durationMins: 15,
+  ...overrides,
+})
+
+const withBlocks = blocks => ({ ...emptySession(), blocks })
+
+describe('adding drills', () => {
+  it('creates a block carrying a frozen snapshot of the drill', () => {
+    const next = sessionReducer(emptySession(), { type: 'add-drill', drill: drill() })
+    expect(next.blocks).toHaveLength(1)
+    expect(next.blocks[0]).toMatchObject({
+      drillId: 'drl_1',
+      phase: 'technical',
+      durationMins: 15,
+      notes: '',
+    })
+    expect(next.blocks[0].drillSnapshot).toMatchObject({
+      name: 'Rondo 4v1',
+      coachingPoints: ['Open your body'],
+      equipment: ['balls', 'bibs'],
+    })
+  })
+
+  it('gives every block a distinct id, even for the same drill twice', () => {
+    const once = sessionReducer(emptySession(), { type: 'add-drill', drill: drill() })
+    const twice = sessionReducer(once, { type: 'add-drill', drill: drill() })
+    expect(twice.blocks[0].id).not.toBe(twice.blocks[1].id)
+  })
+
+  it('slots a warm-up above an existing match rather than appending it', () => {
+    const withMatch = sessionReducer(emptySession(), {
+      type: 'add-drill',
+      drill: drill({ id: 'drl_match', sessionPhase: 'scrimmage' }),
+    })
+    const withWarmup = sessionReducer(withMatch, {
+      type: 'add-drill',
+      drill: drill({ id: 'drl_warm', sessionPhase: 'warmup' }),
+    })
+    expect(withWarmup.blocks.map(block => block.phase)).toEqual(['warmup', 'scrimmage'])
+  })
+})
+
+describe('insertByPhase', () => {
+  it('keeps the canonical session order as blocks arrive out of order', () => {
+    const phases = ['scrimmage', 'warmup', 'ssg', 'cooldown', 'technical']
+    const blocks = phases.reduce(
+      (acc, phase) => insertByPhase(acc, { id: phase, phase }),
+      [],
+    )
+    expect(blocks.map(block => block.phase)).toEqual([
+      'warmup',
+      'technical',
+      'ssg',
+      'scrimmage',
+      'cooldown',
+    ])
+  })
+
+  it('places a new block after existing blocks of the same phase', () => {
+    const blocks = insertByPhase(
+      [{ id: 'a', phase: 'technical' }, { id: 'b', phase: 'ssg' }],
+      { id: 'c', phase: 'technical' },
+    )
+    expect(blocks.map(block => block.id)).toEqual(['a', 'c', 'b'])
+  })
+})
+
+describe('editing blocks', () => {
+  const base = withBlocks([
+    { id: 'a', phase: 'warmup', durationMins: 10, notes: '', drillSnapshot: { name: 'One' } },
+    { id: 'b', phase: 'ssg', durationMins: 20, notes: '', drillSnapshot: { name: 'Two' } },
+  ])
+
+  it('updates only the targeted block', () => {
+    const next = sessionReducer(base, {
+      type: 'update-block',
+      id: 'b',
+      changes: { durationMins: 25 },
+    })
+    expect(next.blocks[1].durationMins).toBe(25)
+    expect(next.blocks[0].durationMins).toBe(10)
+  })
+
+  it('merges into the snapshot without dropping its other fields', () => {
+    const next = sessionReducer(base, {
+      type: 'update-snapshot',
+      id: 'a',
+      changes: { description: 'Edited' },
+    })
+    expect(next.blocks[0].drillSnapshot).toEqual({ name: 'One', description: 'Edited' })
+  })
+
+  it('removes a block by id', () => {
+    const next = sessionReducer(base, { type: 'remove-block', id: 'a' })
+    expect(next.blocks.map(block => block.id)).toEqual(['b'])
+  })
+})
+
+describe('reordering', () => {
+  const base = withBlocks([{ id: 'a' }, { id: 'b' }, { id: 'c' }])
+
+  it('moves a block later and earlier', () => {
+    expect(
+      sessionReducer(base, { type: 'move-block', id: 'a', delta: 1 }).blocks.map(b => b.id),
+    ).toEqual(['b', 'a', 'c'])
+    expect(
+      sessionReducer(base, { type: 'move-block', id: 'c', delta: -1 }).blocks.map(b => b.id),
+    ).toEqual(['a', 'c', 'b'])
+  })
+
+  it('refuses to move past either end rather than wrapping around', () => {
+    expect(sessionReducer(base, { type: 'move-block', id: 'a', delta: -1 })).toBe(base)
+    expect(sessionReducer(base, { type: 'move-block', id: 'c', delta: 1 })).toBe(base)
+  })
+
+  it('ignores an unknown block id', () => {
+    expect(sessionReducer(base, { type: 'move-block', id: 'nope', delta: 1 })).toBe(base)
+  })
+})
+
+describe('session lifecycle', () => {
+  it('sets a top-level field', () => {
+    const next = sessionReducer(emptySession(), {
+      type: 'set-field',
+      field: 'title',
+      value: 'U10 pressing',
+    })
+    expect(next.title).toBe('U10 pressing')
+  })
+
+  it('reset gives a clean sheet with a fresh share id', () => {
+    const dirty = withBlocks([{ id: 'a' }])
+    const clean = sessionReducer(dirty, { type: 'reset' })
+    expect(clean.blocks).toEqual([])
+    expect(clean.shareId).not.toBe(dirty.shareId)
+  })
+
+  it('load fills in defaults for anything the stored session is missing', () => {
+    const loaded = sessionReducer(emptySession(), {
+      type: 'load',
+      session: { title: 'Loaded', blocks: [] },
+    })
+    expect(loaded.title).toBe('Loaded')
+    expect(loaded.durationMins).toBe(90)
+    expect(loaded.schemaVersion).toBe(1)
+  })
+
+  it('returns the same state for an unknown action', () => {
+    const state = emptySession()
+    expect(sessionReducer(state, { type: 'nonsense' })).toBe(state)
+  })
+})

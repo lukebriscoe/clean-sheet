@@ -1,0 +1,10 @@
+{
+  "comment": [
+    "The drill library is fetched once and filtered in the browser (see src/lib/filters.js),",
+    "so the app only ever issues simple ordered queries — no composite indexes needed yet.",
+    "Firestore creates single-field indexes automatically. If the library ever outgrows",
+    "client-side filtering, the composite indexes for themes + ageGroups + status go here."
+  ],
+  "indexes": [],
+  "fieldOverrides": []
+}
