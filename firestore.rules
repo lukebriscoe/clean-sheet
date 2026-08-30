@@ -33,13 +33,12 @@ service cloud.firestore {
       return !(key in data) || data[key] == null || isString(data[key], maxLen);
     }
 
-    function isStringList(value, maxItems, maxLen) {
-      return value is list
-        && value.size() <= maxItems
-        // Firestore rules have no iteration, so per-item length is spot-checked on
-        // the client and bounded here by the overall 1MB document limit plus the
-        // item cap. The important guarantee is the list cannot grow unbounded.
-        && value.size() >= 0;
+    // Rules have no iteration, so per-item length can't be checked here — it is
+    // enforced client-side and bounded by the 1MB document limit. What this does
+    // guarantee is that the list is a list and cannot grow unbounded, which is
+    // the part that matters for an open-write collection.
+    function isStringList(value, maxItems) {
+      return value is list && value.size() <= maxItems;
     }
 
     function isIntInRange(value, low, high) {
@@ -66,18 +65,18 @@ service cloud.firestore {
         && isString(d.summary, 200)       && d.summary.size() > 0
         && isString(d.description, 4000)  && d.description.size() > 0
         && isOptionalString(d, 'setup', 3000)
-        && isStringList(d.coachingPoints, 12, 300) && d.coachingPoints.size() > 0
-        && isStringList(d.progressions, 12, 300)
-        && isStringList(d.regressions, 12, 300)
-        && isStringList(d.themes, 11, 40)  && d.themes.size() > 0
-        && isStringList(d.ageGroups, 9, 10) && d.ageGroups.size() > 0
+        && isStringList(d.coachingPoints, 12) && d.coachingPoints.size() > 0
+        && isStringList(d.progressions, 12)
+        && isStringList(d.regressions, 12)
+        && isStringList(d.themes, 11)  && d.themes.size() > 0
+        && isStringList(d.ageGroups, 9) && d.ageGroups.size() > 0
         && d.sessionPhase in ['warmup', 'technical', 'ssg', 'phase-of-play', 'scrimmage', 'cooldown']
         && isIntInRange(d.minPlayers, 1, 40)
         && isIntInRange(d.maxPlayers, 1, 40)
         && d.maxPlayers >= d.minPlayers
         && isIntInRange(d.durationMins, 1, 120)
         && d.intensity in ['low', 'medium', 'high']
-        && isStringList(d.equipment, 8, 30)
+        && isStringList(d.equipment, 8)
         && isOptionalString(d, 'imageUrl', 500)
         // Diagrams are data, not images. Bound the shape count; per-shape validity
         // is normalised client-side (rules have no iteration) and a malformed

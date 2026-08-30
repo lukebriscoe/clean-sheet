@@ -14,6 +14,13 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 }
 
+// Fixed id for the local emulator. The emulator partitions data by project id,
+// so the app, `npm run dev:seed` and `firebase emulators:start` must all use the
+// same one — and it must NOT be the real project id, or a .env file silently
+// changes which namespace dev reads from. Keep in step with the --project flag
+// in the dev:start / dev:seed scripts.
+export const DEV_PROJECT_ID = 'clean-sheet-local'
+
 const hasRealConfig = Boolean(firebaseConfig.projectId && firebaseConfig.apiKey)
 
 // In dev we always talk to the emulator (below), which needs no real project — so
@@ -28,11 +35,11 @@ if (!hasRealConfig && !import.meta.env.DEV) {
   )
 }
 
-// The emulator ignores the credentials but still needs a project id to build
-// document paths, so fall back to the one the seed script writes to. Keyed off
-// hasRealConfig, not isConfigured — in dev the latter is true by design.
+// In dev we always use the emulator project, whatever .env says — see above.
 const app = initializeApp(
-  hasRealConfig ? firebaseConfig : { projectId: 'clean-sheet-local', apiKey: 'local' },
+  import.meta.env.DEV
+    ? { projectId: DEV_PROJECT_ID, apiKey: 'emulator' }
+    : firebaseConfig,
 )
 
 export const db = getFirestore(app)

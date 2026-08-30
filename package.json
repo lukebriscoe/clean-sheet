@@ -6,8 +6,8 @@
   "description": "Training session planner for grassroots football coaches",
   "scripts": {
     "dev": "vite",
-    "dev:start": "concurrently -n emulator,vite -c yellow,cyan \"firebase emulators:start --import=./emulator-data --export-on-exit=./emulator-data\" \"vite\"",
-    "dev:seed": "FIRESTORE_EMULATOR_HOST=127.0.0.1:8088 node scripts/seed-drills.js",
+    "dev:start": "concurrently -n emulator,vite -c yellow,cyan \"firebase emulators:start --project clean-sheet-local --import=./emulator-data --export-on-exit=./emulator-data\" \"vite\"",
+    "dev:seed": "FIRESTORE_EMULATOR_HOST=127.0.0.1:8088 GCLOUD_PROJECT=clean-sheet-local node scripts/seed-drills.js",
     "seed:prod": "node scripts/seed-drills.js --prod",
     "build": "vite build",
     "preview": "vite preview",
