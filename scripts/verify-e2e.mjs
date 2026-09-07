@@ -14,7 +14,7 @@
 // Requires `npx playwright install chrome` or a local Google Chrome.
 // Screenshots land in .verify-shots/ (git-ignored).
 import { chromium } from 'playwright'
-import { mkdirSync } from 'node:fs'
+import { mkdirSync, readFileSync } from 'node:fs'
 
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -41,7 +41,12 @@ await page.goto('http://localhost:5173/#/library', { waitUntil: 'domcontentloade
 await page.waitForSelector('main ul li', { timeout: 20000 })
 const ROWS = 'main > div > ul > li'
 const total = await page.locator(ROWS).count()
-check('library renders seeded drills', total === 29, `${total} cards`)
+// Read the expected count from the seed file rather than hard-coding it, so
+// adding drills doesn't require editing the test.
+const seeded = JSON.parse(
+  readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), '../data/seed-drills.json'), 'utf8'),
+).drills.length
+check('library renders every seeded drill', total === seeded, `${total} of ${seeded}`)
 await page.screenshot({ path: `${OUT}/01-library.png`, fullPage: false })
 
 // ---- 2. Filters narrow the list ----

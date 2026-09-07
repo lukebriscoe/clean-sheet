@@ -24,3 +24,7 @@ worker/node_modules
 
 # Screenshots from `npm run verify`
 .verify-shots
+
+# Scratch space for source material used when writing drills. Never committed —
+# the screenshots are someone else's; only our own rewritten drills ship.
+.drill-sources
