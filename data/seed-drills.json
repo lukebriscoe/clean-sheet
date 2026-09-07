@@ -7584,6 +7584,2351 @@
           }
         ]
       }
+    },
+    {
+      "name": "In Line With Your Partner",
+      "summary": "Ball mastery across a square, staying level with a partner on the far side.",
+      "description": "Pairs face each other across a square, a ball each. Both set off at the same time, working the same move — sole rolls, toe taps, whatever you have been showing them — and the job is to arrive at the other side **level with each other**.\n\nThat one condition is what makes it more than a ball-mastery drill. To stay level you have to keep glancing up to find your partner, which is exactly the scanning habit you want and exactly the thing players stop doing the moment they concentrate on their feet.\n\nCount touches across if you want a competitive edge.",
+      "setup": "A 20x20 square, pairs facing each other from opposite sides, one ball per player.",
+      "coachingPoints": [
+        "Look up to find your partner, then back down — not one long stare at the ball",
+        "Both feet on every crossing",
+        "Match their speed; arriving first is not the win",
+        "Keep the touches small enough that a glance up does not cost you the ball"
+      ],
+      "progressions": [
+        "Change the move each crossing",
+        "Add a pass at the far side, then that player crosses",
+        "More pairs so there is traffic to navigate"
+      ],
+      "regressions": [
+        "Cross at your own pace, ignore staying level",
+        "Fewer pairs in the square"
+      ],
+      "themes": [
+        "dribbling",
+        "receiving",
+        "physical"
+      ],
+      "ageGroups": [
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13"
+      ],
+      "sessionPhase": "warmup",
+      "minPlayers": 6,
+      "maxPlayers": 16,
+      "durationMins": 10,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones"
+      ],
+      "diagram": {
+        "area": {
+          "w": 20,
+          "h": 20,
+          "unit": "yd"
+        },
+        "caption": "Arrive at the far side level with your partner.",
+        "shapes": [
+          {
+            "t": "cone",
+            "x": 6,
+            "y": 6
+          },
+          {
+            "t": "cone",
+            "x": 94,
+            "y": 6
+          },
+          {
+            "t": "cone",
+            "x": 6,
+            "y": 94
+          },
+          {
+            "t": "cone",
+            "x": 94,
+            "y": 94
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 24,
+            "y": 10
+          },
+          {
+            "t": "ball",
+            "x": 24,
+            "y": 18
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 24,
+            "y": 90
+          },
+          {
+            "t": "ball",
+            "x": 24,
+            "y": 82
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 58,
+            "y": 10
+          },
+          {
+            "t": "ball",
+            "x": 58,
+            "y": 18
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 58,
+            "y": 90
+          },
+          {
+            "t": "ball",
+            "x": 58,
+            "y": 82
+          },
+          {
+            "t": "dribble",
+            "from": [
+              24,
+              22
+            ],
+            "to": [
+              24,
+              44
+            ]
+          },
+          {
+            "t": "dribble",
+            "from": [
+              24,
+              78
+            ],
+            "to": [
+              24,
+              56
+            ]
+          },
+          {
+            "t": "label",
+            "x": 80,
+            "y": 50,
+            "text": "stay level"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Two Ways Across",
+      "summary": "Two teams working at right angles in the same square, each with their own target players.",
+      "description": "One square, two teams, and each is trying to move the ball across it in a **different direction** — one team works left to right, the other top to bottom. Each has two target players waiting on their own pair of sides.\n\nStart unopposed with a ball each so they get used to the pattern and the traffic. Then take it down to one ball and let them compete: transfer target to target for a point, and the other team tries to win it and go their own way.\n\nThe crossing lines are the whole idea. Players cannot just look up one channel; there is always someone travelling across their path.",
+      "setup": "A 20x20 grid. Two players from each team inside, two on their own opposite sides as targets. Bibs to tell the teams apart.",
+      "coachingPoints": [
+        "Scan across the square, not just up your own line",
+        "Open your body so both of your targets are available",
+        "Move the defender before you play it, not after",
+        "Target players: shift along your side to open the angle"
+      ],
+      "progressions": [
+        "One ball only and play the two teams against each other",
+        "Target players may dribble in, with a team-mate taking their place",
+        "Targets can be tackled too"
+      ],
+      "regressions": [
+        "Both teams have a ball and work unopposed",
+        "Bigger grid"
+      ],
+      "themes": [
+        "passing",
+        "possession",
+        "receiving",
+        "movement"
+      ],
+      "ageGroups": [
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 8,
+      "maxPlayers": 12,
+      "durationMins": 15,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs"
+      ],
+      "diagram": {
+        "area": {
+          "w": 20,
+          "h": 20,
+          "unit": "yd"
+        },
+        "caption": "One team across, one team up and down.",
+        "shapes": [
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 4,
+            "label": "T"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 96,
+            "label": "T"
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 4,
+            "y": 50,
+            "label": "T"
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 96,
+            "y": 50,
+            "label": "T"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 38,
+            "y": 34
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 62,
+            "y": 66
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 64,
+            "y": 34
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 36,
+            "y": 66
+          },
+          {
+            "t": "ball",
+            "x": 38,
+            "y": 40
+          },
+          {
+            "t": "pass",
+            "from": [
+              40,
+              38
+            ],
+            "to": [
+              50,
+              12
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              64,
+              38
+            ],
+            "to": [
+              88,
+              50
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Retreat or Press",
+      "summary": "From a goal kick the opposition must retreat — then choose whether to press or hold.",
+      "description": "A small-sided game with keepers. Whenever a team has a goal kick, the other team has to drop into their own half. Break that and it is a free kick to the team in possession.\n\nOnce the first pass is played, the defending team chooses: come and press, or stay and stay compact. That choice is the interesting bit — it is a decision, not a rule, and different players will read it differently.\n\nIt gives the team building out a genuine chance to play rather than being swarmed on the six-yard line, without pretending pressing does not exist.",
+      "setup": "A 40 x 20 area, goals and keepers at each end, marked halfway line. Three or four a side.",
+      "coachingPoints": [
+        "Get wide and deep the moment the keeper has it",
+        "Keeper is a player — use them to switch",
+        "Defenders: decide together, half of you pressing is worse than neither",
+        "If the first pass is not on, go back and round — do not force it"
+      ],
+      "progressions": [
+        "No retreat line at all — press from wherever you like",
+        "Attacking team must make a set number of passes before crossing halfway"
+      ],
+      "regressions": [
+        "Defenders must stay in their half until the ball crosses the line",
+        "Add a neutral player for the team building out"
+      ],
+      "themes": [
+        "possession",
+        "passing",
+        "goalkeeping",
+        "defending"
+      ],
+      "ageGroups": [
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "phase-of-play",
+      "minPlayers": 8,
+      "maxPlayers": 12,
+      "durationMins": 20,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "goals"
+      ],
+      "diagram": {
+        "area": {
+          "w": 40,
+          "h": 20,
+          "unit": "yd"
+        },
+        "caption": "They retreat for the goal kick, then choose.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 4,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 96,
+            "facing": "down"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 26,
+            "label": "GK"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 80,
+            "label": "GK"
+          },
+          {
+            "t": "zone",
+            "x": 0,
+            "y": 50,
+            "w": 100,
+            "h": 50,
+            "label": "RETREAT"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 18,
+            "y": 44
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 44
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 82,
+            "y": 44
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 28,
+            "y": 62
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 52,
+            "y": 64
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 76,
+            "y": 62
+          },
+          {
+            "t": "ball",
+            "x": 42,
+            "y": 44
+          },
+          {
+            "t": "pass",
+            "from": [
+              40,
+              44
+            ],
+            "to": [
+              24,
+              44
+            ]
+          },
+          {
+            "t": "label",
+            "x": 88,
+            "y": 50,
+            "text": "halfway"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Stop It on a Cone",
+      "summary": "A 1v1 inside a small box where you score by stopping the ball on any of four cones.",
+      "description": "Split a square into a grid of small boxes and put a 1v1 in each, with a cone in every corner of the box and a ball between the two.\n\nYou score by stopping the ball dead on top of one of the four cones. Once you have scored you cannot use that same cone again straight away, so the attacker has to change direction rather than working one favourite move over and over.\n\nWinners move up a box, losers move down. That ladder is what keeps the effort up for the full minute.",
+      "setup": "A 25x25 area split into a 3x3 grid of boxes. Four cones in each box, one ball per pair. Play one-minute rounds.",
+      "coachingPoints": [
+        "Attack the cone they are furthest from",
+        "Change of pace, then change of direction — in that order",
+        "Defender: side-on, deny the nearest cone and show them across",
+        "Stopping it properly counts — a scuffed touch off the cone is nothing"
+      ],
+      "progressions": [
+        "Players are not fixed to a box and may go anywhere",
+        "Start with the defender passing in and the attacker naming their target cone"
+      ],
+      "regressions": [
+        "No ball at all — the defender pulls a bib from the attacker’s shorts",
+        "Bigger boxes"
+      ],
+      "themes": [
+        "dribbling",
+        "defending",
+        "physical"
+      ],
+      "ageGroups": [
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 6,
+      "maxPlayers": 18,
+      "durationMins": 12,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs"
+      ],
+      "diagram": {
+        "area": {
+          "w": 25,
+          "h": 25,
+          "unit": "yd"
+        },
+        "caption": "Stop the ball on a cone to score.",
+        "shapes": [
+          {
+            "t": "zone",
+            "x": 4,
+            "y": 4,
+            "w": 28,
+            "h": 28
+          },
+          {
+            "t": "zone",
+            "x": 36,
+            "y": 4,
+            "w": 28,
+            "h": 28
+          },
+          {
+            "t": "zone",
+            "x": 68,
+            "y": 4,
+            "w": 28,
+            "h": 28
+          },
+          {
+            "t": "zone",
+            "x": 4,
+            "y": 36,
+            "w": 28,
+            "h": 28
+          },
+          {
+            "t": "zone",
+            "x": 36,
+            "y": 36,
+            "w": 28,
+            "h": 28
+          },
+          {
+            "t": "zone",
+            "x": 68,
+            "y": 36,
+            "w": 28,
+            "h": 28
+          },
+          {
+            "t": "cone",
+            "x": 8,
+            "y": 8
+          },
+          {
+            "t": "cone",
+            "x": 28,
+            "y": 8
+          },
+          {
+            "t": "cone",
+            "x": 8,
+            "y": 28
+          },
+          {
+            "t": "cone",
+            "x": 28,
+            "y": 28
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 14,
+            "y": 14
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 24,
+            "y": 22
+          },
+          {
+            "t": "ball",
+            "x": 18,
+            "y": 18
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 46,
+            "y": 14
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 56,
+            "y": 22
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 78,
+            "y": 14
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 88,
+            "y": 22
+          },
+          {
+            "t": "dribble",
+            "from": [
+              18,
+              20
+            ],
+            "to": [
+              10,
+              28
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Diagonal Goals 1v1",
+      "summary": "Two 1v1 pitches side by side with the goals diagonally opposite each other.",
+      "description": "Split a rectangle into two long pitches with a goal at one end of each — but put them **diagonally opposite**, so the goal you attack and the goal you defend are at opposite corners of the whole area.\n\nOne defender works on each pitch. An attacker takes them on and tries to score. If the defender wins it, they can go and score in the goal at their own end.\n\nThe diagonal placement means winning the ball is genuinely worth something rather than just clearing it, and it keeps both pitches running at once so nobody is standing around.",
+      "setup": "A 40 x 20 area split into two 20 x 10 pitches. One goal per pitch, diagonally opposite. A defender on each, attackers queueing at the far ends.",
+      "coachingPoints": [
+        "Defender: deny first, delay second — do not lunge",
+        "Show them away from your goal and towards the touchline",
+        "Attacker: run at them, do not slow down and invite the tackle",
+        "Win it and go straight away — the other goal is a long way from them"
+      ],
+      "progressions": [
+        "Play it as a 2v2 on each pitch",
+        "Add a keeper in each goal"
+      ],
+      "regressions": [
+        "Defenders press but cannot tackle",
+        "Work in pairs, attacking one goal then the other"
+      ],
+      "themes": [
+        "defending",
+        "dribbling",
+        "transition"
+      ],
+      "ageGroups": [
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 6,
+      "maxPlayers": 14,
+      "durationMins": 15,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "minigoals"
+      ],
+      "diagram": {
+        "area": {
+          "w": 40,
+          "h": 20,
+          "unit": "yd"
+        },
+        "caption": "Goals diagonally opposite — winning it is worth something.",
+        "shapes": [
+          {
+            "t": "zone",
+            "x": 2,
+            "y": 4,
+            "w": 46,
+            "h": 92
+          },
+          {
+            "t": "zone",
+            "x": 52,
+            "y": 4,
+            "w": 46,
+            "h": 92
+          },
+          {
+            "t": "goal",
+            "x": 24,
+            "y": 6,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 76,
+            "y": 94,
+            "facing": "down"
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 24,
+            "y": 44
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 76,
+            "y": 56
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 24,
+            "y": 84
+          },
+          {
+            "t": "ball",
+            "x": 24,
+            "y": 92
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 76,
+            "y": 16
+          },
+          {
+            "t": "dribble",
+            "from": [
+              24,
+              88
+            ],
+            "to": [
+              24,
+              20
+            ]
+          },
+          {
+            "t": "run",
+            "from": [
+              76,
+              20
+            ],
+            "to": [
+              76,
+              84
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Ladder Zones 2v2",
+      "summary": "Three 2v2 pitches side by side, winners move up, losers move down.",
+      "description": "Split a square into three narrow pitches, each with a goal at both ends — six goals in total. A 2v2 on each, and you have to get into the final third of your pitch before you can score.\n\nShort games, then winners move up a pitch and losers move down. The ladder sorts itself out within a few rounds and everyone ends up playing someone their own level, which is worth more than any coaching point.\n\nDefending in pairs is the thing to watch. In a narrow pitch two defenders who stay connected are almost impossible to get past; two who both chase the ball get opened up every time.",
+      "setup": "A 25x25 area split into three pitches, a goal at both ends of each. Two v two on each pitch. Play three-minute games.",
+      "coachingPoints": [
+        "One presses, one covers — never both at the ball",
+        "Talk to each other; you cannot defend as a pair in silence",
+        "If the ball goes out, get set before it comes back in",
+        "Attacking: get into the final third first, then look for the finish"
+      ],
+      "progressions": [
+        "When a team concedes, one of them must run and touch the far goal first — a temporary 2v1",
+        "Winners move up two pitches instead of one"
+      ],
+      "regressions": [
+        "Winning the ball back and keeping it counts as a goal",
+        "Wider pitches"
+      ],
+      "themes": [
+        "defending",
+        "transition",
+        "possession"
+      ],
+      "ageGroups": [
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "ssg",
+      "minPlayers": 12,
+      "maxPlayers": 18,
+      "durationMins": 18,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "minigoals"
+      ],
+      "diagram": {
+        "area": {
+          "w": 25,
+          "h": 25,
+          "unit": "yd"
+        },
+        "caption": "Three pitches, winners move up.",
+        "shapes": [
+          {
+            "t": "zone",
+            "x": 2,
+            "y": 4,
+            "w": 30,
+            "h": 92
+          },
+          {
+            "t": "zone",
+            "x": 35,
+            "y": 4,
+            "w": 30,
+            "h": 92
+          },
+          {
+            "t": "zone",
+            "x": 68,
+            "y": 4,
+            "w": 30,
+            "h": 92
+          },
+          {
+            "t": "goal",
+            "x": 17,
+            "y": 6,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 17,
+            "y": 94,
+            "facing": "down"
+          },
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 6,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 94,
+            "facing": "down"
+          },
+          {
+            "t": "goal",
+            "x": 83,
+            "y": 6,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 83,
+            "y": 94,
+            "facing": "down"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 12,
+            "y": 34
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 22,
+            "y": 44
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 45,
+            "y": 34
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 55,
+            "y": 44
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 78,
+            "y": 34
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 88,
+            "y": 44
+          },
+          {
+            "t": "ball",
+            "x": 12,
+            "y": 40
+          },
+          {
+            "t": "pass",
+            "from": [
+              14,
+              40
+            ],
+            "to": [
+              44,
+              36
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Pairs Through the Gates",
+      "summary": "Pairs run through defended gates together, arriving at the same time.",
+      "description": "A square with two gates in each corner. One group are taggers, the other work in pairs.\n\nThe pairs try to get through either of the two gates at the far end — **both of them, at the same time**. One arriving alone does not count. That forces them to talk, time it, and split the taggers between them rather than both running at the same gap.\n\nSwap the groups over regularly. It is a warm-up but it is quietly teaching a two-player attacking pattern.",
+      "setup": "A 20x20 square with two cone gates in each corner. Split into taggers and pairs of attackers.",
+      "coachingPoints": [
+        "Split them — if you both run at one gate, one of you gets caught",
+        "Call it early so your partner knows which gate you are going for",
+        "Vary who leads; the tagger will follow the first runner",
+        "Taggers: stay between the two of them for as long as you can"
+      ],
+      "progressions": [
+        "Attackers may cross the halfway line and check back through their own gates",
+        "Add a ball for the pair to pass between them"
+      ],
+      "regressions": [
+        "Play it as a 1v1 instead of pairs",
+        "Wider gates"
+      ],
+      "themes": [
+        "movement",
+        "funandconfidence",
+        "physical"
+      ],
+      "ageGroups": [
+        "u8",
+        "u9",
+        "u10",
+        "u11",
+        "u12"
+      ],
+      "sessionPhase": "warmup",
+      "minPlayers": 8,
+      "maxPlayers": 16,
+      "durationMins": 10,
+      "intensity": "high",
+      "equipment": [
+        "cones",
+        "bibs"
+      ],
+      "diagram": {
+        "area": {
+          "w": 20,
+          "h": 20,
+          "unit": "yd"
+        },
+        "caption": "Both of you through, at the same time.",
+        "shapes": [
+          {
+            "t": "gate",
+            "x": 16,
+            "y": 6,
+            "angle": 0
+          },
+          {
+            "t": "gate",
+            "x": 84,
+            "y": 6,
+            "angle": 0
+          },
+          {
+            "t": "gate",
+            "x": 16,
+            "y": 94,
+            "angle": 0
+          },
+          {
+            "t": "gate",
+            "x": 84,
+            "y": 94,
+            "angle": 0
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 30,
+            "y": 78
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 48,
+            "y": 84
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 40,
+            "y": 50
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 66,
+            "y": 44
+          },
+          {
+            "t": "run",
+            "from": [
+              30,
+              72
+            ],
+            "to": [
+              18,
+              14
+            ]
+          },
+          {
+            "t": "run",
+            "from": [
+              48,
+              78
+            ],
+            "to": [
+              80,
+              14
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Halfway There",
+      "summary": "Two v two locked in each half — dribble into the other half to score.",
+      "description": "Split a pitch in two, with a goal and keeper at each end and a 2v2 in each half. Players are locked into their own half, with one exception: the player who carries the ball over the line.\n\nThe keeper starts it with their own attackers. To score, one of them has to **dribble** into the far half and finish, which means beating someone and then dealing with what is waiting.\n\nBecause only the ball-carrier can cross, it is genuinely a 1v2 the moment they arrive. That sounds unfair and is the point — they learn to pick the right moment rather than setting off every time.",
+      "setup": "A pitch split into halves, goal and keeper at each end. Two from each team in each half. Bibs.",
+      "coachingPoints": [
+        "Pick your moment — go when they are square or flat-footed",
+        "Both feet: a defender only has to cover one side if you only use one",
+        "Once you are over, go straight at goal; the cover is coming",
+        "Defending pair: force them wide, never let them come inside on their strong foot"
+      ],
+      "progressions": [
+        "Open it up into a free game where you just have to get into the opposite half to score",
+        "A team-mate may follow the carrier across"
+      ],
+      "regressions": [
+        "Players may move anywhere",
+        "Everyone has a ball and simply has to get from one side to the other"
+      ],
+      "themes": [
+        "dribbling",
+        "transition",
+        "defending",
+        "shooting"
+      ],
+      "ageGroups": [
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "ssg",
+      "minPlayers": 10,
+      "maxPlayers": 12,
+      "durationMins": 18,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "goals"
+      ],
+      "diagram": {
+        "area": {
+          "w": 35,
+          "h": 25,
+          "unit": "yd"
+        },
+        "caption": "Only the ball-carrier may cross the line.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 4,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 96,
+            "facing": "down"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 16,
+            "label": "GK"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 84,
+            "label": "GK"
+          },
+          {
+            "t": "zone",
+            "x": 2,
+            "y": 28,
+            "w": 96,
+            "h": 20
+          },
+          {
+            "t": "zone",
+            "x": 2,
+            "y": 52,
+            "w": 96,
+            "h": 20
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 32,
+            "y": 36
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 64,
+            "y": 40
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 42,
+            "y": 32
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 72,
+            "y": 34
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 34,
+            "y": 64
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 66,
+            "y": 60
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 44,
+            "y": 68
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 74,
+            "y": 66
+          },
+          {
+            "t": "ball",
+            "x": 32,
+            "y": 42
+          },
+          {
+            "t": "dribble",
+            "from": [
+              32,
+              44
+            ],
+            "to": [
+              44,
+              56
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Gate and Strike",
+      "summary": "Push the ball through a gate with one touch, then finish with the next.",
+      "description": "Two lines of players, each with a ball, and a cone gate a few yards in front of each. A goal at each end.\n\nOne touch to push the ball through the gate, the next one to strike at goal. Two players go at once — one line working their right foot, the other their left — then they swap lines so everybody does both.\n\nThe gate is doing something specific: it forces a proper first touch out of the feet instead of the shuffling-and-poking that happens when players shoot from a static ball.",
+      "setup": "About 30 x 20 with a goal at each end, keepers optional. A cone gate a few yards in front of each line.",
+      "coachingPoints": [
+        "First touch through the gate and into your stride, not sideways",
+        "Strike it while it is still rolling",
+        "Non-kicking foot beside the ball; head over it",
+        "Aim for the far post — a keeper covers the near one first"
+      ],
+      "progressions": [
+        "Start with the ball in your hands and strike it on the half volley",
+        "Pair up: one carries it wide and cuts it back for the other to finish first time"
+      ],
+      "regressions": [
+        "Move everything closer to goal",
+        "No keepers to start with"
+      ],
+      "themes": [
+        "shooting",
+        "receiving"
+      ],
+      "ageGroups": [
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 6,
+      "maxPlayers": 16,
+      "durationMins": 15,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones",
+        "goals"
+      ],
+      "diagram": {
+        "area": {
+          "w": 30,
+          "h": 20,
+          "unit": "yd"
+        },
+        "caption": "One touch through the gate, one at goal.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 20,
+            "y": 6,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 80,
+            "y": 6,
+            "facing": "up"
+          },
+          {
+            "t": "gate",
+            "x": 30,
+            "y": 44,
+            "angle": 0
+          },
+          {
+            "t": "gate",
+            "x": 70,
+            "y": 44,
+            "angle": 0
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 30,
+            "y": 74
+          },
+          {
+            "t": "ball",
+            "x": 30,
+            "y": 82
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 70,
+            "y": 74
+          },
+          {
+            "t": "ball",
+            "x": 70,
+            "y": 82
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 18,
+            "y": 92
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 42,
+            "y": 92
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 58,
+            "y": 92
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 82,
+            "y": 92
+          },
+          {
+            "t": "pass",
+            "from": [
+              30,
+              78
+            ],
+            "to": [
+              30,
+              52
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              30,
+              40
+            ],
+            "to": [
+              22,
+              14
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Chip or Go Round",
+      "summary": "One-on-one with a keeper who sets the ball back — chip them or take it round.",
+      "description": "Two lines either side of the area, a goal at each end, and one player in the middle acting as the keeper for both.\n\nA player passes in to the middle player, who sets it straight back. The attacker now has two options and about a second to choose: **chip** it over them into the empty goal, or **take it round** and roll it in.\n\nAfter the attempt, the middle player joins a line and the attacker becomes the new keeper. It keeps rotating and everybody does both jobs.",
+      "setup": "An area with a goal at each end and one player in the middle. Two lines of players with a ball each.",
+      "coachingPoints": [
+        "Decide as the set-back is travelling, not when it arrives",
+        "Chip: get under it with a firm, stabbing contact — do not scoop",
+        "Round them: take the first touch wide of their reach, not straight at them",
+        "If they come out fast, the chip is on; if they stay, go round"
+      ],
+      "progressions": [
+        "Keeper backs away facing the ball, forcing the chip",
+        "Keeper rushes out, forcing the 1v1",
+        "Middle player defends properly and a real keeper goes in goal"
+      ],
+      "regressions": [
+        "Move the goals closer together",
+        "Keeper stays on their line"
+      ],
+      "themes": [
+        "shooting",
+        "dribbling",
+        "goalkeeping"
+      ],
+      "ageGroups": [
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 6,
+      "maxPlayers": 14,
+      "durationMins": 15,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones",
+        "goals"
+      ],
+      "diagram": {
+        "area": {
+          "w": 30,
+          "h": 20,
+          "unit": "yd"
+        },
+        "caption": "Set back, then chip or take them round.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 6,
+            "y": 50,
+            "facing": "left"
+          },
+          {
+            "t": "goal",
+            "x": 94,
+            "y": 50,
+            "facing": "right"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 50,
+            "label": "GK"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 76,
+            "y": 50
+          },
+          {
+            "t": "ball",
+            "x": 70,
+            "y": 50
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 90,
+            "y": 24
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 90,
+            "y": 76
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 10,
+            "y": 24
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 10,
+            "y": 76
+          },
+          {
+            "t": "pass",
+            "from": [
+              68,
+              50
+            ],
+            "to": [
+              56,
+              50
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              44,
+              50
+            ],
+            "to": [
+              14,
+              48
+            ]
+          },
+          {
+            "t": "dribble",
+            "from": [
+              44,
+              58
+            ],
+            "to": [
+              16,
+              62
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Finishing Bingo",
+      "summary": "A game where the team must score with every type of finish on the list.",
+      "description": "Write a list somewhere both teams can see it: header, volley, half-volley, first time, outside of the foot, laces, weak foot, one from outside the box.\n\nPlay a normal game. Each team ticks off a finish type when they score with it, and the first team to complete the whole list wins. Repeating one you already have counts for nothing.\n\nIt gets players trying finishes they would otherwise avoid — especially the weak-foot one, which is usually the last box anyone fills.",
+      "setup": "A small pitch, goal at each end, keepers. Bibs. A whiteboard or a piece of paper on a cone with the list on it.",
+      "coachingPoints": [
+        "Look at the list before you shoot — which one do you still need?",
+        "Set each other up: someone has to cross for the header",
+        "Weak foot early, while the game is still open",
+        "Do not force a volley from a bad position just to tick it off"
+      ],
+      "progressions": [
+        "Individuals complete their own list rather than the team",
+        "Three in a row on the list wins it"
+      ],
+      "regressions": [
+        "Shorter list",
+        "Any goal counts once the team has three types"
+      ],
+      "themes": [
+        "shooting",
+        "funandconfidence",
+        "possession"
+      ],
+      "ageGroups": [
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "scrimmage",
+      "minPlayers": 8,
+      "maxPlayers": 16,
+      "durationMins": 20,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "goals"
+      ],
+      "diagram": {
+        "area": {
+          "w": 35,
+          "h": 25,
+          "unit": "yd"
+        },
+        "caption": "Tick off every finish type on the list.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 4,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 96,
+            "facing": "down"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 16,
+            "label": "GK"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 84,
+            "label": "GK"
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 30,
+            "y": 44
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 62,
+            "y": 38
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 46,
+            "y": 66
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 40,
+            "y": 32
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 68,
+            "y": 56
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 26,
+            "y": 58
+          },
+          {
+            "t": "ball",
+            "x": 24,
+            "y": 48
+          },
+          {
+            "t": "pass",
+            "from": [
+              28,
+              48
+            ],
+            "to": [
+              58,
+              40
+            ]
+          },
+          {
+            "t": "label",
+            "x": 86,
+            "y": 24,
+            "text": "list"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Out and Back",
+      "summary": "Dribble inside a box until the call, then out around a far cone and back in.",
+      "description": "Mark a small square inside a much bigger one, with tall cones on the outer square. Everyone dribbles inside the small square.\n\nOn the call, they take the ball out, round any one of the outer cones, and back into the middle. First one back wins that round.\n\nIt is a simple warm-up but it does two things at once: close control in a crowd, then a proper long carry at speed. Players who take tiny touches on the way out lose every time, which teaches the difference faster than saying it.",
+      "setup": "A 10x10 square inside a 25x25 one, with a large cone at each corner and midpoint of the outer square. One ball per player.",
+      "coachingPoints": [
+        "Small touches inside, big ones the moment you are out",
+        "Pick your cone before the whistle so you are not deciding at the exit",
+        "Head up — everyone is leaving at once",
+        "Turn tight around the cone, do not run a wide arc"
+      ],
+      "progressions": [
+        "Round two cones before coming back",
+        "Call a specific cone as they set off"
+      ],
+      "regressions": [
+        "Leave the ball in the box, run round a cone and come back to it",
+        "Fewer players in the middle square"
+      ],
+      "themes": [
+        "dribbling",
+        "physical",
+        "funandconfidence"
+      ],
+      "ageGroups": [
+        "u7",
+        "u8",
+        "u9",
+        "u10",
+        "u11",
+        "u12"
+      ],
+      "sessionPhase": "warmup",
+      "minPlayers": 4,
+      "maxPlayers": 20,
+      "durationMins": 8,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones"
+      ],
+      "diagram": {
+        "area": {
+          "w": 25,
+          "h": 25,
+          "unit": "yd"
+        },
+        "caption": "Out around a cone, then straight back in.",
+        "shapes": [
+          {
+            "t": "zone",
+            "x": 32,
+            "y": 32,
+            "w": 36,
+            "h": 36
+          },
+          {
+            "t": "cone",
+            "x": 6,
+            "y": 6
+          },
+          {
+            "t": "cone",
+            "x": 50,
+            "y": 4
+          },
+          {
+            "t": "cone",
+            "x": 94,
+            "y": 6
+          },
+          {
+            "t": "cone",
+            "x": 4,
+            "y": 50
+          },
+          {
+            "t": "cone",
+            "x": 96,
+            "y": 50
+          },
+          {
+            "t": "cone",
+            "x": 6,
+            "y": 94
+          },
+          {
+            "t": "cone",
+            "x": 50,
+            "y": 96
+          },
+          {
+            "t": "cone",
+            "x": 94,
+            "y": 94
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 42,
+            "y": 42
+          },
+          {
+            "t": "ball",
+            "x": 46,
+            "y": 46
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 58,
+            "y": 52
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 46,
+            "y": 60
+          },
+          {
+            "t": "ball",
+            "x": 52,
+            "y": 64
+          },
+          {
+            "t": "dribble",
+            "from": [
+              46,
+              46
+            ],
+            "to": [
+              12,
+              12
+            ]
+          },
+          {
+            "t": "dribble",
+            "from": [
+              52,
+              64
+            ],
+            "to": [
+              50,
+              90
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Run the Lines",
+      "summary": "Beat two defenders who can only move along their own line, then finish.",
+      "description": "A grid split into thirds by two lines across it, with a goal at the far end. A defender stands on each line and cannot leave it; a third defends the goal.\n\nThe attacker has to beat both line defenders, then the last one, to score. Because the line players can only slide sideways, the attacker beats them with timing and a change of direction rather than pace alone.\n\nIf a defender wins it, they pass it up to the next defender, who dribbles out over the end line — so there is something in it for them too.",
+      "setup": "A 20x20 grid with two lines marked across it and a goal at one end. One defender on each line, one in front of the goal. Attackers queue at the far end with a ball each.",
+      "coachingPoints": [
+        "Attack the line at an angle, not straight on",
+        "Change direction late — the first move should be a lie",
+        "Once you are through one line, go; the next defender is already moving",
+        "Line defenders: shuffle, do not cross your feet"
+      ],
+      "progressions": [
+        "Two or three attackers go at once",
+        "Make it multi-directional — travel side to side repeatedly",
+        "Defenders may defend a whole third rather than a line"
+      ],
+      "regressions": [
+        "Only one line defender",
+        "Defenders press but cannot tackle"
+      ],
+      "themes": [
+        "dribbling",
+        "defending",
+        "shooting"
+      ],
+      "ageGroups": [
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 6,
+      "maxPlayers": 14,
+      "durationMins": 15,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "minigoals"
+      ],
+      "diagram": {
+        "area": {
+          "w": 20,
+          "h": 20,
+          "unit": "yd"
+        },
+        "caption": "Two line defenders, then the last one.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 6,
+            "facing": "up"
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 50,
+            "y": 22
+          },
+          {
+            "t": "zone",
+            "x": 2,
+            "y": 36,
+            "w": 96,
+            "h": 2
+          },
+          {
+            "t": "zone",
+            "x": 2,
+            "y": 64,
+            "w": 96,
+            "h": 2
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 34,
+            "y": 37
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 64,
+            "y": 65
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 86
+          },
+          {
+            "t": "ball",
+            "x": 50,
+            "y": 94
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 26,
+            "y": 94
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 74,
+            "y": 94
+          },
+          {
+            "t": "dribble",
+            "from": [
+              50,
+              84
+            ],
+            "to": [
+              60,
+              54
+            ]
+          },
+          {
+            "t": "dribble",
+            "from": [
+              60,
+              50
+            ],
+            "to": [
+              44,
+              30
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Share or Beat",
+      "summary": "Two attackers against one defender: pass around them, or take them on.",
+      "description": "A goal and keeper at each end with one defender in front of each. Attackers work in pairs from the halfway line.\n\nThe keeper rolls it out to one of the pair, and it becomes a 2v1 towards the far goal. Every time, there is the same question: **share it** with your partner and go round the defender, or **beat them yourself**.\n\nBoth answers are right depending on what the defender does, which is the whole lesson. A defender who commits to the ball should be passed around; one who sits off and covers the pass should be taken on.",
+      "setup": "A pitch with a goal and keeper at each end, one defender in front of each goal. Two groups of attackers at the halfway line, split into pairs.",
+      "coachingPoints": [
+        "Look at the defender, not your partner — they tell you which option is on",
+        "If they come to you, the pass is on; if they sit off, go at them",
+        "Supporting player: stay wide enough to be a real option, not right beside them",
+        "Take the shot early once you are past — the cover arrives fast"
+      ],
+      "progressions": [
+        "Make it 2v2",
+        "Add a time limit on each attack"
+      ],
+      "regressions": [
+        "Play it as a 3v1",
+        "Defender may not tackle, only press"
+      ],
+      "themes": [
+        "dribbling",
+        "passing",
+        "shooting",
+        "movement"
+      ],
+      "ageGroups": [
+        "u9",
+        "u10",
+        "u11",
+        "u12",
+        "u13"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 8,
+      "maxPlayers": 16,
+      "durationMins": 18,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "goals"
+      ],
+      "diagram": {
+        "area": {
+          "w": 35,
+          "h": 25,
+          "unit": "yd"
+        },
+        "caption": "Pass around them, or take them on.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 4,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 50,
+            "y": 96,
+            "facing": "down"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 16,
+            "label": "GK"
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 50,
+            "y": 84,
+            "label": "GK"
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 50,
+            "y": 32
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 36,
+            "y": 54
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 66,
+            "y": 52
+          },
+          {
+            "t": "ball",
+            "x": 36,
+            "y": 60
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 14,
+            "y": 88
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 86,
+            "y": 88
+          },
+          {
+            "t": "pass",
+            "from": [
+              38,
+              58
+            ],
+            "to": [
+              64,
+              50
+            ]
+          },
+          {
+            "t": "dribble",
+            "from": [
+              34,
+              50
+            ],
+            "to": [
+              40,
+              26
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "One Per Box",
+      "summary": "Three teams in four boxes, and you can never be in the same box as a team-mate.",
+      "description": "Split a square into four boxes. Three teams of three, a ball between each team. Players pass or carry the ball from box to box — but **no two team-mates may ever be in the same box**.\n\nThat single rule keeps everyone moving. The moment you receive, someone else on your team has to leave, and you have to look up to see where the space actually is.\n\nStart it unopposed with all three teams working at once, then make one team the defenders and play two against one.",
+      "setup": "A 20x20 square split into four boxes. Three teams of three, one ball each to start. Bibs in three colours.",
+      "coachingPoints": [
+        "Check the box before you move into it — is one of yours already there?",
+        "Receive on the half-turn so you can see the next box",
+        "Move as soon as you have passed, do not admire it",
+        "Talk: tell them which box you are heading for"
+      ],
+      "progressions": [
+        "One team defends and it becomes two against one",
+        "Lose the ball and your team becomes the defenders",
+        "Being caught in a box with a team-mate concedes possession"
+      ],
+      "regressions": [
+        "Throw and catch rather than pass",
+        "Bigger boxes"
+      ],
+      "themes": [
+        "movement",
+        "passing",
+        "possession",
+        "receiving"
+      ],
+      "ageGroups": [
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "technical",
+      "minPlayers": 9,
+      "maxPlayers": 12,
+      "durationMins": 15,
+      "intensity": "medium",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs"
+      ],
+      "diagram": {
+        "area": {
+          "w": 20,
+          "h": 20,
+          "unit": "yd"
+        },
+        "caption": "Never two team-mates in the same box.",
+        "shapes": [
+          {
+            "t": "zone",
+            "x": 2,
+            "y": 2,
+            "w": 46,
+            "h": 46
+          },
+          {
+            "t": "zone",
+            "x": 52,
+            "y": 2,
+            "w": 46,
+            "h": 46
+          },
+          {
+            "t": "zone",
+            "x": 2,
+            "y": 52,
+            "w": 46,
+            "h": 46
+          },
+          {
+            "t": "zone",
+            "x": 52,
+            "y": 52,
+            "w": 46,
+            "h": 46
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 22,
+            "y": 20
+          },
+          {
+            "t": "ball",
+            "x": 28,
+            "y": 24
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 72,
+            "y": 22
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 24,
+            "y": 72
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 70,
+            "y": 68
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 20,
+            "y": 44
+          },
+          {
+            "t": "player",
+            "team": "n",
+            "x": 76,
+            "y": 44
+          },
+          {
+            "t": "pass",
+            "from": [
+              28,
+              24
+            ],
+            "to": [
+              68,
+              20
+            ]
+          },
+          {
+            "t": "run",
+            "from": [
+              24,
+              68
+            ],
+            "to": [
+              46,
+              58
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Score From the Box",
+      "summary": "Four goals, six zones, and you can only score from the box in front of a goal.",
+      "description": "A rectangle split into six boxes — three across, two deep — with a goal on each side at both ends. Four a side.\n\nYou can only score from inside the box directly in front of the goal you are attacking. With two goals at each end and three channels to work in, the attacking team is looking to get an extra player into one channel; the defending team is trying to cover two of the three and stay compact.\n\nThat trade-off — spread out to attack, squeeze to defend — is the whole game, and it shows up in almost every phase of real football.",
+      "setup": "A 40 x 20 area split into six boxes. Two goals on each end line, wide apart. Four a side, bibs.",
+      "coachingPoints": [
+        "Attacking: get width in all three channels and find the spare player",
+        "Defending: pick two channels and stay connected — you cannot cover all three",
+        "Switch it when one side gets crowded; the far goal will be free",
+        "You have to be in the box to score, so time the run rather than camping there"
+      ],
+      "progressions": [
+        "Score more points for a bigger overload in the channel",
+        "Winner stays on",
+        "You must find a target player before you can score"
+      ],
+      "regressions": [
+        "Score from anywhere on the pitch",
+        "Add two more goals in the middle channel",
+        "Play it unopposed to learn the shape"
+      ],
+      "themes": [
+        "possession",
+        "movement",
+        "transition",
+        "defending"
+      ],
+      "ageGroups": [
+        "u11",
+        "u12",
+        "u13",
+        "u14plus"
+      ],
+      "sessionPhase": "phase-of-play",
+      "minPlayers": 8,
+      "maxPlayers": 14,
+      "durationMins": 20,
+      "intensity": "high",
+      "equipment": [
+        "balls",
+        "cones",
+        "bibs",
+        "minigoals"
+      ],
+      "diagram": {
+        "area": {
+          "w": 40,
+          "h": 20,
+          "unit": "yd"
+        },
+        "caption": "Only the box in front of the goal counts.",
+        "shapes": [
+          {
+            "t": "goal",
+            "x": 22,
+            "y": 4,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 78,
+            "y": 4,
+            "facing": "up"
+          },
+          {
+            "t": "goal",
+            "x": 22,
+            "y": 96,
+            "facing": "down"
+          },
+          {
+            "t": "goal",
+            "x": 78,
+            "y": 96,
+            "facing": "down"
+          },
+          {
+            "t": "zone",
+            "x": 2,
+            "y": 14,
+            "w": 30,
+            "h": 32
+          },
+          {
+            "t": "zone",
+            "x": 35,
+            "y": 14,
+            "w": 30,
+            "h": 32
+          },
+          {
+            "t": "zone",
+            "x": 68,
+            "y": 14,
+            "w": 30,
+            "h": 32
+          },
+          {
+            "t": "zone",
+            "x": 2,
+            "y": 54,
+            "w": 30,
+            "h": 32
+          },
+          {
+            "t": "zone",
+            "x": 35,
+            "y": 54,
+            "w": 30,
+            "h": 32
+          },
+          {
+            "t": "zone",
+            "x": 68,
+            "y": 54,
+            "w": 30,
+            "h": 32
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 16,
+            "y": 30
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 36
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 84,
+            "y": 30
+          },
+          {
+            "t": "player",
+            "team": "a",
+            "x": 50,
+            "y": 64
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 30,
+            "y": 44
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 64,
+            "y": 42
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 46,
+            "y": 74
+          },
+          {
+            "t": "player",
+            "team": "b",
+            "x": 80,
+            "y": 66
+          },
+          {
+            "t": "ball",
+            "x": 16,
+            "y": 36
+          },
+          {
+            "t": "pass",
+            "from": [
+              18,
+              36
+            ],
+            "to": [
+              48,
+              34
+            ]
+          },
+          {
+            "t": "pass",
+            "from": [
+              54,
+              32
+            ],
+            "to": [
+              82,
+              28
+            ]
+          }
+        ]
+      }
     }
   ]
 }
