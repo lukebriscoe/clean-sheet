@@ -90,6 +90,9 @@ const blocks = await page.locator('.mown > li').count()
 check('planner shows the running order', blocks === 5, `${blocks} blocks`)
 
 // ---- 5. Running clock ----
+if (await page.getByRole('button', { name: 'Edit' }).count()) {
+  await page.getByRole('button', { name: 'Edit' }).first().click()
+}
 await page.fill('input[type="time"]', '18:30')
 await page.waitForTimeout(400)
 const clocks = await page.locator('.mown > li time').allInnerTexts()
@@ -251,6 +254,38 @@ const bad = await fetch(
   },
 )
 check('firestore rules reject an invalid write', bad.status === 403, `HTTP ${bad.status}`)
+
+// ---- 13. Mobile planner: no horizontal scroll, compact blocks ----
+// A grid item defaults to min-width:auto, so a single missing `min-w-0` on a
+// stacked column silently pushes the whole page into horizontal scroll. That is
+// invisible on a desktop run, hence checking it explicitly at phone width.
+const phone = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true })
+const phonePage = await phone.newPage()
+await phonePage.goto('http://localhost:5173/#/library', { waitUntil: 'domcontentloaded' })
+await phonePage.waitForSelector('main ul li', { timeout: 20000 })
+for (let i = 0; i < 3; i++) {
+  await phonePage.locator(ROWS).nth(i).getByRole('button', { name: /^Add .* to your session$/ }).click()
+  await phonePage.waitForTimeout(80)
+}
+await phonePage.getByRole('link', { name: /^Plan/ }).click()
+await phonePage.waitForSelector('.mown > li', { timeout: 20000 })
+await phonePage.waitForTimeout(400)
+const phoneMetrics = await phonePage.evaluate(() => ({
+  docW: document.documentElement.clientWidth,
+  scrollW: document.documentElement.scrollWidth,
+  blockH: Math.round(document.querySelector('.mown > li').getBoundingClientRect().height),
+}))
+check(
+  'mobile planner does not scroll horizontally',
+  phoneMetrics.scrollW <= phoneMetrics.docW + 1,
+  `${phoneMetrics.scrollW}px in a ${phoneMetrics.docW}px viewport`,
+)
+check(
+  'mobile blocks stay compact',
+  phoneMetrics.blockH < 220,
+  `${phoneMetrics.blockH}px per block`,
+)
+await phonePage.screenshot({ path: `${OUT}/08-mobile-plan.png`, fullPage: true })
 
 check('no console errors', errors.length === 0, errors.slice(0, 2).join(' | '))
 

@@ -7,10 +7,15 @@ import TouchlineRail from './TouchlineRail.jsx'
 /**
  * One block in the running order, hanging off the touchline rail.
  *
- * Reordering is up/down buttons rather than drag-and-drop, and they are 44px
- * targets: this gets used one-handed on a phone while holding a clipboard, where
- * touch drag is fiddly, hard to undo, and inaccessible to keyboard and screen
- * reader users alike.
+ * The collapsed row carries only what a coach reads or changes often: the time,
+ * what it is, and its duration. Changing the phase, marking "now" and removing
+ * the block all live in the expanded panel — on a 390px phone those extra
+ * controls pushed the action row onto a second line and made every block ~450px
+ * tall, so a four-block session took four screens to scroll.
+ *
+ * Reordering stays on the collapsed row, and stays as up/down buttons at 44px:
+ * this is used one-handed while holding a clipboard, where touch drag is fiddly,
+ * hard to undo, and inaccessible to keyboard and screen reader users alike.
  */
 export default function BlockRow({
   block,
@@ -29,7 +34,7 @@ export default function BlockRow({
   const isFreeform = !block.drillId
 
   return (
-    <li className="flex gap-2 px-2 py-3 sm:px-3">
+    <li className="flex gap-2 px-2 py-2.5 sm:px-3 sm:py-3">
       <TouchlineRail
         startMin={block.startMin}
         startTime={startTime}
@@ -38,22 +43,11 @@ export default function BlockRow({
         isNow={isNow}
       />
 
-      <div className="min-w-0 flex-1 pt-0.5">
-        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-          <select
-            value={block.phase}
-            onChange={event => onUpdate(block.id, { phase: event.target.value })}
-            aria-label="Part of the session"
-            className="-ml-2 min-h-[2.75rem] rounded-md bg-transparent px-2 font-display text-[0.7rem] font-bold uppercase tracking-[0.08em] text-mist hover:bg-paper"
-          >
-            {PHASES.map(phase => (
-              <option key={phase.key} value={phase.key}>
-                {phase.label}
-              </option>
-            ))}
-          </select>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2">
+          <span className="label-sm truncate">{labelFor('phase', block.phase)}</span>
           {isNow && (
-            <span className="rounded-sm bg-hivis px-1.5 py-0.5 font-display text-[0.65rem] font-bold uppercase tracking-[0.08em] text-ink">
+            <span className="shrink-0 rounded-sm bg-hivis px-1.5 py-0.5 font-display text-[0.65rem] font-bold uppercase tracking-[0.08em] text-ink">
               Now
             </span>
           )}
@@ -68,16 +62,19 @@ export default function BlockRow({
             className="mt-0.5 w-full rounded border border-dashed border-line bg-transparent px-2 py-1 font-display text-lg font-bold text-pitch focus:border-pitch focus:outline-none"
           />
         ) : (
-          <h3 className="mt-0.5 font-display text-lg font-bold leading-snug text-pitch">
+          <h3 className="mt-0.5 font-display text-[1.05rem] font-bold leading-snug text-pitch">
             {snapshot.name}
           </h3>
         )}
 
-        {snapshot.summary && <p className="mt-0.5 text-sm text-mist">{snapshot.summary}</p>}
+        {snapshot.summary && (
+          <p className="mt-0.5 line-clamp-2 text-sm leading-snug text-mist">{snapshot.summary}</p>
+        )}
 
-        <div className="mt-2 flex flex-wrap items-center gap-1">
-          <label className="flex items-center gap-1.5">
-            <span className="label-sm">Mins</span>
+        {/* One row, always — four controls fit inside 300px of usable width. */}
+        <div className="mt-1.5 flex items-center gap-1">
+          <label className="flex shrink-0 items-center gap-1.5">
+            <span className="sr-only">Minutes</span>
             <input
               type="number"
               min="1"
@@ -86,29 +83,21 @@ export default function BlockRow({
               value={block.durationMins}
               onChange={event => onUpdate(block.id, { durationMins: Number(event.target.value) || 1 })}
               aria-label={`Duration of ${snapshot.name || 'this block'} in minutes`}
-              className="tnum h-11 w-16 rounded-md border border-line bg-chalk px-2 text-center font-display font-bold focus:border-pitch focus:outline-none"
+              className="tnum h-11 w-14 rounded-md border border-line bg-chalk px-1 text-center font-display font-bold focus:border-pitch focus:outline-none"
             />
+            <span aria-hidden className="label-sm">min</span>
           </label>
 
           <button
             type="button"
             onClick={() => setExpanded(open => !open)}
             aria-expanded={expanded}
-            className="btn-quiet text-sm"
+            className="btn-quiet shrink-0 px-2 text-sm"
           >
-            {expanded ? 'Less' : 'Details & notes'}
+            {expanded ? 'Less' : 'Details'}
           </button>
 
-          <div className="ml-auto flex items-center">
-            <button
-              type="button"
-              onClick={() => onSetNow(isNow ? null : block.id)}
-              aria-pressed={isNow}
-              aria-label={isNow ? 'Clear the now marker' : `Mark ${snapshot.name || 'this block'} as now`}
-              className={`btn-icon ${isNow ? 'text-pitch' : ''}`}
-            >
-              <span aria-hidden className="text-base">◉</span>
-            </button>
+          <div className="ml-auto flex shrink-0 items-center">
             <button
               type="button"
               onClick={() => onMove(block.id, -1)}
@@ -127,19 +116,44 @@ export default function BlockRow({
             >
               <span aria-hidden>↓</span>
             </button>
-            <button
-              type="button"
-              onClick={() => onRemove(block.id)}
-              aria-label={`Remove ${snapshot.name || 'block'} from the session`}
-              className="btn-icon hover:text-whistle"
-            >
-              <span aria-hidden>×</span>
-            </button>
           </div>
         </div>
 
         {expanded && (
           <div className="mt-3 space-y-4 border-t border-line pt-3">
+            {/* Rare and destructive actions live here, off the main row. */}
+            <div className="flex flex-wrap items-end gap-2">
+              <label className="min-w-0 flex-1">
+                <span className="label-sm mb-1.5 block">Part of the session</span>
+                <select
+                  value={block.phase}
+                  onChange={event => onUpdate(block.id, { phase: event.target.value })}
+                  className="field"
+                >
+                  {PHASES.map(phase => (
+                    <option key={phase.key} value={phase.key}>
+                      {phase.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button
+                type="button"
+                onClick={() => onSetNow(isNow ? null : block.id)}
+                aria-pressed={isNow}
+                className={isNow ? 'btn-primary shrink-0' : 'btn-ghost shrink-0'}
+              >
+                {isNow ? 'Clear now' : 'Mark as now'}
+              </button>
+              <button
+                type="button"
+                onClick={() => onRemove(block.id)}
+                className="btn-quiet shrink-0 hover:text-whistle"
+              >
+                Remove
+              </button>
+            </div>
+
             {isFreeform ? (
               <label className="block">
                 <span className="label-sm mb-1.5 block">What happens</span>
@@ -187,18 +201,9 @@ export default function BlockRow({
                 className="field min-h-[3.5rem] resize-y text-sm"
               />
             </label>
-
-            {!isFreeform && (
-              <p className="text-xs text-mist">
-                This is your own copy of <strong className="font-bold">{snapshot.name}</strong>.
-                Editing the drill in the library later won&rsquo;t change this session.
-              </p>
-            )}
           </div>
         )}
       </div>
     </li>
   )
 }
-
-export { labelFor }

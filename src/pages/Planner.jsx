@@ -4,7 +4,7 @@ import { useSession } from '../state/session-context.jsx'
 import { useDrills } from '../hooks/useDrills.js'
 import { useSaveSession } from '../hooks/useSavedSession.js'
 import { withRunningOrder, durationStatus, formatDuration, totalMinutes } from '../lib/timings.js'
-import { AGE_GROUPS, THEMES, LIMITS } from '../lib/taxonomy.js'
+import { AGE_GROUPS, THEMES, LIMITS, labelFor } from '../lib/taxonomy.js'
 import BlockRow from '../components/planner/BlockRow.jsx'
 import BlockPicker from '../components/planner/BlockPicker.jsx'
 import { ShapeStrip, RailFinish } from '../components/planner/TouchlineRail.jsx'
@@ -21,6 +21,10 @@ export default function Planner() {
 
   const [confirmingReset, setConfirmingReset] = useState(false)
   const [showDetails, setShowDetails] = useState(false)
+  // On a phone the setup fields pushed the running order 570px down the page —
+  // two thirds of the viewport before you could see your own plan. They collapse
+  // to a one-line summary here and stay open on desktop, where there's room.
+  const [setupOpen, setSetupOpen] = useState(false)
   // Which block the coach is on. Local only — it's a pitchside aid, not part of
   // the plan, so it never goes to Firestore.
   const [nowId, setNowId] = useState(null)
@@ -61,6 +65,23 @@ export default function Planner() {
               />
             </Field>
 
+            <div className="mt-3 flex items-center gap-2 lg:hidden">
+              <p className="min-w-0 flex-1 truncate text-sm text-mist">
+                {labelFor('ageGroup', session.ageGroup)} · {session.playerCount} players ·{' '}
+                {formatDuration(session.durationMins)}
+                {session.startTime && ` · KO ${session.startTime}`}
+              </p>
+              <button
+                type="button"
+                onClick={() => setSetupOpen(open => !open)}
+                aria-expanded={setupOpen}
+                className="btn-quiet shrink-0 text-sm"
+              >
+                {setupOpen ? 'Done' : 'Edit'}
+              </button>
+            </div>
+
+            <div className={`${setupOpen ? '' : 'hidden'} lg:block`}>
             <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
               <Field label="Age group">
                 <select
@@ -95,6 +116,7 @@ export default function Planner() {
                 />
               </Field>
             </div>
+            </div>
 
             {/* The shape of the session — proportional, so a fat warm-up looks fat. */}
             <div className="mt-4 border-t border-line pt-4">
@@ -122,6 +144,7 @@ export default function Planner() {
               </div>
             </div>
 
+            <div className={`${setupOpen ? '' : 'hidden'} lg:block`}>
             <button
               type="button"
               onClick={() => setShowDetails(open => !open)}
@@ -155,6 +178,7 @@ export default function Planner() {
                 </Field>
               </div>
             )}
+            </div>
           </div>
 
           {/* ---- the running order, on the rail ---- */}
@@ -240,7 +264,7 @@ export default function Planner() {
           </div>
         </div>
 
-        <aside className="lg:sticky lg:top-24 lg:self-start">
+        <aside className="min-w-0 lg:sticky lg:top-24 lg:self-start">
           {error ? (
             <ErrorNote kind={error} />
           ) : (
