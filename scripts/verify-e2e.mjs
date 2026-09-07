@@ -290,6 +290,35 @@ check(
   phoneMetrics.blockH < 220,
   `${phoneMetrics.blockH}px per block`,
 )
+
+// Removing a block is one of the most common actions in the planner, so the
+// control has to be reachable without opening anything first — it had ended up
+// hidden inside the detail panel where nobody could find it.
+const beforeRemove = await phonePage.locator('.mown > li').count()
+const removeBtn = phonePage.getByRole('button', { name: /^Remove .* from the session$/ }).first()
+check('remove is visible without expanding a block', await removeBtn.isVisible())
+// Compare the whole rendered block, not a substring — a phase label would match
+// almost anything and make this assertion look stronger than it is.
+const removedBlockText = (await phonePage.locator('.mown > li').first().innerText()).trim()
+await removeBtn.click()
+await phonePage.waitForTimeout(400)
+const afterRemove = await phonePage.locator('.mown > li').count()
+check(
+  'removing a block takes it out of the running order',
+  afterRemove === beforeRemove - 1,
+  `${beforeRemove} to ${afterRemove}`,
+)
+const undoBtn = phonePage.getByRole('button', { name: 'Undo' })
+check('an undo is offered', await undoBtn.isVisible())
+await undoBtn.click()
+await phonePage.waitForTimeout(400)
+const afterUndo = await phonePage.locator('.mown > li').count()
+const firstAfterUndo = (await phonePage.locator('.mown > li').first().innerText()).trim()
+check(
+  'undo puts the block back where it was',
+  afterUndo === beforeRemove && firstAfterUndo === removedBlockText,
+  `${afterUndo} blocks, first block identical to the one removed`,
+)
 await phonePage.screenshot({ path: `${OUT}/08-mobile-plan.png`, fullPage: true })
 
 check('no console errors', errors.length === 0, errors.slice(0, 2).join(' | '))

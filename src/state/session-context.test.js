@@ -111,6 +111,50 @@ describe('editing blocks', () => {
   })
 })
 
+describe('restoring a removed block', () => {
+  const base = withBlocks([
+    { id: 'a', phase: 'warmup' },
+    { id: 'b', phase: 'technical' },
+    { id: 'c', phase: 'ssg' },
+  ])
+
+  it('puts a block back at the index it came from', () => {
+    const removed = base.blocks[1]
+    const after = sessionReducer(base, { type: 'remove-block', id: 'b' })
+    expect(after.blocks.map(x => x.id)).toEqual(['a', 'c'])
+
+    const restored = sessionReducer(after, { type: 'restore-block', block: removed, index: 1 })
+    expect(restored.blocks.map(x => x.id)).toEqual(['a', 'b', 'c'])
+  })
+
+  it('restores the first and last positions correctly', () => {
+    const first = sessionReducer(
+      sessionReducer(base, { type: 'remove-block', id: 'a' }),
+      { type: 'restore-block', block: base.blocks[0], index: 0 },
+    )
+    expect(first.blocks.map(x => x.id)).toEqual(['a', 'b', 'c'])
+
+    const last = sessionReducer(
+      sessionReducer(base, { type: 'remove-block', id: 'c' }),
+      { type: 'restore-block', block: base.blocks[2], index: 2 },
+    )
+    expect(last.blocks.map(x => x.id)).toEqual(['a', 'b', 'c'])
+  })
+
+  it('clamps an out-of-range index rather than dropping the block', () => {
+    const restored = sessionReducer(base, { type: 'restore-block', block: { id: 'z' }, index: 99 })
+    expect(restored.blocks.map(x => x.id)).toEqual(['a', 'b', 'c', 'z'])
+
+    const negative = sessionReducer(base, { type: 'restore-block', block: { id: 'z' }, index: -5 })
+    expect(negative.blocks.map(x => x.id)).toEqual(['z', 'a', 'b', 'c'])
+  })
+
+  it('appends when no index is given', () => {
+    const restored = sessionReducer(base, { type: 'restore-block', block: { id: 'z' } })
+    expect(restored.blocks.map(x => x.id)).toEqual(['a', 'b', 'c', 'z'])
+  })
+})
+
 describe('reordering', () => {
   const base = withBlocks([{ id: 'a' }, { id: 'b' }, { id: 'c' }])
 

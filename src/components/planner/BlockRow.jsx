@@ -7,15 +7,14 @@ import TouchlineRail from './TouchlineRail.jsx'
 /**
  * One block in the running order, hanging off the touchline rail.
  *
- * The collapsed row carries only what a coach reads or changes often: the time,
- * what it is, and its duration. Changing the phase, marking "now" and removing
- * the block all live in the expanded panel — on a 390px phone those extra
- * controls pushed the action row onto a second line and made every block ~450px
- * tall, so a four-block session took four screens to scroll.
+ * The collapsed row carries the three things done most often: change the
+ * duration, reorder, remove. Tapping the drill name expands the detail — that
+ * frees the action row for a proper 44px remove button, which had ended up
+ * buried in the detail panel where nobody could find it.
  *
- * Reordering stays on the collapsed row, and stays as up/down buttons at 44px:
- * this is used one-handed while holding a clipboard, where touch drag is fiddly,
- * hard to undo, and inaccessible to keyboard and screen reader users alike.
+ * Reordering is up/down buttons rather than drag: this is used one-handed while
+ * holding a clipboard, where touch drag is fiddly, hard to undo, and
+ * inaccessible to keyboard and screen reader users alike.
  */
 export default function BlockRow({
   block,
@@ -62,13 +61,29 @@ export default function BlockRow({
             className="mt-0.5 w-full rounded border border-dashed border-line bg-transparent px-2 py-1 font-display text-lg font-bold text-pitch focus:border-pitch focus:outline-none"
           />
         ) : (
-          <h3 className="mt-0.5 font-display text-[1.05rem] font-bold leading-snug text-pitch">
-            {snapshot.name}
-          </h3>
-        )}
-
-        {snapshot.summary && (
-          <p className="mt-0.5 line-clamp-2 text-sm leading-snug text-mist">{snapshot.summary}</p>
+          <button
+            type="button"
+            onClick={() => setExpanded(open => !open)}
+            aria-expanded={expanded}
+            className="mt-0.5 flex w-full items-start gap-1.5 text-left"
+          >
+            <span className="min-w-0 flex-1">
+              <span className="block font-display text-[1.05rem] font-bold leading-snug text-pitch">
+                {snapshot.name}
+              </span>
+              {snapshot.summary && (
+                <span className="mt-0.5 line-clamp-2 block text-sm leading-snug text-mist">
+                  {snapshot.summary}
+                </span>
+              )}
+            </span>
+            <span
+              aria-hidden
+              className={`mt-1 shrink-0 text-mist transition-transform duration-[120ms] ${expanded ? 'rotate-180' : ''}`}
+            >
+              ⌄
+            </span>
+          </button>
         )}
 
         {/* One row, always — four controls fit inside 300px of usable width. */}
@@ -88,15 +103,6 @@ export default function BlockRow({
             <span aria-hidden className="label-sm">min</span>
           </label>
 
-          <button
-            type="button"
-            onClick={() => setExpanded(open => !open)}
-            aria-expanded={expanded}
-            className="btn-quiet shrink-0 px-2 text-sm"
-          >
-            {expanded ? 'Less' : 'Details'}
-          </button>
-
           <div className="ml-auto flex shrink-0 items-center">
             <button
               type="button"
@@ -115,6 +121,14 @@ export default function BlockRow({
               className="btn-icon"
             >
               <span aria-hidden>↓</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => onRemove(block.id)}
+              aria-label={`Remove ${snapshot.name || 'this block'} from the session`}
+              className="btn-icon hover:bg-whistle/10 hover:text-whistle"
+            >
+              <span aria-hidden className="text-lg leading-none">×</span>
             </button>
           </div>
         </div>
@@ -144,13 +158,6 @@ export default function BlockRow({
                 className={isNow ? 'btn-primary shrink-0' : 'btn-ghost shrink-0'}
               >
                 {isNow ? 'Clear now' : 'Mark as now'}
-              </button>
-              <button
-                type="button"
-                onClick={() => onRemove(block.id)}
-                className="btn-quiet shrink-0 hover:text-whistle"
-              >
-                Remove
               </button>
             </div>
 

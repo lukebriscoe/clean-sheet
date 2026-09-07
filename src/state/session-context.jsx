@@ -63,6 +63,16 @@ function reducer(session, action) {
     case 'remove-block':
       return { ...session, blocks: session.blocks.filter(block => block.id !== action.id) }
 
+    // Put a removed block back exactly where it was. Removing is one tap on the
+    // running order, and a session someone has spent ten minutes building should
+    // not be one mis-tap away from losing a block with no way back.
+    case 'restore-block': {
+      const blocks = [...session.blocks]
+      const at = Math.min(Math.max(0, action.index ?? blocks.length), blocks.length)
+      blocks.splice(at, 0, action.block)
+      return { ...session, blocks }
+    }
+
     case 'move-block': {
       const index = session.blocks.findIndex(block => block.id === action.id)
       const target = index + action.delta
@@ -111,6 +121,7 @@ export function SessionProvider({ children }) {
       updateBlock: (id, changes) => dispatch({ type: 'update-block', id, changes }),
       updateSnapshot: (id, changes) => dispatch({ type: 'update-snapshot', id, changes }),
       removeBlock: id => dispatch({ type: 'remove-block', id }),
+      restoreBlock: (block, index) => dispatch({ type: 'restore-block', block, index }),
       moveBlock: (id, delta) => dispatch({ type: 'move-block', id, delta }),
       load: loaded => dispatch({ type: 'load', session: loaded }),
       reset: () => dispatch({ type: 'reset' }),

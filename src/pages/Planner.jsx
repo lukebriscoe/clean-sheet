@@ -13,7 +13,7 @@ import { EmptyState, ErrorNote, Field } from '../components/ui/Bits.jsx'
 export default function Planner() {
   const {
     session, setField, addDrill, addFreeform, updateBlock, updateSnapshot,
-    removeBlock, moveBlock, reset,
+    removeBlock, restoreBlock, moveBlock, reset,
   } = useSession()
   const { drills, loading, error } = useDrills()
   const { save, saving, error: saveError } = useSaveSession()
@@ -28,6 +28,18 @@ export default function Planner() {
   // Which block the coach is on. Local only — it's a pitchside aid, not part of
   // the plan, so it never goes to Firestore.
   const [nowId, setNowId] = useState(null)
+  // The last block removed, kept so it can be put back. Remove is a single tap on
+  // the running order, and losing a block off a half-built plan with no way back
+  // is the kind of thing that stops someone trusting the tool.
+  const [undo, setUndo] = useState(null)
+
+  const handleRemove = id => {
+    const index = session.blocks.findIndex(block => block.id === id)
+    if (index === -1) return
+    setUndo({ block: session.blocks[index], index })
+    if (nowId === id) setNowId(null)
+    removeBlock(id)
+  }
 
   const ordered = useMemo(() => withRunningOrder(session.blocks), [session.blocks])
   const status = durationStatus(session.blocks, session.durationMins)
@@ -204,7 +216,7 @@ export default function Planner() {
                       onUpdate={updateBlock}
                       onUpdateSnapshot={updateSnapshot}
                       onMove={moveBlock}
-                      onRemove={removeBlock}
+                      onRemove={handleRemove}
                       onSetNow={setNowId}
                     />
                   ))}
@@ -214,6 +226,35 @@ export default function Planner() {
                   startTime={session.startTime}
                   over={status.status === 'over'}
                 />
+              </div>
+            )}
+
+            {undo && (
+              <div
+                role="status"
+                className="mt-3 flex flex-wrap items-center gap-2 rounded-md border-l-4 border-hivis bg-chalk px-4 py-3 text-sm"
+              >
+                <span className="min-w-0 flex-1 truncate text-mist">
+                  Removed{' '}
+                  <strong className="font-bold text-pitch">
+                    {undo.block.drillSnapshot?.name || 'that block'}
+                  </strong>
+                </span>
+                <button
+                  type="button"
+                  onClick={() => { restoreBlock(undo.block, undo.index); setUndo(null) }}
+                  className="btn-ghost shrink-0 text-sm"
+                >
+                  Undo
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setUndo(null)}
+                  aria-label="Dismiss"
+                  className="btn-icon shrink-0"
+                >
+                  <span aria-hidden>×</span>
+                </button>
               </div>
             )}
 
