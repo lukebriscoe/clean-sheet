@@ -4,9 +4,10 @@ import { useSharedSession } from '../hooks/useSavedSession.js'
 import { useSession } from '../state/session-context.jsx'
 import { withRunningOrder, formatOffset, formatClock, formatDuration, totalMinutes } from '../lib/timings.js'
 import { labelFor } from '../lib/taxonomy.js'
-import { Markdown, PhaseMark, Spinner, EmptyState } from '../components/ui/Bits.jsx'
+import { Markdown, Spinner, EmptyState } from '../components/ui/Bits.jsx'
 import PitchDiagram from '../components/ui/PitchDiagram.jsx'
 import TouchlineRail, { RailFinish } from '../components/planner/TouchlineRail.jsx'
+import BlockDetail from '../components/planner/BlockDetail.jsx'
 
 /**
  * The read-only session — the thing a coach actually takes to training.
@@ -59,6 +60,10 @@ export default function SessionView() {
   const [copied, setCopied] = useState(false)
   const [allDetail, setAllDetail] = useState(false)
   const [nowId, toggleNow] = useNowMarker(shareId)
+  // Which block is open in the detail dialog. Held as an index into the running
+  // order rather than as the block itself, so Previous/Next can step through the
+  // plan without closing and reopening.
+  const [openIndex, setOpenIndex] = useState(null)
 
   const copyLink = async () => {
     try {
@@ -180,10 +185,24 @@ export default function SessionView() {
             forceOpen={allDetail}
             isNow={nowId === block.id}
             onToggleNow={() => toggleNow(block.id)}
+            onOpen={() => setOpenIndex(index)}
           />
         ))}
       </ol>
       <RailFinish totalMin={planned} startTime={session.startTime} />
+
+      <BlockDetail
+        block={openIndex === null ? null : ordered[openIndex]}
+        index={openIndex ?? 0}
+        total={ordered.length}
+        startTime={session.startTime}
+        onClose={() => setOpenIndex(null)}
+        onStep={step =>
+          setOpenIndex(current =>
+            Math.min(ordered.length - 1, Math.max(0, (current ?? 0) + step)),
+          )
+        }
+      />
 
       <footer className="mt-8 border-t border-line pt-5 text-sm text-mist">
         <p>
@@ -218,23 +237,29 @@ export default function SessionView() {
  * drill, and the points you are actually going to coach. Set-up, the diagram,
  * the full description and the harder/easier variations are the things you read
  * once before training, and they made a six-block session several screens long,
- * so they sit behind a tap.
+ * so they open in a dialog (BlockDetail) instead — a coach reading a plan they
+ * were sent is doing a different job from a coach following one, and a dialog
+ * lets them read a drill properly without the running order shifting underneath.
+ * "All detail" in the toolbar is the other reading: everything inline, in order.
  *
  * Print is the exception and always shows everything: paper has no tap, and the
  * printed plan is the one you take out when you have forgotten how it starts.
  * Hence `hidden print:block` rather than unmounting the panel.
  */
-function PlanBlock({ block, isFirst, startTime, forceOpen, isNow, onToggleNow }) {
-  const [open, setOpen] = useState(false)
+function PlanBlock({ block, isFirst, startTime, forceOpen, isNow, onToggleNow, onOpen }) {
   const snapshot = block.drillSnapshot ?? {}
-  const shown = open || forceOpen
+  const name = snapshot.name || labelFor('phase', block.phase)
 
+  // What the dialog would have to say beyond the glance layer. Kit and further
+  // reading count: neither fits on the plan, and both are reasons to open it.
   const hasDetail = Boolean(
     snapshot.diagram ||
       snapshot.setup ||
       snapshot.description ||
       snapshot.progressions?.length ||
-      snapshot.regressions?.length,
+      snapshot.regressions?.length ||
+      snapshot.equipment?.length ||
+      snapshot.references?.length,
   )
 
   return (
@@ -263,7 +288,24 @@ function PlanBlock({ block, isFirst, startTime, forceOpen, isNow, onToggleNow })
             </span>
           </div>
           <h2 className="font-display text-xl font-bold leading-snug text-pitch">
-            {snapshot.name || labelFor('phase', block.phase)}
+            {hasDetail ? (
+              <button
+                type="button"
+                onClick={onOpen}
+                aria-label={`${name} — set-up, diagram and detail`}
+                // print-keep, because `button { display: none }` in print.css is
+                // a blanket rule: without the opt-out the printed plan loses
+                // every drill name and becomes a list of phases.
+                className="print-keep group flex w-full items-start gap-1.5 text-left"
+              >
+                <span className="underline-offset-4 group-hover:underline">{name}</span>
+                <span aria-hidden className="no-print mt-1 shrink-0 text-base text-mist">
+                  →
+                </span>
+              </button>
+            ) : (
+              name
+            )}
           </h2>
         </div>
 
@@ -298,19 +340,21 @@ function PlanBlock({ block, isFirst, startTime, forceOpen, isNow, onToggleNow })
 
         {hasDetail && (
           <>
+            {/* The heading is the real target, but it does not look like one on
+                a phone. This says out loud what is behind it — and names the
+                diagram when there is one, which is the thing worth opening for. */}
             {!forceOpen && (
               <button
                 type="button"
-                onClick={() => setOpen(value => !value)}
-                aria-expanded={open}
+                onClick={onOpen}
                 className="no-print btn-quiet w-full justify-between text-sm sm:w-auto sm:justify-start sm:gap-2"
               >
-                {open ? 'Hide set-up & detail' : 'Set-up & detail'}
-                <span aria-hidden>{open ? '\u2191' : '\u2193'}</span>
+                {snapshot.diagram ? 'Diagram, set-up & detail' : 'Set-up & detail'}
+                <span aria-hidden>→</span>
               </button>
             )}
 
-            <div className={`space-y-3 ${shown ? '' : 'hidden print:block'}`}>
+            <div className={`space-y-3 ${forceOpen ? '' : 'hidden print:block'}`}>
               {snapshot.diagram && (
                 <PitchDiagram diagram={snapshot.diagram} drillName={snapshot.name} />
               )}

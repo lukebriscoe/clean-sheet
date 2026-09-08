@@ -63,9 +63,10 @@ app's side: no error state, no console, `onSubmit` simply never fires.
 
 **`button { display: none }` in print.css is a blanket rule.** A control that also
 carries information has to opt back out with `.print-keep`, or printing silently
-deletes it. This currently applies to the rail's start times, which are buttons so
-they can toggle the "now" marker — without the opt-out, the printed sheet loses its
-schedule and nothing warns you.
+deletes it. This applies to the rail's start times, which are buttons so they can
+toggle the "now" marker, and to the drill headings on `/session/:shareId`, which are
+buttons so they can open `BlockDetail` — without the opt-out the printed sheet loses
+its schedule and its drill names, and nothing warns you.
 
 **Anything sticky below the header offsets by `var(--header-h)`, never a literal.**
 The header grows a row whenever a session is in progress, so its height is not a
@@ -79,6 +80,14 @@ filled, team B outlined, cones are triangles. Don't introduce a mark that can on
 be told apart by colour; it breaks the print output and colourblind readers at the
 same time. Everything draws with `currentColor` so print needs no second path.
 Edit the seed diagrams via `scripts/add-seed-diagrams.mjs`, not by hand in the JSON.
+
+**Nothing validates the inside of a `drillSnapshot`.** `firestore.rules` checks a
+drill document field by field, but a *session* only has to carry a `blocks` list of
+30 or fewer — the snapshot inside each block is whatever the client wrote. So a
+shared plan is anonymous input: `BlockDetail` filters its `references` through
+`isHttpUrl()` before they reach an `href`, because `validateDrill` never saw them.
+Anything new that renders snapshot data on `/session/:shareId` has to assume the
+same.
 
 **Drill markdown is sanitised.** It's written by anonymous strangers and rendered in
 everyone's browser. Always go through `renderMarkdown()` in `src/lib/markdown.js` —
