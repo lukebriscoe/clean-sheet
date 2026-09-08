@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { sessionReducer, insertByPhase } from './session-context.jsx'
-import { emptySession } from '../lib/schema.js'
+import { emptySession, sanitiseSessionForSave } from '../lib/schema.js'
 
 const drill = (overrides = {}) => ({
   id: 'drl_1',
@@ -108,6 +108,76 @@ describe('editing blocks', () => {
   it('removes a block by id', () => {
     const next = sessionReducer(base, { type: 'remove-block', id: 'a' })
     expect(next.blocks.map(block => block.id)).toEqual(['b'])
+  })
+})
+
+// The "now" marker lives on the session so it survives the phone locking
+// mid-training, but it is a per-device aid and must never reach Firestore —
+// firestore.rules uses hasOnly() and would reject the whole write.
+describe('the now marker', () => {
+  const base = withBlocks([
+    { id: 'a', phase: 'warmup', durationMins: 10, drillSnapshot: { name: 'One' } },
+    { id: 'b', phase: 'technical', durationMins: 20, drillSnapshot: { name: 'Two' } },
+  ])
+
+  it('starts unset', () => {
+    expect(emptySession().nowId).toBeNull()
+  })
+
+  it('marks and clears a block', () => {
+    const marked = sessionReducer(base, { type: 'set-now', id: 'b' })
+    expect(marked.nowId).toBe('b')
+    expect(sessionReducer(marked, { type: 'set-now', id: null }).nowId).toBeNull()
+  })
+
+  it('clears itself when the marked block is removed', () => {
+    const marked = sessionReducer(base, { type: 'set-now', id: 'b' })
+    expect(sessionReducer(marked, { type: 'remove-block', id: 'b' }).nowId).toBeNull()
+  })
+
+  it('survives removal of a different block', () => {
+    const marked = sessionReducer(base, { type: 'set-now', id: 'b' })
+    expect(sessionReducer(marked, { type: 'remove-block', id: 'a' }).nowId).toBe('b')
+  })
+
+  it('comes back with the block when a removal is undone', () => {
+    const marked = sessionReducer(base, { type: 'set-now', id: 'b' })
+    const removed = sessionReducer(marked, { type: 'remove-block', id: 'b' })
+    const undone = sessionReducer(removed, {
+      type: 'restore-block',
+      block: marked.blocks[1],
+      index: 1,
+      wasNow: true,
+    })
+    expect(undone.blocks.map(block => block.id)).toEqual(['a', 'b'])
+    expect(undone.nowId).toBe('b')
+  })
+
+  it('is not moved by undoing an unmarked block', () => {
+    const marked = sessionReducer(base, { type: 'set-now', id: 'b' })
+    const removed = sessionReducer(marked, { type: 'remove-block', id: 'a' })
+    const undone = sessionReducer(removed, {
+      type: 'restore-block',
+      block: marked.blocks[0],
+      index: 0,
+      wasNow: false,
+    })
+    expect(undone.nowId).toBe('b')
+  })
+
+  it('is cleared by a reset', () => {
+    const marked = sessionReducer(base, { type: 'set-now', id: 'b' })
+    expect(sessionReducer(marked, { type: 'reset' }).nowId).toBeNull()
+  })
+
+  it('never reaches the saved document', () => {
+    const marked = sessionReducer(base, { type: 'set-now', id: 'b' })
+    const payload = sanitiseSessionForSave({ ...marked, savedId: 'doc_1' })
+    expect(payload).not.toHaveProperty('nowId')
+    expect(payload).not.toHaveProperty('savedId')
+    // The share link still has to survive the strip — it's how the session is
+    // looked up again.
+    expect(payload.shareId).toBe(marked.shareId)
   })
 })
 

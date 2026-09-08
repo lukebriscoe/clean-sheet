@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useDrills } from '../hooks/useDrills.js'
+import { useEffect, useMemo, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useDrills, fetchDrill } from '../hooks/useDrills.js'
 import { useSession } from '../state/session-context.jsx'
 import { EMPTY_FILTERS, applyFilters, hasActiveFilters } from '../lib/filters.js'
 import DrillRow from '../components/library/DrillRow.jsx'
@@ -13,13 +13,16 @@ export default function Library() {
   const { drills, loading, error, reload, addDrill } = useDrills()
   const { session, addDrill: addToSession } = useSession()
   const navigate = useNavigate()
+  const { slug } = useParams()
 
   const [filters, setFilters] = useState(EMPTY_FILTERS)
   const [openDrill, setOpenDrill] = useState(null)
   const [adding, setAdding] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [moreFilters, setMoreFilters] = useState(false)
-  const [justAdded, setJustAdded] = useState(null)
+  // One transient confirmation slot, shared by "added to your session" and
+  // "added to the library" — two things that need saying and one place to say it.
+  const [notice, setNotice] = useState(null)
 
   const visible = useMemo(() => applyFilters(drills, filters), [drills, filters])
   const inSession = useMemo(
@@ -27,10 +30,56 @@ export default function Library() {
     [session.blocks],
   )
 
+  // The open drill lives in the URL, so a coach can send another coach a drill
+  // and the back button closes the dialog. The route already existed; nothing
+  // read it, so /library/:slug rendered a bare library.
+  useEffect(() => {
+    if (!slug) {
+      setOpenDrill(null)
+      return undefined
+    }
+    const found = drills.find(drill => drill.slug === slug || drill.id === slug)
+    if (found) {
+      setOpenDrill(found)
+      return undefined
+    }
+    // Cold deep link: the library may not have loaded yet, and the id may not be
+    // a slug we hold. Only give up once the list has actually arrived.
+    if (loading) return undefined
+    let cancelled = false
+    fetchDrill(slug)
+      .then(drill => {
+        if (cancelled) return
+        if (drill) setOpenDrill(drill)
+        else navigate('/library', { replace: true })
+      })
+      .catch(() => {
+        if (!cancelled) navigate('/library', { replace: true })
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [slug, drills, loading, navigate])
+
+  const openDrillPage = drill => navigate(`/library/${drill.slug ?? drill.id}`)
+  const closeDrillPage = () => {
+    if (slug) navigate('/library')
+    else setOpenDrill(null)
+  }
+
+  const announce = next => {
+    setNotice(next)
+    window.setTimeout(() => setNotice(current => (current === next ? null : current)), 5000)
+  }
+
   const handleAddToSession = drill => {
     addToSession(drill)
-    setJustAdded(drill.name)
-    window.setTimeout(() => setJustAdded(null), 3200)
+    announce({
+      text: drill.name,
+      detail: 'added to your session.',
+      actionLabel: 'View plan',
+      onAction: () => navigate('/plan'),
+    })
   }
 
   const handleCreate = async values => {
@@ -38,7 +87,17 @@ export default function Library() {
     try {
       await addDrill(values)
       setAdding(false)
+      // Clearing the filters matters: the contributor lands back in the list and
+      // the drill they just wrote is newest-first at the top of it.
       setFilters(EMPTY_FILTERS)
+      // Five minutes of typing previously ended in silence. Say it landed, and
+      // offer the way to see it.
+      announce({
+        text: values.name,
+        detail: 'added to the shared library — it is at the top of the list.',
+        actionLabel: 'View it',
+        onAction: () => navigate(`/library/${values.slug}`),
+      })
     } catch {
       // useDrills logs it; the error note below covers the UI.
     } finally {
@@ -100,7 +159,7 @@ export default function Library() {
 
       {/* Sticky quick filters — the three facets that get used every time. The
           rest live behind the disclosure so the bar stays one line on a phone. */}
-      <div className="sticky top-[3.75rem] z-10 -mx-4 mb-4 border-y border-line bg-paper/95 px-4 py-2.5 backdrop-blur sm:-mx-6 sm:px-6">
+      <div className="sticky top-[var(--header-h)] z-10 -mx-4 mb-4 border-y border-line bg-paper/95 px-4 py-2.5 backdrop-blur sm:-mx-6 sm:px-6">
         <QuickFilters
           filters={filters}
           onChange={setFilters}
@@ -117,19 +176,22 @@ export default function Library() {
       </div>
 
 
-      {justAdded && (
+      {/* Pinned to the viewport on a phone. Inline, it rendered above the list —
+          so adding the fortieth drill put the confirmation, and the only "View
+          plan" link, several hundred pixels above the fold. */}
+      {notice && (
         <div
           role="status"
-          className="mb-4 flex flex-wrap items-center gap-2 rounded-md border-l-4 border-hivis bg-chalk px-4 py-3 text-sm"
+          className="fixed inset-x-4 bottom-4 z-30 flex flex-wrap items-center gap-2 rounded-md border border-line border-l-4 border-l-hivis bg-chalk px-4 py-3 text-sm lg:static lg:mb-4 lg:border-l-4"
         >
-          <strong className="font-bold text-pitch">{justAdded}</strong>
-          <span className="text-mist">added to your session.</span>
+          <strong className="font-bold text-pitch">{notice.text}</strong>
+          <span className="min-w-0 flex-1 text-mist">{notice.detail}</span>
           <button
             type="button"
-            onClick={() => navigate('/plan')}
-            className="ml-auto font-semibold text-pitch underline underline-offset-2"
+            onClick={() => { notice.onAction(); setNotice(null) }}
+            className="shrink-0 font-semibold text-pitch underline underline-offset-2"
           >
-            View plan
+            {notice.actionLabel}
           </button>
         </div>
       )}
@@ -171,7 +233,7 @@ export default function Library() {
             <DrillRow
               key={drill.id}
               drill={drill}
-              onOpen={setOpenDrill}
+              onOpen={openDrillPage}
               onAdd={handleAddToSession}
               isAdded={inSession.has(drill.id)}
             />
@@ -199,7 +261,7 @@ export default function Library() {
 
       <DrillDetail
         drill={openDrill}
-        onClose={() => setOpenDrill(null)}
+        onClose={closeDrillPage}
         onAdd={handleAddToSession}
         isAdded={openDrill ? inSession.has(openDrill.id) : false}
       />

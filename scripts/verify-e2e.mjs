@@ -360,6 +360,76 @@ check(
   `cleared to "${clearedTo}", then typed "${typedTo}"`,
 )
 
+// The picker used to stack below the running order at phone width, which put the
+// primary action of the page a screen and a half down — past the save button.
+const addBar = phonePage.getByRole('button', { name: '+ Add to session' })
+const addBox = await addBar.boundingBox()
+check(
+  'mobile add control is in the first viewport',
+  addBox != null && addBox.y >= 0 && addBox.y < 844,
+  addBox ? `y=${Math.round(addBox.y)} of 844` : 'not found',
+)
+
+// …and it must not sit on top of the save row it was introduced above.
+const saveBtn = phonePage.getByRole('button', { name: /Save & get a share link/ })
+await saveBtn.scrollIntoViewIfNeeded()
+await phonePage.waitForTimeout(200)
+const overlap = await phonePage.evaluate(() => {
+  const save = [...document.querySelectorAll('button')].find(b => /Save & get/.test(b.textContent))
+  const bar = [...document.querySelectorAll('button')].find(b => /Add to session/.test(b.textContent))
+  if (!save || !bar) return null
+  const s = save.getBoundingClientRect()
+  const b = bar.closest('div').getBoundingClientRect()
+  return { saveBottom: Math.round(s.bottom), barTop: Math.round(b.top) }
+})
+check(
+  'the mobile add bar does not cover the save button',
+  overlap != null && overlap.saveBottom <= overlap.barTop,
+  overlap ? `save ends ${overlap.saveBottom}, bar starts ${overlap.barTop}` : 'not measurable',
+)
+
+// The picker opens as a sheet, and adding from it closes the sheet so the block
+// you just added is the first thing you see.
+await addBar.click()
+await phonePage.waitForTimeout(400)
+check('the mobile picker opens as a sheet', (await phonePage.locator('dialog[open].sheet').count()) === 1)
+await phonePage.locator('dialog[open].sheet button').filter({ hasText: /\d+\s*min/ }).first().click()
+await phonePage.waitForTimeout(400)
+check('adding from the sheet closes it', (await phonePage.locator('dialog[open].sheet').count()) === 0)
+
+// "Now" is the one use of --hivis. It has to survive a reload, because the phone
+// locking mid-session is exactly when a coach is relying on it.
+const nowToggle = phonePage.getByRole('button', { name: /^Mark .* as now$/ }).first()
+await nowToggle.click()
+await phonePage.waitForTimeout(300)
+check('the now marker sets from the rail', (await phonePage.locator('[data-now="true"]').count()) === 1)
+await phonePage.reload({ waitUntil: 'domcontentloaded' })
+await phonePage.waitForSelector('.mown > li', { timeout: 20000 })
+await phonePage.waitForTimeout(500)
+check(
+  'the now marker survives a reload',
+  (await phonePage.locator('[data-now="true"]').count()) === 1,
+)
+
+// A drill has to be linkable — /library/:slug was routed but never read.
+await phonePage.goto('http://localhost:5173/#/library', { waitUntil: 'domcontentloaded' })
+await phonePage.waitForSelector('main ul li', { timeout: 20000 })
+await phonePage.locator(ROWS).first().locator('button').first().click()
+await phonePage.waitForTimeout(500)
+const drillUrl = phonePage.url()
+check('opening a drill puts it in the URL', /#\/library\/.+/.test(drillUrl), drillUrl)
+const coldCtx = await browser.newContext({ viewport: { width: 390, height: 844 } })
+const coldPage = await coldCtx.newPage()
+await coldPage.goto(drillUrl, { waitUntil: 'domcontentloaded' })
+await coldPage.waitForTimeout(2500)
+check('a drill link opens for someone with no cache', (await coldPage.locator('dialog[open]').count()) === 1)
+await coldCtx.close()
+
+// Back to the planner — the remove/undo checks below run on this same page.
+await phonePage.goto('http://localhost:5173/#/plan', { waitUntil: 'domcontentloaded' })
+await phonePage.waitForSelector('.mown > li', { timeout: 20000 })
+await phonePage.waitForTimeout(400)
+
 // Removing a block is one of the most common actions in the planner, so the
 // control has to be reachable without opening anything first — it had ended up
 // hidden inside the detail panel where nobody could find it.

@@ -27,6 +27,12 @@
 
   /* Warning state only. Not a brand colour; never use it decoratively. */
   --whistle: 178 58 47; /* #B23A2F */
+
+  /* Live height of the sticky header, measured in App.jsx. Anything that sticks
+     below the header offsets by this rather than by a hardcoded value — the
+     header grows by a row whenever a session is in progress, and a fixed offset
+     let the library's filter bar slide underneath it. */
+  --header-h: 3.75rem;
 }
 
 /* ---------------------------------------------------------------------------
@@ -190,6 +196,18 @@
   }
   .chip-on {
     @apply chip border-pitch bg-pitch text-chalk;
+  }
+
+  /* Bottom sheet. <dialog> centres itself by default; this pins it to the
+     bottom of the viewport and lets it run the full width, which is where a
+     thumb is and where a sheet is expected to come from. */
+  .sheet {
+    margin: 0 0 0 0;
+    top: auto;
+    bottom: 0;
+    max-height: 90dvh;
+    border-radius: 0.75rem 0.75rem 0 0;
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   /* ---- drill prose ------------------------------------------------------- */

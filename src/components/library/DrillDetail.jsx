@@ -156,10 +156,9 @@ export default function DrillDetail({ drill, onClose, onAdd, isAdded }) {
                 onAdd(drill)
                 dialogRef.current?.close()
               }}
-              disabled={isAdded}
               className="btn-primary ml-auto"
             >
-              {isAdded ? '✓ Already in session' : '+ Add to session'}
+              {isAdded ? '+ Add again' : '+ Add to session'}
             </button>
           </footer>
         </div>

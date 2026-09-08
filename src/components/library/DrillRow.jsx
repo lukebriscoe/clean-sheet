@@ -32,10 +32,19 @@ export default function DrillRow({ drill, onOpen, onAdd, isAdded }) {
         </button>
 
         <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-mist">
-          <span className="font-semibold uppercase tracking-[0.06em]">
+          {/* Duration leads the meta line on a phone, where the right-hand column
+              is hidden. When you are filling a 90-minute session it is the most
+              decision-relevant number on the row, so hiding it on the device this
+              is built for was the wrong trade. The phase label gives up its slot
+              to make room — PhaseMark and the row grouping already carry it. */}
+          <span className="tnum font-bold text-ink sm:hidden">
+            {formatDuration(drill.durationMins)}
+          </span>
+          <span aria-hidden className="text-line sm:hidden">·</span>
+          <span className="hidden font-semibold uppercase tracking-[0.06em] sm:inline">
             {labelFor('phase', drill.sessionPhase)}
           </span>
-          <span aria-hidden className="text-line">·</span>
+          <span aria-hidden className="hidden text-line sm:inline">·</span>
           <span className="tnum">
             {drill.minPlayers}–{drill.maxPlayers} players
           </span>
@@ -54,14 +63,21 @@ export default function DrillRow({ drill, onOpen, onAdd, isAdded }) {
         <span className="tnum hidden w-16 text-right font-display text-sm font-bold text-ink sm:block">
           {formatDuration(drill.durationMins)}
         </span>
+        {/* The tick reports that the drill is already in the session; it does not
+            block adding it again. Coaches genuinely run the same rondo as a
+            warm-up and again as a re-set, and a disabled button made that
+            impossible while looking like mere feedback. */}
         <button
           type="button"
           onClick={() => onAdd(drill)}
-          disabled={isAdded}
-          aria-label={isAdded ? `${drill.name} is already in your session` : `Add ${drill.name} to your session`}
+          aria-label={
+            isAdded
+              ? `${drill.name} is in your session. Add it again.`
+              : `Add ${drill.name} to your session`
+          }
           className={
             isAdded
-              ? 'btn-icon text-pitch-mid disabled:opacity-100'
+              ? 'btn-icon border border-pitch/30 bg-paper text-pitch-mid'
               : 'btn-icon border border-line bg-chalk text-pitch hover:border-pitch/40'
           }
         >

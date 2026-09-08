@@ -173,6 +173,9 @@ export function emptySession(overrides = {}) {
     playerCount: 12,
     objectives: '',
     blocks: [],
+    // Which block the coach is on. Local to the device and never stored on the
+    // session document — see stripLocalFields in hooks/useSavedSession.js.
+    nowId: null,
     shareId: shareId(),
     visibility: 'public',
     createdBy: { uid: null, displayName: '' },
@@ -239,8 +242,12 @@ export function freeformBlock(phase = 'scrimmage') {
 
 /** Final tidy before a session hits Firestore. */
 export function sanitiseSessionForSave(session) {
+  // Device-local fields, dropped here rather than at the call site so there is
+  // one definition of "what a session document contains". firestore.rules uses
+  // hasOnly(), so a stray key does not get ignored — it rejects the whole write.
+  const { savedId, nowId, ...stored } = session
   return {
-    ...session,
+    ...stored,
     schemaVersion: SCHEMA_VERSION,
     title: String(session.title ?? '').trim().slice(0, LIMITS.title) || 'Untitled session',
     objectives: String(session.objectives ?? '').trim().slice(0, LIMITS.objectives),

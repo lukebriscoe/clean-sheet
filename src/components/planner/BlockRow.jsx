@@ -40,6 +40,8 @@ export default function BlockRow({
         isFirst={isFirst}
         isLast={isLast && !expanded}
         isNow={isNow}
+        blockName={snapshot.name}
+        onToggleNow={() => onSetNow(isNow ? null : block.id)}
       />
 
       <div className="min-w-0 flex-1">

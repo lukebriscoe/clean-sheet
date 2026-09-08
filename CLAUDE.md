@@ -40,6 +40,39 @@ what's in the car. See `matchesFilters` in `src/lib/filters.js`.
 **Deletes are forbidden by the rules.** Hide via `status: 'hidden'` instead. Don't
 add a delete path expecting it to work.
 
+**`nowId` must never reach Firestore.** The "now" marker lives on the session
+object so it survives a phone locking mid-training, which means it rides along in
+localStorage — but `firestore.rules` uses `hasOnly()`, so an extra key rejects the
+*whole* write. `sanitiseSessionForSave()` in `src/lib/schema.js` strips it along
+with `savedId`; that is the single place a device-local field gets dropped, so add
+any new one there rather than at the call site. There's a test for it in
+`src/state/session-context.test.js`.
+
+**Never wrap a group of chips in `Field` without `group`.** `<button>` is a
+*labelable* element, so a `<label>` around a chip row silently adopts the first
+chip as its control: that chip's accessible name becomes the whole group's text,
+and tapping the section heading toggles it. `Field` takes a `group` prop that
+renders `fieldset`/`legend` instead — use it for anything that isn't a single
+input. `DrillFilters` already did this correctly; `DrillForm` did not.
+
+**On `<input type="number">`, `min` must sit on the `step` ladder.** `min="1"
+step="5"` means the browser only accepts 1, 6, 11, 16… — which made the add-drill
+form's own default of 15 minutes invalid and blocked every submission behind a
+native tooltip the app never sees. The failure is completely silent from the
+app's side: no error state, no console, `onSubmit` simply never fires.
+
+**`button { display: none }` in print.css is a blanket rule.** A control that also
+carries information has to opt back out with `.print-keep`, or printing silently
+deletes it. This currently applies to the rail's start times, which are buttons so
+they can toggle the "now" marker — without the opt-out, the printed sheet loses its
+schedule and nothing warns you.
+
+**Anything sticky below the header offsets by `var(--header-h)`, never a literal.**
+The header grows a row whenever a session is in progress, so its height is not a
+constant; `App.jsx` measures it with a `ResizeObserver`. A hardcoded offset works
+until a coach has blocks in their plan, then tucks the library's filter bar under
+the header — i.e. it looks fine in testing and breaks for every returning user.
+
 **Diagrams are data, not images**, rendered to SVG by `PitchDiagram.jsx`. The rule
 that makes it work: *shape carries the meaning, colour is decoration* — team A is
 filled, team B outlined, cones are triangles. Don't introduce a mark that can only
@@ -103,11 +136,28 @@ sitting on it. The continuity is the whole point — if you change the row paddi
 keep the `-my-3` on `.rail-track` or the line fragments per block. It survives
 into print deliberately, which is what makes it an artefact rather than a flourish.
 
+**"Now" is a pitchside control, not a planning one.** It marks the block a coach is
+standing in front of, so it has to work where that happens: it persists (a phone
+locks every couple of minutes on a touchline) and it exists on the read-only
+`/session/:shareId` view, not just in the planner. The affordance is the start time
+on the rail itself — tapping it toggles the marker — so the feature costs no extra
+chrome and the target sits where the eye already is. In the shared view it is held
+per-`shareId` under `clean-sheet:now:v1`, deliberately *not* on the draft session:
+whoever opens a share link usually has a half-built plan of their own and following
+someone else's session must not reach into it.
+
 Controls are **≥44px** — this gets used one-handed on a phone while holding a
 clipboard. Focus is a **two-tone ring** (pitch outline + chalk shadow) so it stays
 visible on paper, on white cards, and on dark green buttons alike.
 
 The drill library is **rows, not cards** — a team sheet, not a dashboard.
+
+**Below `lg`, right-rail panels move into a bottom sheet** (`components/ui/Sheet.jsx`,
+a native `<dialog>` like `DrillDetail`) opened from a bar pinned to the bottom of the
+viewport. Stacking them under the main column instead is what the grid does by
+default, and it buried the planner's drill picker a screen and a half below the fold
+— the primary action on the primary device, reachable only by scrolling past the
+save button.
 
 ## Not in v1
 

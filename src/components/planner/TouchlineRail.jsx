@@ -17,13 +17,50 @@ import { formatOffset, formatClock } from '../../lib/timings.js'
  * segment length cannot honestly encode duration. Proportion is carried by the
  * horizontal <ShapeStrip> at the top of the planner instead.
  */
-export default function TouchlineRail({ startMin, startTime, isFirst, isLast, isNow }) {
+export default function TouchlineRail({
+  startMin,
+  startTime,
+  isFirst,
+  isLast,
+  isNow,
+  onToggleNow,
+  blockName,
+}) {
   const clock = formatClock(startTime, startMin)
+  const label = clock ?? formatOffset(startMin)
+
+  // The time doubles as the "I'm on this one" control. Putting the target on the
+  // rail rather than adding a button means the marker costs no extra chrome and
+  // sits where the eye already is when you glance down mid-session. It stays a
+  // plain <time> where there is nothing to toggle (the printed sheet).
+  const time = (
+    <time className="tnum block w-full text-right font-display text-sm font-bold leading-none text-pitch">
+      {label}
+    </time>
+  )
+
   return (
     <div className="flex shrink-0 items-stretch gap-2 self-stretch">
-      <time className="tnum w-[3.25rem] pt-[1.05rem] text-right font-display text-sm font-bold leading-none text-pitch">
-        {clock ?? formatOffset(startMin)}
-      </time>
+      {/* .print-keep opts back out of the blanket `button { display: none }` in
+          print.css — without it, making the time a control would silently strip
+          the start times off the printed sheet. */}
+      {onToggleNow ? (
+        <button
+          type="button"
+          onClick={onToggleNow}
+          aria-pressed={Boolean(isNow)}
+          aria-label={
+            isNow
+              ? `${blockName || 'This block'} is marked as now. Tap to clear.`
+              : `Mark ${blockName || 'this block'} as now`
+          }
+          className="print-keep w-[3.25rem] shrink-0 self-start rounded-md pb-3 pt-[1.05rem] hover:bg-paper"
+        >
+          {time}
+        </button>
+      ) : (
+        <div className="w-[3.25rem] shrink-0 pt-[1.05rem]">{time}</div>
+      )}
       <div
         className="rail-track"
         data-first={isFirst ? 'true' : undefined}

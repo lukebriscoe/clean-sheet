@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useSharedSession } from '../hooks/useSavedSession.js'
+import { useSession } from '../state/session-context.jsx'
 import { withRunningOrder, formatOffset, formatClock, formatDuration, totalMinutes } from '../lib/timings.js'
 import { labelFor } from '../lib/taxonomy.js'
 import { Markdown, PhaseMark, Spinner, EmptyState } from '../components/ui/Bits.jsx'
@@ -14,12 +15,50 @@ import TouchlineRail, { RailFinish } from '../components/planner/TouchlineRail.j
  * and shareable by link with the other coaches. The print rules live in
  * styles/print.css; everything tagged .no-print is screen-only chrome.
  */
+/**
+ * Which block the coach is on, remembered per shared session.
+ *
+ * Kept in its own localStorage key rather than on the draft session: whoever
+ * opens a share link usually has a half-built plan of their own, and following
+ * someone else's session must not reach into it. It persists because a phone
+ * locks itself every couple of minutes on a touchline and losing your place is
+ * the exact moment the marker was supposed to help.
+ */
+const NOW_KEY = 'clean-sheet:now:v1'
+
+function useNowMarker(shareId) {
+  const [nowId, setNowId] = useState(null)
+
+  useEffect(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem(NOW_KEY) ?? 'null')
+      setNowId(stored?.shareId === shareId ? stored.blockId : null)
+    } catch {
+      setNowId(null)
+    }
+  }, [shareId])
+
+  const toggle = blockId => {
+    const next = nowId === blockId ? null : blockId
+    setNowId(next)
+    try {
+      localStorage.setItem(NOW_KEY, JSON.stringify({ shareId, blockId: next }))
+    } catch {
+      // Private browsing. The marker still works for this view.
+    }
+  }
+
+  return [nowId, toggle]
+}
+
 export default function SessionView() {
   const { shareId } = useParams()
   const { session, state } = useSharedSession(shareId)
+  const { session: draft } = useSession()
   const navigate = useNavigate()
   const [copied, setCopied] = useState(false)
   const [allDetail, setAllDetail] = useState(false)
+  const [nowId, toggleNow] = useNowMarker(shareId)
 
   const copyLink = async () => {
     try {
@@ -63,6 +102,8 @@ export default function SessionView() {
   const ordered = withRunningOrder(session.blocks ?? [])
   const planned = totalMinutes(session.blocks)
   const finishClock = formatClock(session.startTime, planned)
+  // Is this the coach's own session, still open in the planner as a draft?
+  const isMine = Boolean(draft.savedId && draft.savedId === session.id)
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
@@ -137,6 +178,8 @@ export default function SessionView() {
             isFirst={index === 0}
             startTime={session.startTime}
             forceOpen={allDetail}
+            isNow={nowId === block.id}
+            onToggleNow={() => toggleNow(block.id)}
           />
         ))}
       </ol>
@@ -146,10 +189,20 @@ export default function SessionView() {
         <p>
           Planned by {session.createdBy?.displayName ?? 'a coach'} with Clean Sheet.
           {' '}
+          {/* If this is the coach's own session, the useful link is back into it.
+              Otherwise "build your own" has to say that it starts from a blank
+              sheet — a recipient who taps it lands in whatever half-built draft
+              they already had, which is baffling if the label promised a copy. */}
           <span className="no-print">
-            <Link to="/plan" className="text-pitch-mid underline underline-offset-2">
-              Build your own →
-            </Link>
+            {isMine ? (
+              <Link to="/plan" className="text-pitch-mid underline underline-offset-2">
+                ← Edit this plan
+              </Link>
+            ) : (
+              <Link to="/plan" className="text-pitch-mid underline underline-offset-2">
+                Start your own clean sheet →
+              </Link>
+            )}
           </span>
         </p>
       </footer>
@@ -171,7 +224,7 @@ export default function SessionView() {
  * printed plan is the one you take out when you have forgotten how it starts.
  * Hence `hidden print:block` rather than unmounting the panel.
  */
-function PlanBlock({ block, isFirst, startTime, forceOpen }) {
+function PlanBlock({ block, isFirst, startTime, forceOpen, isNow, onToggleNow }) {
   const [open, setOpen] = useState(false)
   const snapshot = block.drillSnapshot ?? {}
   const shown = open || forceOpen
@@ -186,12 +239,25 @@ function PlanBlock({ block, isFirst, startTime, forceOpen }) {
 
   return (
     <li className="print-block flex gap-2 py-4">
-      <TouchlineRail startMin={block.startMin} startTime={startTime} isFirst={isFirst} isLast={false} />
+      <TouchlineRail
+        startMin={block.startMin}
+        startTime={startTime}
+        isFirst={isFirst}
+        isLast={false}
+        isNow={isNow}
+        blockName={snapshot.name}
+        onToggleNow={onToggleNow}
+      />
 
       <div className="min-w-0 flex-1 space-y-3 pt-0.5">
         <div>
           <div className="flex flex-wrap items-baseline gap-x-2">
             <span className="label-sm">{labelFor('phase', block.phase)}</span>
+            {isNow && (
+              <span className="no-print rounded-sm bg-hivis px-1.5 py-0.5 font-display text-[0.65rem] font-bold uppercase tracking-[0.08em] text-ink">
+                Now
+              </span>
+            )}
             <span className="tnum ml-auto text-sm font-semibold text-mist">
               {block.durationMins} min
             </span>

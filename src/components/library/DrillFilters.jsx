@@ -49,11 +49,14 @@ export function QuickFilters({ filters, onChange, drills, resultCount, moreOpen,
       <div className="flex items-center gap-2">
         <label className="min-w-0 flex-1">
           <span className="sr-only">Search drills</span>
+          {/* Not "Search 69 drills" — that counted the whole library while the
+              number beside it counts what survived the filters, so the two
+              contradicted each other the moment anything was selected. */}
           <input
             type="search"
             value={filters.query}
             onChange={event => onChange({ ...filters, query: event.target.value })}
-            placeholder={`Search ${drills.length} drills…`}
+            placeholder="Search drills…"
             className="field"
           />
         </label>

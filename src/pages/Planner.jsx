@@ -9,11 +9,12 @@ import BlockRow from '../components/planner/BlockRow.jsx'
 import BlockPicker from '../components/planner/BlockPicker.jsx'
 import { ShapeStrip, RailFinish } from '../components/planner/TouchlineRail.jsx'
 import { EmptyState, ErrorNote, Field, NumberField } from '../components/ui/Bits.jsx'
+import Sheet from '../components/ui/Sheet.jsx'
 
 export default function Planner() {
   const {
     session, setField, addDrill, addFreeform, updateBlock, updateSnapshot,
-    removeBlock, restoreBlock, moveBlock, reset,
+    removeBlock, restoreBlock, moveBlock, reset, setNow,
   } = useSession()
   const { drills, loading, error } = useDrills()
   const { save, saving, error: saveError } = useSaveSession()
@@ -25,25 +26,45 @@ export default function Planner() {
   // two thirds of the viewport before you could see your own plan. They collapse
   // to a one-line summary here and stay open on desktop, where there's room.
   const [setupOpen, setSetupOpen] = useState(false)
-  // Which block the coach is on. Local only — it's a pitchside aid, not part of
-  // the plan, so it never goes to Firestore.
-  const [nowId, setNowId] = useState(null)
   // The last block removed, kept so it can be put back. Remove is a single tap on
   // the running order, and losing a block off a half-built plan with no way back
   // is the kind of thing that stops someone trusting the tool.
   const [undo, setUndo] = useState(null)
+  // Below lg the picker cannot live in a right-hand rail, and stacking it under
+  // the running order buried it a full screen below the fold — so on a phone it
+  // opens from a bar pinned to the bottom of the viewport instead.
+  const [pickerOpen, setPickerOpen] = useState(false)
 
   const handleRemove = id => {
     const index = session.blocks.findIndex(block => block.id === id)
     if (index === -1) return
-    setUndo({ block: session.blocks[index], index })
-    if (nowId === id) setNowId(null)
+    // wasNow so undo can put the marker back with the block — see the reducer.
+    setUndo({ block: session.blocks[index], index, wasNow: session.nowId === id })
     removeBlock(id)
   }
+
+  const nowId = session.nowId
 
   const ordered = useMemo(() => withRunningOrder(session.blocks), [session.blocks])
   const status = durationStatus(session.blocks, session.durationMins)
   const planned = totalMinutes(session.blocks)
+
+  // One picker, rendered either into the desktop rail or into the mobile sheet.
+  // Adding from the sheet closes it, so the block you just added is the first
+  // thing you see rather than something you have to dismiss a panel to find.
+  const renderPicker = variant => {
+    const wrap = fn => (variant === 'sheet' ? (...args) => { fn(...args); setPickerOpen(false) } : fn)
+    return (
+      <BlockPicker
+        drills={drills}
+        loading={loading}
+        session={session}
+        onAddDrill={wrap(addDrill)}
+        onAddFreeform={wrap(addFreeform)}
+        variant={variant}
+      />
+    )
+  }
 
   const handleSave = async () => {
     try {
@@ -63,7 +84,8 @@ export default function Planner() {
         </h1>
       </header>
 
-      <div className="grid gap-6 lg:grid-cols-[1fr_20rem]">
+      {/* pb-24 keeps the save row clear of the fixed mobile add bar. */}
+      <div className="grid gap-6 pb-24 lg:grid-cols-[1fr_20rem] lg:pb-0">
         <div className="min-w-0 space-y-5">
           {/* ---- the session at a glance ---- */}
           <div className="surface p-4 sm:p-5">
@@ -198,9 +220,23 @@ export default function Planner() {
             <h2 className="label-sm mb-2">Running order</h2>
 
             {session.blocks.length === 0 ? (
-              <EmptyState title="Nothing planned yet">
-                Add a warm-up from the panel to get started, or browse the drill library. Your plan
-                saves itself on this device as you go.
+              <EmptyState
+                title="Nothing planned yet"
+                action={
+                  <button
+                    type="button"
+                    onClick={() => setPickerOpen(true)}
+                    className="btn-primary lg:hidden"
+                  >
+                    + Add your first block
+                  </button>
+                }
+              >
+                <span className="hidden lg:inline">
+                  Add a warm-up from the panel on the right to get started.
+                </span>
+                <span className="lg:hidden">Add a warm-up to get started.</span> Your plan saves
+                itself on this device as you go.
               </EmptyState>
             ) : (
               <div className="surface overflow-hidden">
@@ -217,7 +253,7 @@ export default function Planner() {
                       onUpdateSnapshot={updateSnapshot}
                       onMove={moveBlock}
                       onRemove={handleRemove}
-                      onSetNow={setNowId}
+                      onSetNow={setNow}
                     />
                   ))}
                 </ul>
@@ -242,7 +278,7 @@ export default function Planner() {
                 </span>
                 <button
                   type="button"
-                  onClick={() => { restoreBlock(undo.block, undo.index); setUndo(null) }}
+                  onClick={() => { restoreBlock(undo.block, undo.index, undo.wasNow); setUndo(null) }}
                   className="btn-ghost shrink-0 text-sm"
                 >
                   Undo
@@ -274,7 +310,7 @@ export default function Planner() {
                 <span className="text-sm text-mist">Clear this session and start again?</span>
                 <button
                   type="button"
-                  onClick={() => { reset(); setNowId(null); setConfirmingReset(false) }}
+                  onClick={() => { reset(); setConfirmingReset(false) }}
                   className="btn-ghost text-whistle"
                 >
                   Yes, clear it
@@ -305,20 +341,31 @@ export default function Planner() {
           </div>
         </div>
 
-        <aside className="min-w-0 lg:sticky lg:top-24 lg:self-start">
-          {error ? (
-            <ErrorNote kind={error} />
-          ) : (
-            <BlockPicker
-              drills={drills}
-              loading={loading}
-              session={session}
-              onAddDrill={addDrill}
-              onAddFreeform={addFreeform}
-            />
-          )}
+        {/* Desktop only: the picker as a sticky right-hand rail, unchanged. On a
+            phone it moves into the sheet below rather than stacking here, where
+            it landed roughly a screen and a half beneath the fold. */}
+        <aside className="hidden min-w-0 lg:sticky lg:top-24 lg:block lg:self-start">
+          {error ? <ErrorNote kind={error} /> : renderPicker('panel')}
         </aside>
       </div>
+
+      {/* ---- mobile: add without leaving the top of the plan ---- */}
+      <div
+        className="no-print fixed inset-x-0 bottom-0 z-30 border-t border-line bg-paper/95 px-4 py-3 backdrop-blur lg:hidden"
+        style={{ paddingBottom: 'calc(0.75rem + env(safe-area-inset-bottom))' }}
+      >
+        <button
+          type="button"
+          onClick={() => setPickerOpen(true)}
+          className="btn-primary w-full"
+        >
+          + Add to session
+        </button>
+      </div>
+
+      <Sheet open={pickerOpen} onClose={() => setPickerOpen(false)} title="Add to the session">
+        <div className="p-4">{error ? <ErrorNote kind={error} /> : renderPicker('sheet')}</div>
+      </Sheet>
     </div>
   )
 }

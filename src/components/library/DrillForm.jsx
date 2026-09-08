@@ -15,6 +15,20 @@ export default function DrillForm({ onSubmit, onCancel, submitting }) {
   const [values, setValues] = useState(emptyDrill)
   const [errors, setErrors] = useState({})
   const [failed, setFailed] = useState(false)
+  const [confirmingCancel, setConfirmingCancel] = useState(false)
+
+  // Has anything actually been typed? Cancel throws away a drill somebody wrote
+  // out by hand, and unlike a session this form has no autosave to fall back on,
+  // so an accidental tap costs the whole thing. Two-step confirm, the same shape
+  // as "Start a clean sheet" in the planner — but only once there is something to
+  // lose, so cancelling an untouched form stays a single tap.
+  const isDirty = JSON.stringify(values) !== JSON.stringify(emptyDrill())
+
+  const handleCancel = () => {
+    if (!isDirty) return onCancel()
+    if (!confirmingCancel) return setConfirmingCancel(true)
+    return onCancel()
+  }
 
   const set = (field, value) => setValues(current => ({ ...current, [field]: value }))
 
@@ -144,7 +158,7 @@ export default function DrillForm({ onSubmit, onCancel, submitting }) {
 
       <div className="surface space-y-5 p-5">
         <div data-invalid={Boolean(errors.themes)}>
-          <Field label="Themes" error={errors.themes} required>
+          <Field label="Themes" error={errors.themes} required group>
             <div className="flex flex-wrap gap-1.5">
               {THEMES.map(theme => (
                 <Chip
@@ -160,7 +174,7 @@ export default function DrillForm({ onSubmit, onCancel, submitting }) {
         </div>
 
         <div data-invalid={Boolean(errors.ageGroups)}>
-          <Field label="Age groups it suits" error={errors.ageGroups} required>
+          <Field label="Age groups it suits" error={errors.ageGroups} required group>
             <div className="flex flex-wrap gap-1.5">
               {AGE_GROUPS.map(age => (
                 <Chip
@@ -175,7 +189,7 @@ export default function DrillForm({ onSubmit, onCancel, submitting }) {
           </Field>
         </div>
 
-        <Field label="Equipment needed">
+        <Field label="Equipment needed" group>
           <div className="flex flex-wrap gap-1.5">
             {EQUIPMENT.filter(item => item.key !== 'none').map(item => (
               <Chip
@@ -189,7 +203,7 @@ export default function DrillForm({ onSubmit, onCancel, submitting }) {
           </div>
         </Field>
 
-        <Field label="Where it fits in a session">
+        <Field label="Where it fits in a session" group>
           <select
             className="field"
             value={values.sessionPhase}
@@ -221,8 +235,13 @@ export default function DrillForm({ onSubmit, onCancel, submitting }) {
             </Field>
           </div>
           <Field label="Minutes">
+            {/* min must sit ON the step ladder. With min="1" step="5" the browser
+                considers 1, 6, 11, 16… valid — so the form's own default of 15
+                failed native validation and silently blocked every submission
+                behind a browser tooltip. min="5" makes the ladder 5, 10, 15…
+                The 1–120 range in schema.js and firestore.rules is unchanged. */}
             <input
-              type="number" min="1" max="120" step="5" className="field tnum"
+              type="number" min="5" max="120" step="5" className="field tnum"
               value={values.durationMins}
               onChange={event => set('durationMins', event.target.value)}
             />
@@ -279,10 +298,26 @@ export default function DrillForm({ onSubmit, onCancel, submitting }) {
         </p>
       )}
 
-      <div className="flex gap-3">
-        <button type="button" onClick={onCancel} className="btn-ghost">
-          Cancel
-        </button>
+      <div className="flex flex-wrap items-center gap-3">
+        {confirmingCancel ? (
+          <>
+            <span className="text-sm text-mist">Discard this drill?</span>
+            <button type="button" onClick={handleCancel} className="btn-ghost text-whistle">
+              Yes, discard it
+            </button>
+            <button
+              type="button"
+              onClick={() => setConfirmingCancel(false)}
+              className="btn-quiet"
+            >
+              Keep writing
+            </button>
+          </>
+        ) : (
+          <button type="button" onClick={handleCancel} className="btn-ghost">
+            Cancel
+          </button>
+        )}
         <button type="submit" disabled={submitting} className="btn-primary ml-auto">
           {submitting ? 'Adding…' : 'Add to the library'}
         </button>

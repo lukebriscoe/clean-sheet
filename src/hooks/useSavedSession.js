@@ -28,20 +28,22 @@ export function useSaveSession() {
     setSaving(true)
     setError(null)
     try {
+      // sanitiseSessionForSave also drops the device-local fields (savedId,
+      // nowId) that firestore.rules would reject.
       const payload = sanitiseSessionForSave(session)
       // A session that has already been saved keeps its document — otherwise every
       // save would litter the collection with orphans nobody can delete (rules
       // forbid deletes entirely).
       if (session.savedId) {
         await updateDoc(doc(db, COLLECTIONS.sessions, session.savedId), {
-          ...stripLocalFields(payload),
+          ...payload,
           updatedAt: serverTimestamp(),
         })
         return { id: session.savedId, shareId: payload.shareId }
       }
 
       const created = await addDoc(collection(db, COLLECTIONS.sessions), {
-        ...stripLocalFields(payload),
+        ...payload,
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
       })
@@ -58,12 +60,6 @@ export function useSaveSession() {
   return { save, saving, error }
 }
 
-// `savedId` tracks the Firestore document locally; it must never be written into
-// the document, because firestore.rules rejects unknown fields.
-function stripLocalFields(session) {
-  const { savedId, ...rest } = session
-  return rest
-}
 
 /** Load a session by its share id — powers the read-only /session/:shareId view. */
 export function useSharedSession(shareIdParam) {

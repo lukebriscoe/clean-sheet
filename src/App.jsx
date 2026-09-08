@@ -1,3 +1,4 @@
+import { useLayoutEffect, useRef } from 'react'
 import { Routes, Route, NavLink, Navigate, useLocation } from 'react-router-dom'
 import Library from './pages/Library.jsx'
 import Planner from './pages/Planner.jsx'
@@ -51,19 +52,51 @@ function Tab({ to, children, badge }) {
   )
 }
 
+/**
+ * Publish the header's real height as --header-h.
+ *
+ * The header gains a "session in progress" row the moment a coach has blocks in
+ * their plan, so its height is not a constant. Anything sticking below it (the
+ * library's filter bar) has to follow, or it tucks underneath and the search
+ * field gets clipped — which only happened once you had a session on the go,
+ * i.e. for every returning coach.
+ */
+function useHeaderHeight(ref, deps) {
+  useLayoutEffect(() => {
+    const header = ref.current
+    const root = document.documentElement
+    if (!header) {
+      root.style.removeProperty('--header-h')
+      return undefined
+    }
+    const measure = () => root.style.setProperty('--header-h', `${header.offsetHeight}px`)
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(header)
+    return () => observer.disconnect()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps)
+}
+
 export default function App() {
   const { session } = useSession()
   const location = useLocation()
+  const headerRef = useRef(null)
 
   // The read-only share view is its own thing: no nav, no planner chrome, so it
   // prints cleanly and reads well on a phone in the rain.
   const isSharedView = location.pathname.startsWith('/session/')
   const planned = totalMinutes(session.blocks)
 
+  useHeaderHeight(headerRef, [isSharedView, planned > 0, location.pathname])
+
   return (
     <div className="min-h-dvh">
       {!isSharedView && (
-        <header className="no-print sticky top-0 z-20 border-b border-line bg-paper/95 backdrop-blur">
+        <header
+          ref={headerRef}
+          className="no-print sticky top-0 z-20 border-b border-line bg-paper/95 backdrop-blur"
+        >
           <div className="mx-auto flex max-w-5xl items-center gap-4 px-4 py-2 sm:px-6">
             <Brand />
             <nav className="ml-auto flex items-center gap-0.5" aria-label="Main">

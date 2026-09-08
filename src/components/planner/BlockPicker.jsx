@@ -11,7 +11,17 @@ import { Spinner } from '../ui/Bits.jsx'
  * Defaults to whichever phase the session is missing, because the most common
  * next action is "I've got a warm-up and a game, I need something in between".
  */
-export default function BlockPicker({ drills, loading, session, onAddDrill, onAddFreeform }) {
+export default function BlockPicker({
+  drills,
+  loading,
+  session,
+  onAddDrill,
+  onAddFreeform,
+  // 'panel' is the desktop right-hand rail; 'sheet' is the mobile bottom sheet,
+  // which supplies its own surface, heading and scroll container.
+  variant = 'panel',
+}) {
+  const inSheet = variant === 'sheet'
   const navigate = useNavigate()
   const usedPhases = useMemo(
     () => new Set(session.blocks.map(block => block.phase)),
@@ -42,9 +52,9 @@ export default function BlockPicker({ drills, loading, session, onAddDrill, onAd
   )
 
   return (
-    <div className="surface no-print p-5">
-      <h2 className="font-display text-xl font-bold">Add to the session</h2>
-      <p className="mt-1 text-sm text-mist">
+    <div className={inSheet ? '' : 'surface no-print p-5'}>
+      {!inSheet && <h2 className="font-display text-xl font-bold">Add to the session</h2>}
+      <p className={`text-sm text-mist ${inSheet ? '' : 'mt-1'}`}>
         Showing drills that suit {labelFor('ageGroup', session.ageGroup)} and{' '}
         {session.playerCount} players.
       </p>
@@ -60,8 +70,13 @@ export default function BlockPicker({ drills, loading, session, onAddDrill, onAd
             className={phase === item.key ? 'chip-on' : 'chip-off'}
           >
             {item.label}
+            {/* aria-label on a bare <span> has no role to attach to and is not
+                reliably exposed; visually-hidden text always is. */}
             {usedPhases.has(item.key) && (
-              <span aria-label="already in the session" aria-hidden={false}>✓</span>
+              <>
+                <span aria-hidden>✓</span>
+                <span className="sr-only">— already in the session</span>
+              </>
             )}
           </button>
         ))}
@@ -76,7 +91,9 @@ export default function BlockPicker({ drills, loading, session, onAddDrill, onAd
         className="field mt-3"
       />
 
-      <div className="mt-4 max-h-96 space-y-2 overflow-y-auto pr-1">
+      {/* In the sheet the dialog itself scrolls — a second scroll container
+          inside it traps the flick and is miserable on a phone. */}
+      <div className={`mt-4 space-y-2 ${inSheet ? '' : 'max-h-96 overflow-y-auto pr-1'}`}>
         {loading ? (
           <Spinner label="Loading drills" />
         ) : matches.length === 0 ? (
@@ -102,8 +119,8 @@ export default function BlockPicker({ drills, loading, session, onAddDrill, onAd
                 key={drill.id}
                 type="button"
                 onClick={() => onAddDrill(drill)}
-                disabled={added}
-                className="flex min-h-[2.75rem] w-full items-center gap-3 rounded-md border border-line bg-paper px-3 py-2 text-left transition-colors duration-[120ms] hover:border-pitch/40 disabled:opacity-40 disabled:hover:border-line"
+                aria-label={added ? `${drill.name} is in your session. Add it again.` : undefined}
+                className="flex min-h-[2.75rem] w-full items-center gap-3 rounded-md border border-line bg-paper px-3 py-2 text-left transition-colors duration-[120ms] hover:border-pitch/40"
               >
                 <div className="min-w-0 flex-1">
                   <div className="truncate font-medium text-pitch">{drill.name}</div>

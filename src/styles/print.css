@@ -24,6 +24,16 @@
     display: none !important;
   }
 
+  /* Opt back in. A control that also carries information — the rail's start
+     times are a button so they can toggle the "now" marker — must still print,
+     or the blanket rule above quietly deletes the schedule off the sheet. */
+  button.print-keep {
+    display: block !important;
+    /* Keep the top padding — it is what aligns the time with the block heading —
+       but drop the touch-target padding underneath it. */
+    padding-bottom: 0 !important;
+  }
+
   .print-only {
     display: block !important;
   }

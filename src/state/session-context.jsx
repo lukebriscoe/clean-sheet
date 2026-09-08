@@ -60,8 +60,19 @@ function reducer(session, action) {
         ),
       }
 
+    // Which block the coach is on right now. Lives in the session rather than in
+    // component state so it survives the phone locking mid-training — which is
+    // guaranteed to happen, since that is exactly when the marker is being used.
+    // It is stripped before the session is saved; see useSavedSession.js.
+    case 'set-now':
+      return { ...session, nowId: action.id }
+
     case 'remove-block':
-      return { ...session, blocks: session.blocks.filter(block => block.id !== action.id) }
+      return {
+        ...session,
+        nowId: session.nowId === action.id ? null : session.nowId,
+        blocks: session.blocks.filter(block => block.id !== action.id),
+      }
 
     // Put a removed block back exactly where it was. Removing is one tap on the
     // running order, and a session someone has spent ten minutes building should
@@ -70,7 +81,14 @@ function reducer(session, action) {
       const blocks = [...session.blocks]
       const at = Math.min(Math.max(0, action.index ?? blocks.length), blocks.length)
       blocks.splice(at, 0, action.block)
-      return { ...session, blocks }
+      // Undo has to be a true inverse, including the "now" marker: removing the
+      // block you are stood in front of and undoing it should leave you stood in
+      // front of it, not silently unmarked.
+      return {
+        ...session,
+        blocks,
+        nowId: action.wasNow ? action.block.id : session.nowId,
+      }
     }
 
     case 'move-block': {
@@ -121,7 +139,9 @@ export function SessionProvider({ children }) {
       updateBlock: (id, changes) => dispatch({ type: 'update-block', id, changes }),
       updateSnapshot: (id, changes) => dispatch({ type: 'update-snapshot', id, changes }),
       removeBlock: id => dispatch({ type: 'remove-block', id }),
-      restoreBlock: (block, index) => dispatch({ type: 'restore-block', block, index }),
+      setNow: id => dispatch({ type: 'set-now', id }),
+      restoreBlock: (block, index, wasNow = false) =>
+        dispatch({ type: 'restore-block', block, index, wasNow }),
       moveBlock: (id, delta) => dispatch({ type: 'move-block', id, delta }),
       load: loaded => dispatch({ type: 'load', session: loaded }),
       reset: () => dispatch({ type: 'reset' }),
