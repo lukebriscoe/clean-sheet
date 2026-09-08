@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { labelFor, LIMITS } from '../../lib/taxonomy.js'
+import { labelFor, LIMITS, sentenceList } from '../../lib/taxonomy.js'
 import { formatClock, formatDuration, formatOffset } from '../../lib/timings.js'
 import { isHttpUrl } from '../../lib/schema.js'
 import { Markdown, PhaseMark } from '../ui/Bits.jsx'
@@ -72,9 +72,8 @@ export default function BlockDetail({ block, index, total, startTime, onClose, o
           <header className="sticky top-0 z-10 border-b border-line bg-chalk/95 px-5 py-4 backdrop-blur sm:px-6">
             <div className="mb-1.5 flex items-center gap-2">
               <PhaseMark phase={block.phase} />
-              <span className="label-sm">{labelFor('phase', block.phase)}</span>
-              <span aria-hidden className="text-line">·</span>
-              <span className="tnum label-sm">
+              <span className="label">{labelFor('phase', block.phase)}</span>
+              <span className="label tnum">
                 {index + 1} of {total}
               </span>
               <button
@@ -107,7 +106,7 @@ export default function BlockDetail({ block, index, total, startTime, onClose, o
                 what this coach decided for this session, so it leads. */}
             {block.notes && (
               <section className="rounded-md border-l-4 border-hivis bg-paper px-4 py-3">
-                <h3 className="label-sm mb-1">Note for tonight</h3>
+                <h3 className="h-section mb-1">Note for tonight</h3>
                 <p className="text-sm font-semibold text-ink">{block.notes}</p>
               </section>
             )}
@@ -154,7 +153,7 @@ export default function BlockDetail({ block, index, total, startTime, onClose, o
             {kit.length > 0 && (
               <Section title="What you need">
                 <p className="text-sm text-mist">
-                  {kit.map(item => labelFor('equipment', item)).join(' · ')}
+                  {sentenceList(kit.map(item => labelFor('equipment', item)))}
                 </p>
               </Section>
             )}
@@ -223,7 +222,7 @@ export default function BlockDetail({ block, index, total, startTime, onClose, o
 function Section({ title, children }) {
   return (
     <section>
-      <h3 className="label-sm mb-2">{title}</h3>
+      <h3 className="h-section mb-2">{title}</h3>
       {children}
     </section>
   )
@@ -232,7 +231,7 @@ function Section({ title, children }) {
 function Stat({ label, value }) {
   return (
     <div className="rounded border border-line bg-paper px-3 py-2">
-      <dt className="label-sm">{label}</dt>
+      <dt className="label">{label}</dt>
       <dd className="mt-0.5 tnum text-sm text-pitch">{value}</dd>
     </div>
   )

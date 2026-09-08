@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useSharedSession } from '../hooks/useSavedSession.js'
 import { useSession } from '../state/session-context.jsx'
 import { withRunningOrder, formatOffset, formatClock, formatDuration, totalMinutes } from '../lib/timings.js'
-import { labelFor } from '../lib/taxonomy.js'
+import { labelFor, sentenceList } from '../lib/taxonomy.js'
 import { Markdown, Spinner, EmptyState } from '../components/ui/Bits.jsx'
 import PitchDiagram from '../components/ui/PitchDiagram.jsx'
 import TouchlineRail, { RailFinish } from '../components/planner/TouchlineRail.jsx'
@@ -124,7 +124,7 @@ export default function SessionView() {
             aria-pressed={allDetail}
             className="btn-quiet whitespace-nowrap text-sm"
           >
-            {allDetail ? 'Hide detail' : 'All detail'}
+            {allDetail ? 'Hide coaching points' : 'Show coaching points'}
           </button>
           <button type="button" onClick={copyLink} className="btn-ghost whitespace-nowrap text-sm">
             {copied ? '✓ Copied' : 'Copy link'}
@@ -143,32 +143,32 @@ export default function SessionView() {
 
       {/* ---- header ---- */}
       <header className="mb-6 border-b border-line pb-5">
-        <p className="label-sm mb-1.5">
-          {labelFor('ageGroup', session.ageGroup)} session
-          {session.theme && ` · ${labelFor('theme', session.theme)}`}
-        </p>
-        <h1 className="font-display text-3xl font-bold leading-tight sm:text-4xl">
+        <h1 className="font-display text-[2rem] font-black leading-[1.1] tracking-tight sm:text-[2.5rem]">
           {session.title}
         </h1>
 
+        {/* This was a caps eyebrow above the title and a DURATION/PLAYERS pair
+            underneath it — a stat-tile row, which is the stock treatment. The
+            same four facts read faster as one sentence, and the sentence is what
+            a coach would say out loud about the session. */}
+        <p className="tnum mt-2.5 text-mist">
+          {[
+            `${labelFor('ageGroup', session.ageGroup)} session`,
+            `${formatDuration(planned)} for ${session.playerCount} players`,
+          ].join(', ')}
+          .
+          {session.startTime && (
+            <> {finishClock ? `${session.startTime}–${finishClock}` : `From ${session.startTime}`}.</>
+          )}
+          {session.dateFor && <> {session.dateFor}.</>}
+        </p>
+
         {session.objectives && (
-          <p className="mt-2 text-mist">
-            <span className="label-sm mr-2">Focus</span>
+          <p className="measure-tight mt-2 text-ink">
+            <span className="label mr-1.5">Working on</span>
             {session.objectives}
           </p>
         )}
-
-        <dl className="mt-4 flex flex-wrap gap-x-6 gap-y-2 tnum text-sm text-mist">
-          <Meta label="Duration" value={formatDuration(planned)} />
-          <Meta label="Players" value={String(session.playerCount)} />
-          {session.startTime && (
-            <Meta
-              label="Time"
-              value={finishClock ? `${session.startTime}–${finishClock}` : session.startTime}
-            />
-          )}
-          {session.dateFor && <Meta label="Date" value={session.dateFor} />}
-        </dl>
       </header>
 
       {/* ---- kit list: the thing you need BEFORE you leave the house ---- */}
@@ -206,7 +206,9 @@ export default function SessionView() {
 
       <footer className="mt-8 border-t border-line pt-5 text-sm text-mist">
         <p>
-          Planned by {session.createdBy?.displayName ?? 'a coach'} with Clean Sheet.
+          {namedCoach(session.createdBy?.displayName)
+            ? `Planned by ${session.createdBy.displayName} with Clean Sheet.`
+            : 'Planned with Clean Sheet.'}
           {' '}
           {/* If this is the coach's own session, the useful link is back into it.
               Otherwise "build your own" has to say that it starts from a blank
@@ -219,7 +221,7 @@ export default function SessionView() {
               </Link>
             ) : (
               <Link to="/plan" className="text-pitch-mid underline underline-offset-2">
-                Start your own clean sheet →
+                Start your own clean sheet
               </Link>
             )}
           </span>
@@ -291,22 +293,12 @@ function PlanBlock({ block, isFirst, startTime, forceOpen, isNow, onToggleNow, o
         isNow={isNow}
         blockName={snapshot.name}
         onToggleNow={onToggleNow}
+        durationMins={block.durationMins}
       />
 
-      <div className="min-w-0 flex-1 space-y-1.5 pt-0.5">
+      <div className="min-w-0 flex-1 space-y-1.5">
         <div>
-          <div className="flex flex-wrap items-baseline gap-x-2">
-            <span className="label-sm">{labelFor('phase', block.phase)}</span>
-            {isNow && (
-              <span className="no-print rounded-sm bg-hivis px-1.5 py-0.5 font-display text-[0.65rem] font-bold uppercase tracking-[0.08em] text-ink">
-                Now
-              </span>
-            )}
-            <span className="tnum ml-auto text-sm font-semibold text-mist">
-              {block.durationMins} min
-            </span>
-          </div>
-          <h2 className="font-display text-xl font-bold leading-snug text-pitch">
+          <h2 className="drill-title">
             {hasDetail ? (
               <button
                 type="button"
@@ -318,9 +310,6 @@ function PlanBlock({ block, isFirst, startTime, forceOpen, isNow, onToggleNow, o
                 className="print-keep group flex w-full items-start gap-1.5 text-left"
               >
                 <span className="underline-offset-4 group-hover:underline">{name}</span>
-                <span aria-hidden className="no-print mt-1 shrink-0 text-base text-mist">
-                  →
-                </span>
               </button>
             ) : (
               name
@@ -329,14 +318,14 @@ function PlanBlock({ block, isFirst, startTime, forceOpen, isNow, onToggleNow, o
         </div>
 
         {snapshot.summary && (
-          <p className="max-w-prose text-sm leading-snug text-mist">{snapshot.summary}</p>
+          <p className="measure-tight text-[0.9375rem] leading-snug text-mist">{snapshot.summary}</p>
         )}
 
         {/* Tonight's note is specific to this session and can change what you do,
             so it never hides. */}
         {block.notes && (
           <section className="rounded-md border-l-4 border-hivis bg-paper px-3 py-2">
-            <h3 className="label-sm mb-0.5">Note for tonight</h3>
+            <h3 className="h-section mb-0.5">Note for tonight</h3>
             <p className="text-sm font-semibold text-ink">{block.notes}</p>
           </section>
         )}
@@ -348,7 +337,7 @@ function PlanBlock({ block, isFirst, startTime, forceOpen, isNow, onToggleNow, o
                 a second control — which is most of the height the block gave
                 back. It is screen-only: on paper the contents are right there. */}
             {!forceOpen && inside.length > 0 && (
-              <p className="no-print text-xs text-mist">{inside.join(' · ')}</p>
+              <p className="no-print text-[0.8125rem] text-mist">{inside.join(', ')}</p>
             )}
 
             <div className={`space-y-3 ${forceOpen ? '' : 'hidden print:block'}`}>
@@ -357,7 +346,7 @@ function PlanBlock({ block, isFirst, startTime, forceOpen, isNow, onToggleNow, o
                   is the only thing keeping them on the printed plan. */}
               {snapshot.coachingPoints?.length > 0 && (
                 <section>
-                  <h3 className="label-sm mb-1.5">Coaching points</h3>
+                  <h3 className="h-section mb-1.5">Coaching points</h3>
                   <ul className="space-y-1.5">
                     {snapshot.coachingPoints.map((point, index) => (
                       <li key={index} className="flex gap-2.5 text-sm leading-relaxed text-mist">
@@ -377,14 +366,14 @@ function PlanBlock({ block, isFirst, startTime, forceOpen, isNow, onToggleNow, o
 
               {snapshot.setup && (
                 <section>
-                  <h3 className="label-sm mb-1.5">Set-up</h3>
+                  <h3 className="h-section mb-1.5">Set-up</h3>
                   <Markdown source={snapshot.setup} />
                 </section>
               )}
 
               {snapshot.description && (
                 <section>
-                  <h3 className="label-sm mb-1.5">What happens</h3>
+                  <h3 className="h-section mb-1.5">What happens</h3>
                   <Markdown source={snapshot.description} />
                 </section>
               )}
@@ -407,19 +396,10 @@ function PlanBlock({ block, isFirst, startTime, forceOpen, isNow, onToggleNow, o
   )
 }
 
-function Meta({ label, value }) {
-  return (
-    <div>
-      <dt className="label-sm">{label}</dt>
-      <dd className="mt-0.5 text-pitch">{value}</dd>
-    </div>
-  )
-}
-
 function MiniList({ title, items, marker }) {
   return (
     <section>
-      <h3 className="label-sm mb-1.5">{title}</h3>
+      <h3 className="h-section mb-1.5">{title}</h3>
       <ul className="space-y-1">
         {items.map((item, index) => (
           <li key={index} className="flex gap-2 text-sm text-mist">
@@ -448,10 +428,20 @@ function KitList({ blocks = [] }) {
   ]
   if (!kit.length) return null
 
+  // Was a caps heading over a dot-joined string. An imperative sentence labels
+  // itself, so the heading and the dots both go.
   return (
     <div className="surface print-block px-4 py-3">
-      <h2 className="label-sm mb-1.5">What to bring</h2>
-      <p className="text-pitch">{kit.map(item => labelFor('equipment', item)).join(' · ')}</p>
+      <p className="font-display text-[1.0625rem] font-bold text-pitch">
+        Bring {sentenceList(kit.map(item => labelFor('equipment', item).toLowerCase()))}.
+      </p>
     </div>
   )
+}
+
+/** The schema stores 'Anonymous coach' when nobody gave a name. That is a
+ *  database default, not a person, and it should never reach the page. */
+function namedCoach(displayName) {
+  const name = String(displayName ?? '').trim()
+  return name && name !== 'Anonymous coach' ? name : null
 }

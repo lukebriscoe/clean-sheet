@@ -107,7 +107,7 @@ export default function BlockPicker({
                 Add your own instead
               </button>
               <button type="button" onClick={() => navigate('/library')} className="btn-quiet">
-                Browse the full library →
+                Browse the full library
               </button>
             </div>
           </div>
@@ -141,7 +141,7 @@ export default function BlockPicker({
           + Add your own activity
         </button>
         <button type="button" onClick={() => navigate('/library')} className="btn-quiet">
-          Browse full library →
+          Browse the full library
         </button>
       </div>
     </div>

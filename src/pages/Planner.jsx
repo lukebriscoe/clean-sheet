@@ -79,7 +79,7 @@ export default function Planner() {
   return (
     <div>
       <header className="mb-4">
-        <h1 className="font-display text-3xl leading-tight sm:text-4xl">
+        <h1 className="font-display text-[2rem] font-black leading-[1.1] tracking-tight sm:text-[2.5rem]">
           {session.title || 'A clean sheet'}
         </h1>
       </header>
@@ -101,9 +101,9 @@ export default function Planner() {
 
             <div className="mt-3 flex items-center gap-2 lg:hidden">
               <p className="min-w-0 flex-1 truncate text-sm text-mist">
-                {labelFor('ageGroup', session.ageGroup)} · {session.playerCount} players ·{' '}
+                {labelFor('ageGroup', session.ageGroup)}, {session.playerCount} players,{' '}
                 {formatDuration(session.durationMins)}
-                {session.startTime && ` · KO ${session.startTime}`}
+                {session.startTime && `, kick-off ${session.startTime}`}
               </p>
               <button
                 type="button"
@@ -217,7 +217,7 @@ export default function Planner() {
 
           {/* ---- the running order, on the rail ---- */}
           <section>
-            <h2 className="label-sm mb-2">Running order</h2>
+            <h2 className="h-section mb-2">Running order</h2>
 
             {session.blocks.length === 0 ? (
               <EmptyState
@@ -336,7 +336,7 @@ export default function Planner() {
               disabled={saving || session.blocks.length === 0}
               className="btn-primary ml-auto"
             >
-              {saving ? 'Saving…' : 'Save & get a share link'}
+              {saving ? 'Saving…' : 'Save this plan'}
             </button>
           </div>
         </div>

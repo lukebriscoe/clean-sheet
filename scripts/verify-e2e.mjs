@@ -125,14 +125,14 @@ const titleAfter = await page.inputValue('input[placeholder*="U10"]')
 check('draft survives reload', afterReload === 5 && titleAfter.includes('Pressing'), `${afterReload} blocks, title kept`)
 
 // ---- 8. Save and open the share link ----
-await page.getByRole('button', { name: /Save & get a share link/ }).click()
+await page.getByRole('button', { name: /Save this plan/ }).click()
 await page.waitForURL(/#\/session\//, { timeout: 20000 })
 const shareUrl = page.url()
 await page.waitForSelector('h1')
 check('saved and redirected to share view', /#\/session\/[a-z0-9]{12}/.test(shareUrl), shareUrl.split('#')[1])
 
 const sessionText = await page.locator('body').innerText()
-check('share view lists what to bring', /what to bring/i.test(sessionText))
+check('share view lists what to bring', /\bBring .*(cones|bibs|balls|goals)/i.test(sessionText))
 check('share view shows the running order', names.every(n => sessionText.includes(n)))
 await page.screenshot({ path: `${OUT}/05-session-view.png`, fullPage: true })
 
@@ -162,7 +162,7 @@ check(
   `${detailHidden.inDom} in the DOM, ${detailHidden.visible} on screen`,
 )
 const collapsedH = await mobile.evaluate(() => document.body.scrollHeight)
-await mobile.getByRole('button', { name: 'All detail' }).click()
+await mobile.getByRole('button', { name: 'Show coaching points' }).click()
 await mobile.waitForTimeout(400)
 const expandedH = await mobile.evaluate(() => document.body.scrollHeight)
 check(
@@ -170,7 +170,7 @@ check(
   collapsedH < expandedH * 0.6,
   `${collapsedH}px vs ${expandedH}px expanded`,
 )
-await mobile.getByRole('button', { name: 'Hide detail' }).click()
+await mobile.getByRole('button', { name: 'Hide coaching points' }).click()
 await mobile.waitForTimeout(300)
 
 // ---- 10. Print view ----
@@ -380,11 +380,11 @@ check(
 )
 
 // …and it must not sit on top of the save row it was introduced above.
-const saveBtn = phonePage.getByRole('button', { name: /Save & get a share link/ })
+const saveBtn = phonePage.getByRole('button', { name: /Save this plan/ })
 await saveBtn.scrollIntoViewIfNeeded()
 await phonePage.waitForTimeout(200)
 const overlap = await phonePage.evaluate(() => {
-  const save = [...document.querySelectorAll('button')].find(b => /Save & get/.test(b.textContent))
+  const save = [...document.querySelectorAll('button')].find(b => /Save this plan/.test(b.textContent))
   const bar = [...document.querySelectorAll('button')].find(b => /Add to session/.test(b.textContent))
   if (!save || !bar) return null
   const s = save.getBoundingClientRect()

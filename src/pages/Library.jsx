@@ -131,12 +131,16 @@ export default function Library() {
           says how many there are. Kept for screen readers and for desktop, where
           the space is free. */}
       <header className="mb-0 sm:mb-5">
-        <h1 className="sr-only font-display leading-tight sm:not-sr-only sm:text-4xl">
-          Search our drills to build your session
+        <h1 className="sr-only font-display font-black leading-[1.1] tracking-tight sm:not-sr-only sm:text-[2.5rem]">
+          Find drills for tonight
         </h1>
-        <p className="mt-1.5 hidden max-w-prose text-mist sm:block">
-          Filter by what you&rsquo;re working on, who&rsquo;s turned up, and the kit you have available. 
-          Click the plus sign to add a drill to your plan.
+        {/* The kit filter is inverted — it shows what you can run with only what
+            you picked — and "what's in the car" is the sentence that explains it
+            without a paragraph of help text. The old line also told coaches to
+            "click the plus sign", which is the wrong verb for the device this is
+            built for and an admission the control was not self-evident. */}
+        <p className="measure-tight mt-2 hidden text-mist sm:block">
+          Filter by what you&rsquo;re working on, who&rsquo;s turned up, and what&rsquo;s in the car.
         </p>
       </header>
 
@@ -243,16 +247,16 @@ export default function Library() {
 
       {!loading && visible.length > 0 && (
         <p className="mt-3 text-sm text-mist">
-          {visible.length} of {drills.length} drills
+          {visible.length} of {drills.length} drills.
           {hasActiveFilters(filters) && (
             <>
-              {' · '}
+              {' '}
               <button
                 type="button"
                 onClick={() => setFilters(EMPTY_FILTERS)}
                 className="font-semibold text-pitch underline underline-offset-2"
               >
-                clear filters
+                Clear filters
               </button>
             </>
           )}

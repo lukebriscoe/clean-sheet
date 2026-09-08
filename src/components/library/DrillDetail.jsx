@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { labelFor } from '../../lib/taxonomy.js'
+import { labelFor, sentenceList } from '../../lib/taxonomy.js'
 import { formatDuration } from '../../lib/timings.js'
 import { Markdown, PhaseMark } from '../ui/Bits.jsx'
 import PitchDiagram from '../ui/PitchDiagram.jsx'
@@ -41,7 +41,7 @@ export default function DrillDetail({ drill, onClose, onAdd, isAdded }) {
           <header className="sticky top-0 z-10 border-b border-line bg-chalk/95 px-6 py-4 backdrop-blur">
             <div className="mb-1.5 flex items-center gap-2">
               <PhaseMark phase={drill.sessionPhase} />
-              <span className="label-sm">{labelFor('phase', drill.sessionPhase)}</span>
+              <span className="label">{labelFor('phase', drill.sessionPhase)}</span>
               <button
                 type="button"
                 onClick={() => dialogRef.current?.close()}
@@ -112,7 +112,7 @@ export default function DrillDetail({ drill, onClose, onAdd, isAdded }) {
 
             <Section title="Equipment">
               <p className="text-sm text-mist">
-                {(drill.equipment ?? []).map(item => labelFor('equipment', item)).join(' · ') ||
+                {sentenceList((drill.equipment ?? []).map(item => labelFor('equipment', item))) ||
                   'Nothing needed'}
               </p>
             </Section>
@@ -142,7 +142,7 @@ export default function DrillDetail({ drill, onClose, onAdd, isAdded }) {
 
             <p className="border-t border-line pt-4 text-xs text-mist">
               Added by {drill.createdBy?.displayName ?? 'a coach'}
-              {drill.source === 'seed' && ' · part of the starter library'}
+              {drill.source === 'seed' && '. Part of the starter library.'}
             </p>
           </div>
 
@@ -170,7 +170,7 @@ export default function DrillDetail({ drill, onClose, onAdd, isAdded }) {
 function Section({ title, children }) {
   return (
     <section>
-      <h3 className="label-sm mb-2">{title}</h3>
+      <h3 className="h-section mb-2">{title}</h3>
       {children}
     </section>
   )
@@ -179,7 +179,7 @@ function Section({ title, children }) {
 function Stat({ label, value }) {
   return (
     <div className="rounded border border-line bg-paper px-3 py-2">
-      <dt className="label-sm">{label}</dt>
+      <dt className="label">{label}</dt>
       <dd className="mt-0.5 tnum text-sm text-pitch">{value}</dd>
     </div>
   )

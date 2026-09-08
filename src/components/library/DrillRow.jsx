@@ -25,13 +25,15 @@ export default function DrillRow({ drill, onOpen, onAdd, isAdded }) {
           onClick={() => onOpen(drill)}
           className="block w-full text-left"
         >
-          <span className="font-display text-[1.05rem] font-bold leading-snug text-pitch underline-offset-4 group-hover:underline">
+          <span className="font-display text-[1.125rem] font-bold leading-snug text-pitch underline-offset-4 group-hover:underline">
             {drill.name}
           </span>
-          <span className="mt-0.5 block text-sm leading-snug text-mist">{drill.summary}</span>
+          <span className="measure-tight mt-0.5 block text-[0.9375rem] leading-snug text-mist">
+            {drill.summary}
+          </span>
         </button>
 
-        <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-mist">
+        <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.8125rem] text-mist">
           {/* Duration leads the meta line on a phone, where the right-hand column
               is hidden. When you are filling a 90-minute session it is the most
               decision-relevant number on the row, so hiding it on the device this
@@ -40,22 +42,14 @@ export default function DrillRow({ drill, onOpen, onAdd, isAdded }) {
           <span className="tnum font-bold text-ink sm:hidden">
             {formatDuration(drill.durationMins)}
           </span>
-          <span aria-hidden className="text-line sm:hidden">·</span>
-          <span className="hidden font-semibold uppercase tracking-[0.06em] sm:inline">
+          <span className="hidden font-semibold sm:inline">
             {labelFor('phase', drill.sessionPhase)}
           </span>
-          <span aria-hidden className="hidden text-line sm:inline">·</span>
           <span className="tnum">
             {drill.minPlayers}–{drill.maxPlayers} players
           </span>
-          <span aria-hidden className="text-line">·</span>
           <span className="tnum">{summariseAges(drill.ageGroups)}</span>
-          {drill.diagram && (
-            <>
-              <span aria-hidden className="text-line">·</span>
-              <span>diagram</span>
-            </>
-          )}
+          {drill.diagram && <span>diagram</span>}
         </div>
       </div>
 

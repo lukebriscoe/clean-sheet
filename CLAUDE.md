@@ -139,19 +139,63 @@ Four rules that are load-bearing:
    as a generic selected state destroys the one piece of look-here signalling.
 3. **No six-hue phase rainbow.** Two greens and one yellow. Phases are told apart
    by rail position, label, and `PhaseMark` weight — not by colour.
-4. **No mono micro-labels, no card shadows, no entrance animations.** All three
-   were the AI-UI tells in the previous build. Section labels are `.label-sm`
-   (small bold uppercase Chivo). Separation comes from the paper/white value step.
+4. **No micro-labels, no card shadows, no entrance animations.** These were the
+   AI-UI tells in earlier builds. Separation comes from the paper/white value step.
+   **There is no eyebrow label.** `.label-sm` — small bold uppercase Chivo — was
+   the second attempt at the tell the mono micro-label was the first attempt at,
+   and it had spread to 33 sites, including above every heading and above every
+   drill name in the running order (where all three blocks read TECHNICAL
+   PRACTICE, told you nothing, and took first position from the name). It is
+   gone. Two classes replaced it, both sentence case: `.label` for a caption on a
+   form control, `.h-section` for a heading inside a detail panel.
+
+5. **No delimiter runs.** Meta lines were joined with ` · ` in 17 places. A
+   middle-dot run reads as data on a page written in sentences and a screen
+   reader says nothing for it. Use a sentence, or spacing. `sentenceList()` in
+   `lib/taxonomy.js` renders kit lists as "cones, bibs and balls".
+
+6. **No arrow glyphs appended to link text.** Directional controls (Previous /
+   Next, a back link) keep theirs; "Browse the full library →" does not.
+
+7. **No stat tiles.** The shared plan opened with a DURATION / PLAYERS pair under
+   a caps eyebrow, which is the stock big-number treatment. The same facts are
+   now one sentence: "U10 session, 58 min for 12 players." If a number deserves
+   size here, it is the clock — see below.
 
 Type is two families: **Chivo** (display + all figures — tabular, so no mono face
 is needed) and **Atkinson Hyperlegible** (body — chosen for bright-daylight
 glanceability, not style).
+
+The scale is a 1.25 ratio off a 17px body, set in `theme.css`: `.clock` at 1.5rem
+(1.75rem from `sm`), `.drill-title` at 1.375rem, body at 1.0625rem, and `.label`
+and `.clock-dur` at 0.8125rem. Page titles are 2rem, 2.5rem from `sm`.
+
+**The clock is the hero, and it is the only thing that is.** On a touchline the
+most decision-relevant thing on screen is when the block starts; it used to be set
+*smaller* than the drill name it indexes. It is now the largest thing in the
+running order, with the duration under it in the same gutter, and everything
+around it is deliberately quiet — that is where the design spends its boldness.
+It is cap-aligned with the drill title, not baseline-aligned: at 28px against a
+22px title, baselines cannot meet without negative padding. If you change either
+size, re-check `pt-[0.1rem]` on the gutter and `top: 1.55rem` on `.rail-tick`,
+`.rail-minutes` and `[data-first]` — all four hang off the title's optical centre.
 
 **The touchline rail** (`TouchlineRail.jsx` + `.rail-*` in theme.css) is the
 signature element: a continuous vertical line with 5-minute tick marks, times
 sitting on it. The continuity is the whole point — if you change the row padding,
 keep the `-my-3` on `.rail-track` or the line fragments per block. It survives
 into print deliberately, which is what makes it an artefact rather than a flourish.
+
+**There is exactly one animation.** Tapping a start time wipes the high-vis rail
+segment down its block over 200ms (`@keyframes rail-now`). It answers a person's
+action and shows what changed. Everything else is a colour transition on a
+control. Don't add a second one.
+
+**The "Now" chip lives in the rail gutter, under the clock** — not above the drill
+name. Above the name it added a line that knocked the clock out of alignment on
+whichever block was current, and it belongs next to the high-vis bar that is the
+actual marker. It is the non-colour carrier of "now": the bar alone would fail for
+a colourblind reader.
 
 **"Now" is a pitchside control, not a planning one.** It marks the block a coach is
 standing in front of, so it has to work where that happens: it persists (a phone

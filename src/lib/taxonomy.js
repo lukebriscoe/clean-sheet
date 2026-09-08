@@ -102,3 +102,15 @@ export const LIMITS = {
   blocks: 30,
   references: 6,
 }
+
+/**
+ * "cones, bibs and balls" — a list as a person would say it.
+ *
+ * Equipment and kit lists were joined with ' · ' in four places. A middle-dot
+ * run is a delimiter, not language: it reads as data on a page that is otherwise
+ * written in sentences, and a screen reader says nothing at all for it.
+ */
+export function sentenceList(items = []) {
+  if (items.length <= 1) return items.join('')
+  return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`
+}

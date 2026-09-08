@@ -53,6 +53,9 @@
   body {
     @apply bg-paper font-body text-ink antialiased;
     min-height: 100dvh;
+    /* 17px, not 16. The scale below is a 1.25 ratio off this. */
+    font-size: 1.0625rem;
+    line-height: 1.55;
   }
 
   h1,
@@ -95,10 +98,50 @@
     @apply rounded-md border border-line bg-chalk;
   }
 
-  /* Section label. Replaces the tracked-out mono micro-label of the old theme,
-     which was the strongest AI-UI tell in the build. */
-  .label-sm {
-    @apply font-display text-[0.7rem] font-bold uppercase tracking-[0.08em] text-mist;
+  /* The old .label-sm was a tracked-out ALL-CAPS eyebrow used 33 times — it
+     replaced the previous build's mono micro-label with a different tell of the
+     same family, and above every heading it took first position from the thing
+     the eye actually wanted. It is gone. What is left are the two jobs it was
+     really doing, both in sentence case.
+
+     A caption on a form control. */
+  .label {
+    @apply font-body text-[0.8125rem] font-bold text-mist;
+  }
+
+  /* A heading inside a detail panel — "Coaching points", "Set-up". A heading,
+     so it takes the display face and the ink colour; small, so it sits under
+     the drill name without competing. */
+  .h-section {
+    @apply font-display text-[0.9375rem] font-bold text-pitch;
+  }
+
+  /* ---- the type scale ---------------------------------------------------
+     1.25 off a 17px body. The running order is the thing a coach reads at
+     arm's length in the rain, so it gets the top of the scale below the h1. */
+
+  /* The start time on the rail. This is the hero: on a touchline the most
+     decision-relevant thing on screen is when the block starts, and it used to
+     be set smaller than the drill name it indexes. */
+  .clock {
+    @apply block font-display text-[1.5rem] font-black leading-none text-pitch sm:text-[1.75rem];
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Duration, sitting under the clock in the gutter. */
+  .clock-dur {
+    @apply mt-1 block text-[0.8125rem] font-bold leading-none text-mist;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* A drill name in the running order. */
+  .drill-title {
+    @apply font-display text-[1.375rem] font-bold leading-[1.15] text-pitch;
+  }
+
+  /* Descriptions in the running order ran ~85ch on a desktop column. */
+  .measure-tight {
+    max-width: 62ch;
   }
 
   /* ---- the touchline rail ------------------------------------------------
@@ -115,7 +158,7 @@
     @apply absolute inset-y-0 left-1/2 w-[2px] -translate-x-1/2 bg-pitch/45;
   }
   .rail-track[data-first='true']::before {
-    top: 1.4rem;
+    top: 1.55rem;
   }
   .rail-track[data-last='true']::before {
     bottom: 0;
@@ -124,7 +167,7 @@
   /* The boundary tick at the top of each block — the "yard marking". */
   /* The boundary tick at the head of each block — the heavy yard marking. */
   .rail-tick {
-    @apply absolute left-1/2 top-[1.35rem] h-[2px] w-3 -translate-x-1/2 bg-pitch;
+    @apply absolute left-1/2 top-[1.55rem] h-[2px] w-3 -translate-x-1/2 bg-pitch;
   }
 
   /* Filled segment marking the block a coach is on right now. The one place
@@ -132,6 +175,20 @@
   .rail-track[data-now='true']::after {
     content: '';
     @apply absolute inset-y-0 left-1/2 w-[6px] -translate-x-1/2 rounded-full bg-hivis;
+    transform-origin: top;
+    animation: rail-now 200ms ease-out;
+  }
+
+  /* The only non-hover animation in the build, and the only one that isn't a
+     colour change. It fires when a coach taps a start time to say "I'm on this
+     one" — motion that reports what changed, in the one place worth looking. */
+  @keyframes rail-now {
+    from {
+      transform: translateX(-50%) scaleY(0);
+    }
+    to {
+      transform: translateX(-50%) scaleY(1);
+    }
   }
 
   /* The minute markings: a light tick every five minutes between the heavy
@@ -139,7 +196,7 @@
      that actually matter. This is what stops the rail reading as a generic
      timeline and makes it read as something measured out. */
   .rail-minutes {
-    @apply absolute inset-x-0 top-[1.35rem] bottom-0;
+    @apply absolute inset-x-0 top-[1.55rem] bottom-0;
     background-image: linear-gradient(
       to bottom,
       rgb(var(--pitch) / 0.35) 0 1px,

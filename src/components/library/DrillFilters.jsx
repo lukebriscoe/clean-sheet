@@ -136,7 +136,7 @@ export default function DrillFilters({ filters, onChange, drills }) {
 
   const Group = ({ legend, children }) => (
     <fieldset>
-      <legend className="label-sm mb-2">{legend}</legend>
+      <legend className="label mb-2">{legend}</legend>
       <div className="flex flex-wrap gap-1.5">{children}</div>
     </fieldset>
   )
@@ -204,7 +204,7 @@ export default function DrillFilters({ filters, onChange, drills }) {
 
       <div className="flex flex-wrap items-end gap-4">
         <label className="block">
-          <span className="label-sm mb-1.5 block">Players tonight</span>
+          <span className="label mb-1.5 block">Players tonight</span>
           <input
             type="number"
             min="1"
@@ -218,7 +218,7 @@ export default function DrillFilters({ filters, onChange, drills }) {
           />
         </label>
         <label className="block">
-          <span className="label-sm mb-1.5 block">Max minutes</span>
+          <span className="label mb-1.5 block">Max minutes</span>
           <input
             type="number"
             min="1"

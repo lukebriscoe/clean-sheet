@@ -109,9 +109,9 @@ export default function App() {
           {planned > 0 && !location.pathname.startsWith('/plan') && (
             <div className="border-t border-line bg-chalk">
               <div className="mx-auto max-w-5xl px-4 py-1.5 sm:px-6">
-                <span className="label-sm">
-                  Session in progress · {session.blocks.length}{' '}
-                  {session.blocks.length === 1 ? 'block' : 'blocks'} · {formatDuration(planned)}
+                <span className="label">
+                  Session in progress: {session.blocks.length}{' '}
+                  {session.blocks.length === 1 ? 'block' : 'blocks'}, {formatDuration(planned)}
                 </span>
               </div>
             </div>

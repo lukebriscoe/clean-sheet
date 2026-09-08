@@ -194,7 +194,7 @@ export default function PitchDiagram({ diagram, drillName = 'this drill', classN
       </div>
 
       <figcaption className="mt-1.5 flex flex-wrap items-baseline justify-between gap-2">
-        <span className="label-sm">{areaLabel(d.area)}</span>
+        <span className="label">{areaLabel(d.area)}</span>
         {d.caption && <span className="text-xs text-mist">{d.caption}</span>}
       </figcaption>
     </figure>

@@ -49,13 +49,14 @@
   }
 
   /* Everything prints black — a blanket rule rather than a list of utilities,
-     because colour is set in several places (utilities, .prose-drill, .label-sm). */
+     because colour is set in several places (utilities, .prose-drill, .label). */
   body * {
     color: #000 !important;
   }
 
-  /* Section labels recede by weight and size, not by colour. */
-  .label-sm {
+  /* Captions recede by weight and size, not by colour. Section headings stay
+     black — on paper they are what a coach scans for. */
+  .label {
     color: #555 !important;
   }
 
@@ -68,6 +69,11 @@
   }
   .rail-tick {
     background: #000 !important;
+  }
+  /* The start time carries the schedule on paper, so it keeps its screen weight
+     rather than collapsing to body size with the rest of the type. */
+  .clock {
+    font-size: 15pt !important;
   }
   /* The "now" marker is a screen aid — it would be wrong on a printed plan that
      gets reused next week. */

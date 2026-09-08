@@ -45,36 +45,25 @@ export default function BlockRow({
       />
 
       <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2">
-          <span className="label-sm truncate">{labelFor('phase', block.phase)}</span>
-          {isNow && (
-            <span className="shrink-0 rounded-sm bg-hivis px-1.5 py-0.5 font-display text-[0.65rem] font-bold uppercase tracking-[0.08em] text-ink">
-              Now
-            </span>
-          )}
-        </div>
-
         {isFreeform ? (
           <input
             value={snapshot.name}
             onChange={event => onUpdateSnapshot(block.id, { name: event.target.value })}
             placeholder="Name this activity…"
             aria-label="Activity name"
-            className="mt-0.5 w-full rounded border border-dashed border-line bg-transparent px-2 py-1 font-display text-lg font-bold text-pitch focus:border-pitch focus:outline-none"
+            className="w-full rounded border border-dashed border-line bg-transparent px-2 py-1 font-display text-[1.375rem] font-bold text-pitch focus:border-pitch focus:outline-none"
           />
         ) : (
           <button
             type="button"
             onClick={() => setExpanded(open => !open)}
             aria-expanded={expanded}
-            className="mt-0.5 flex w-full items-start gap-1.5 text-left"
+            className="flex w-full items-start gap-1.5 text-left"
           >
             <span className="min-w-0 flex-1">
-              <span className="block font-display text-[1.05rem] font-bold leading-snug text-pitch">
-                {snapshot.name}
-              </span>
+              <span className="drill-title block">{snapshot.name}</span>
               {snapshot.summary && (
-                <span className="mt-0.5 line-clamp-2 block text-sm leading-snug text-mist">
+                <span className="measure-tight mt-1 line-clamp-2 block text-sm leading-snug text-mist">
                   {snapshot.summary}
                 </span>
               )}
@@ -102,7 +91,7 @@ export default function BlockRow({
               aria-label={`Duration of ${snapshot.name || 'this block'} in minutes`}
               className="tnum h-11 w-14 rounded-md border border-line bg-chalk px-1 text-center font-display font-bold focus:border-pitch focus:outline-none"
             />
-            <span aria-hidden className="label-sm">min</span>
+            <span aria-hidden className="text-[0.8125rem] font-bold text-mist">min</span>
           </label>
 
           <div className="ml-auto flex shrink-0 items-center">
@@ -140,7 +129,7 @@ export default function BlockRow({
             {/* Rare and destructive actions live here, off the main row. */}
             <div className="flex flex-wrap items-end gap-2">
               <label className="min-w-0 flex-1">
-                <span className="label-sm mb-1.5 block">Part of the session</span>
+                <span className="label mb-1.5 block">Part of the session</span>
                 <select
                   value={block.phase}
                   onChange={event => onUpdate(block.id, { phase: event.target.value })}
@@ -165,7 +154,7 @@ export default function BlockRow({
 
             {isFreeform ? (
               <label className="block">
-                <span className="label-sm mb-1.5 block">What happens</span>
+                <span className="label mb-1.5 block">What happens</span>
                 <textarea
                   value={snapshot.description}
                   onChange={event => onUpdateSnapshot(block.id, { description: event.target.value })}
@@ -180,13 +169,13 @@ export default function BlockRow({
                 )}
                 {snapshot.setup && (
                   <section>
-                    <h4 className="label-sm mb-1.5">Setting it up</h4>
+                    <h4 className="h-section mb-1.5">Setting it up</h4>
                     <Markdown source={snapshot.setup} />
                   </section>
                 )}
                 {snapshot.coachingPoints?.length > 0 && (
                   <section>
-                    <h4 className="label-sm mb-1.5">Coaching points</h4>
+                    <h4 className="h-section mb-1.5">Coaching points</h4>
                     <ul className="space-y-1.5">
                       {snapshot.coachingPoints.map((point, index) => (
                         <li key={index} className="flex gap-2 text-sm leading-snug">
@@ -201,7 +190,7 @@ export default function BlockRow({
             )}
 
             <label className="block">
-              <span className="label-sm mb-1.5 block">Your notes for tonight</span>
+              <span className="label mb-1.5 block">Your notes for tonight</span>
               <textarea
                 value={block.notes}
                 maxLength={LIMITS.notes}

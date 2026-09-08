@@ -141,7 +141,7 @@ export function Field({ label, hint, error, children, required, group = false })
   return (
     <Wrapper className="block">
       <Caption className="mb-1.5 flex w-full items-baseline justify-between gap-2">
-        <span className="label-sm">
+        <span className="label">
           {label}
           {required && <span className="ml-1 text-whistle">*</span>}
         </span>
