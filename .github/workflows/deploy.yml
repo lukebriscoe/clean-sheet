@@ -34,7 +34,10 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # 24, not 22: Node 20 went end-of-life on 2026-04-30, and 22 is already
+          # in maintenance (EOL 2027-04-30). 24 is the current active LTS
+          # (EOL 2028-04-30) and is nearest to what this is developed on.
+          node-version: 24
           cache: npm
 
       - run: npm ci
