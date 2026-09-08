@@ -112,15 +112,15 @@ export default function BlockDetail({ block, index, total, startTime, onClose, o
               </section>
             )}
 
-            {snapshot.diagram && (
-              <Section title="How it looks">
-                <PitchDiagram diagram={snapshot.diagram} drillName={name} />
-              </Section>
-            )}
-
             {snapshot.coachingPoints?.length > 0 && (
               <Section title="Coaching points">
                 <PointList items={snapshot.coachingPoints} marker="→" />
+              </Section>
+            )}
+
+            {snapshot.diagram && (
+              <Section title="How it looks">
+                <PitchDiagram diagram={snapshot.diagram} drillName={name} />
               </Section>
             )}
 

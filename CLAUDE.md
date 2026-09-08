@@ -68,6 +68,14 @@ toggle the "now" marker, and to the drill headings on `/session/:shareId`, which
 buttons so they can open `BlockDetail` — without the opt-out the printed sheet loses
 its schedule and its drill names, and nothing warns you.
 
+**The shared plan's detail panel is the only thing putting coaching points on
+paper.** `/session/:shareId` is a running order on screen — name, time, tonight's
+note — and everything describing the drill, coaching points included, is behind a
+tap in `BlockDetail`. The `hidden print:block` panel in `PlanBlock` is what puts it
+all back for print. Unmount it as "dead code because nothing shows it on screen"
+and the printed sheet silently becomes a timetable with no coaching points on it.
+`npm run verify` asserts this.
+
 **Anything sticky below the header offsets by `var(--header-h)`, never a literal.**
 The header grows a row whenever a session is in progress, so its height is not a
 constant; `App.jsx` measures it with a `ResizeObserver`. A hardcoded offset works

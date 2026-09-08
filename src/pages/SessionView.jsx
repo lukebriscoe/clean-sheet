@@ -233,18 +233,22 @@ export default function SessionView() {
  * One block of the running order.
  *
  * The plan is meant to be glanceable — you read it standing on grass holding a
- * ball. So the block shows only what you need mid-session: when, how long, which
- * drill, and the points you are actually going to coach. Set-up, the diagram,
- * the full description and the harder/easier variations are the things you read
- * once before training, and they made a six-block session several screens long,
- * so they open in a dialog (BlockDetail) instead — a coach reading a plan they
- * were sent is doing a different job from a coach following one, and a dialog
- * lets them read a drill properly without the running order shifting underneath.
- * "All detail" in the toolbar is the other reading: everything inline, in order.
+ * ball. The block is the running order and nothing else: when, how long, which
+ * drill, and anything decided for tonight. Everything that describes the drill —
+ * the coaching points included — opens in a dialog (BlockDetail), because a
+ * coach reading a plan they were sent is doing a different job from a coach
+ * following one, and a dialog lets them read a drill properly without the
+ * running order shifting underneath. "All detail" in the toolbar is the other
+ * reading: everything inline, in order.
  *
- * Print is the exception and always shows everything: paper has no tap, and the
- * printed plan is the one you take out when you have forgotten how it starts.
- * Hence `hidden print:block` rather than unmounting the panel.
+ * The coaching points used to sit here, on the grounds that they are what you
+ * say out loud. They now cost a tap on screen — worth knowing if the plan ever
+ * feels thin pitchside, since that is the moment they were on the page for.
+ *
+ * Print is the exception and always shows everything, coaching points included:
+ * paper has no tap, and the printed plan is the one you take out when you have
+ * forgotten how the session starts. Hence `hidden print:block` rather than
+ * unmounting the panel.
  */
 function PlanBlock({ block, isFirst, startTime, forceOpen, isNow, onToggleNow, onOpen }) {
   const snapshot = block.drillSnapshot ?? {}
@@ -258,12 +262,27 @@ function PlanBlock({ block, isFirst, startTime, forceOpen, isNow, onToggleNow, o
       snapshot.description ||
       snapshot.progressions?.length ||
       snapshot.regressions?.length ||
+      snapshot.coachingPoints?.length ||
       snapshot.equipment?.length ||
       snapshot.references?.length,
   )
 
+  // What opening it would get you. Replaces the full-width disclosure button:
+  // it says the same thing in a line rather than a control, and it is the one
+  // place left that mentions the coaching points now they are behind the tap.
+  //
+  // Two items, not four. Every well-formed drill has a diagram, points, set-up
+  // AND variations, so listing all four printed the same line under all five
+  // blocks — boilerplate that the eye stops reading. These are the two a coach
+  // opens the drill for; the rest are in the dialog when they get there.
+  const points = snapshot.coachingPoints?.length ?? 0
+  const inside = [
+    snapshot.diagram && 'Diagram',
+    points && `${points} coaching point${points === 1 ? '' : 's'}`,
+  ].filter(Boolean)
+
   return (
-    <li className="print-block flex gap-2 py-4">
+    <li className="print-block flex gap-2 py-3">
       <TouchlineRail
         startMin={block.startMin}
         startTime={startTime}
@@ -274,7 +293,7 @@ function PlanBlock({ block, isFirst, startTime, forceOpen, isNow, onToggleNow, o
         onToggleNow={onToggleNow}
       />
 
-      <div className="min-w-0 flex-1 space-y-3 pt-0.5">
+      <div className="min-w-0 flex-1 space-y-1.5 pt-0.5">
         <div>
           <div className="flex flex-wrap items-baseline gap-x-2">
             <span className="label-sm">{labelFor('phase', block.phase)}</span>
@@ -309,52 +328,49 @@ function PlanBlock({ block, isFirst, startTime, forceOpen, isNow, onToggleNow, o
           </h2>
         </div>
 
-        {snapshot.summary && <p className="max-w-prose text-mist">{snapshot.summary}</p>}
-
-        {/* Coaching points stay on the glance layer — they are the thing you say
-            out loud, and the reason you are looking at the plan at all. */}
-        {snapshot.coachingPoints?.length > 0 && (
-          <section>
-            <h3 className="label-sm mb-1.5">Coaching points</h3>
-            <ul className="space-y-1.5">
-              {snapshot.coachingPoints.map((point, index) => (
-                <li key={index} className="flex gap-2.5 text-sm leading-relaxed text-mist">
-                  <span aria-hidden className="tnum text-pitch-mid">
-                    &rarr;
-                  </span>
-                  {point}
-                </li>
-              ))}
-            </ul>
-          </section>
+        {snapshot.summary && (
+          <p className="max-w-prose text-sm leading-snug text-mist">{snapshot.summary}</p>
         )}
 
         {/* Tonight's note is specific to this session and can change what you do,
             so it never hides. */}
         {block.notes && (
-          <section className="rounded-md border-l-4 border-hivis bg-paper px-3 py-2.5">
-            <h3 className="label-sm mb-1">Note for tonight</h3>
+          <section className="rounded-md border-l-4 border-hivis bg-paper px-3 py-2">
+            <h3 className="label-sm mb-0.5">Note for tonight</h3>
             <p className="text-sm font-semibold text-ink">{block.notes}</p>
           </section>
         )}
 
         {hasDetail && (
           <>
-            {/* The heading is the real target, but it does not look like one on
-                a phone. This says out loud what is behind it — and names the
-                diagram when there is one, which is the thing worth opening for. */}
-            {!forceOpen && (
-              <button
-                type="button"
-                onClick={onOpen}
-                className="no-print btn-quiet w-full justify-between text-sm sm:w-auto sm:justify-start sm:gap-2"
-              >
-                {snapshot.diagram ? 'Diagram, set-up & detail' : 'Set-up & detail'}
-                <span aria-hidden>→</span>
-              </button>
+            {/* Was a full-width 44px button. The heading above is already the
+                target and is ≥44px itself, so this is a label for it rather than
+                a second control — which is most of the height the block gave
+                back. It is screen-only: on paper the contents are right there. */}
+            {!forceOpen && inside.length > 0 && (
+              <p className="no-print text-xs text-mist">{inside.join(' · ')}</p>
             )}
 
             <div className={`space-y-3 ${forceOpen ? '' : 'hidden print:block'}`}>
+              {/* First on paper: the coaching points are the reason the sheet
+                  goes in a pocket. They are no longer on screen, so this panel
+                  is the only thing keeping them on the printed plan. */}
+              {snapshot.coachingPoints?.length > 0 && (
+                <section>
+                  <h3 className="label-sm mb-1.5">Coaching points</h3>
+                  <ul className="space-y-1.5">
+                    {snapshot.coachingPoints.map((point, index) => (
+                      <li key={index} className="flex gap-2.5 text-sm leading-relaxed text-mist">
+                        <span aria-hidden className="tnum text-pitch-mid">
+                          &rarr;
+                        </span>
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+
               {snapshot.diagram && (
                 <PitchDiagram diagram={snapshot.diagram} drillName={snapshot.name} />
               )}

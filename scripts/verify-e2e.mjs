@@ -182,13 +182,22 @@ const printBg = await mobile.evaluate(() => getComputedStyle(document.body).back
 check('print view is on white', printBg === 'rgb(255, 255, 255)', printBg)
 // Paper has no tap. Whatever is collapsed on screen, the printed plan is the one
 // you pull out when you have forgotten how the session starts.
+//
+// Coaching points matter most here: they came off the on-screen plan, so this
+// panel is now the only thing that puts them on paper. A printed sheet without
+// them is a timetable, not a session plan, and nothing else would catch it.
 const printedDetail = await mobile.evaluate(() => {
   const has = t => [...document.querySelectorAll('h3')].some(h => h.textContent.trim() === t)
-  return { setup: has('Set-up'), what: has('What happens'), harder: has('Make it harder') }
+  return {
+    points: has('Coaching points'),
+    setup: has('Set-up'),
+    what: has('What happens'),
+    harder: has('Make it harder'),
+  }
 })
 check(
   'print still carries the full drill detail',
-  printedDetail.setup && printedDetail.what && printedDetail.harder,
+  printedDetail.points && printedDetail.setup && printedDetail.what && printedDetail.harder,
   JSON.stringify(printedDetail),
 )
 // The rail is the signature element; if it doesn't survive into print, the
