@@ -11,6 +11,10 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # TEMPORARY — remove before merge. There is otherwise no way to test a change
+  # to this workflow without pushing it to main and finding out in production.
+  # The deploy job is guarded below so a pull request builds but never publishes.
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -57,6 +61,11 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    # Only main ever reaches production. Without this, running the workflow on a
+    # branch — by dispatch or by a pull_request trigger — would publish that
+    # branch to the live site, which is why the workflow was previously
+    # untestable except by pushing to main.
+    if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
