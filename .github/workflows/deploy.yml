@@ -11,10 +11,6 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
-  # TEMPORARY — remove before merge. There is otherwise no way to test a change
-  # to this workflow without pushing it to main and finding out in production.
-  # The deploy job is guarded below so a pull request builds but never publishes.
-  pull_request:
   workflow_dispatch:
 
 permissions:
