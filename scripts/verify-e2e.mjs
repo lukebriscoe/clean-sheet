@@ -145,6 +145,34 @@ const mobileText = await mobile.locator('body').innerText()
 check('share link readable by someone else', mobileText.includes('Pressing'))
 await mobile.screenshot({ path: `${OUT}/06-mobile.png`, fullPage: true })
 
+// A saved plan is read standing on grass holding a ball. Set-up, the diagram and
+// the harder/easier variations pushed a five-block session to nine screens, so
+// they sit behind a tap on screen.
+// The panel stays in the DOM so the print rules can reveal it, so presence is
+// not the question — visibility is.
+const detailHidden = await mobile.evaluate(() => {
+  const headings = [...document.querySelectorAll('h3')].filter(
+    h => h.textContent.trim() === 'Make it harder',
+  )
+  return { inDom: headings.length, visible: headings.filter(h => h.offsetParent !== null).length }
+})
+check(
+  'the plan keeps drill detail behind a tap',
+  detailHidden.inDom > 0 && detailHidden.visible === 0,
+  `${detailHidden.inDom} in the DOM, ${detailHidden.visible} on screen`,
+)
+const collapsedH = await mobile.evaluate(() => document.body.scrollHeight)
+await mobile.getByRole('button', { name: 'All detail' }).click()
+await mobile.waitForTimeout(400)
+const expandedH = await mobile.evaluate(() => document.body.scrollHeight)
+check(
+  'the glance view is materially shorter than the full plan',
+  collapsedH < expandedH * 0.6,
+  `${collapsedH}px vs ${expandedH}px expanded`,
+)
+await mobile.getByRole('button', { name: 'Hide detail' }).click()
+await mobile.waitForTimeout(300)
+
 // ---- 10. Print view ----
 await mobile.emulateMedia({ media: 'print' })
 await mobile.setViewportSize({ width: 794, height: 1123 }) // A4 @ 96dpi
@@ -152,6 +180,17 @@ await mobile.waitForTimeout(300)
 await mobile.screenshot({ path: `${OUT}/07-print.png`, fullPage: true })
 const printBg = await mobile.evaluate(() => getComputedStyle(document.body).backgroundColor)
 check('print view is on white', printBg === 'rgb(255, 255, 255)', printBg)
+// Paper has no tap. Whatever is collapsed on screen, the printed plan is the one
+// you pull out when you have forgotten how the session starts.
+const printedDetail = await mobile.evaluate(() => {
+  const has = t => [...document.querySelectorAll('h3')].some(h => h.textContent.trim() === t)
+  return { setup: has('Set-up'), what: has('What happens'), harder: has('Make it harder') }
+})
+check(
+  'print still carries the full drill detail',
+  printedDetail.setup && printedDetail.what && printedDetail.harder,
+  JSON.stringify(printedDetail),
+)
 // The rail is the signature element; if it doesn't survive into print, the
 // printed plan is just a list and the design idea hasn't landed.
 const railInPrint = await mobile.evaluate(() => {
@@ -268,6 +307,21 @@ const phone = await browser.newContext({ viewport: { width: 390, height: 844 }, 
 const phonePage = await phone.newPage()
 await phonePage.goto('http://localhost:5173/#/library', { waitUntil: 'domcontentloaded' })
 await phonePage.waitForSelector('main ul li', { timeout: 20000 })
+
+// The filter bar had grown to 270px and the heading block another 153px, which
+// put the first drill 605px down an 844px screen — two of 69 drills visible, so
+// finding anything meant scrolling past the controls every single time.
+const libMetrics = await phonePage.evaluate(rows => ({
+  firstDrillY: Math.round(document.querySelector(rows).getBoundingClientRect().top + window.scrollY),
+  visible: [...document.querySelectorAll(rows)].filter(
+    li => li.getBoundingClientRect().top < window.innerHeight,
+  ).length,
+}), ROWS)
+check(
+  'mobile library reaches the drills without scrolling',
+  libMetrics.firstDrillY < 300 && libMetrics.visible >= 4,
+  `first drill at ${libMetrics.firstDrillY}px, ${libMetrics.visible} on screen`,
+)
 for (let i = 0; i < 3; i++) {
   await phonePage.locator(ROWS).nth(i).getByRole('button', { name: /^Add .* to your session$/ }).click()
   await phonePage.waitForTimeout(80)
@@ -289,6 +343,21 @@ check(
   'mobile blocks stay compact',
   phoneMetrics.blockH < 220,
   `${phoneMetrics.blockH}px per block`,
+)
+
+// Clearing a duration used to snap it straight back to 1: Number('') is 0, which
+// is falsy, so `Number(value) || fallback` re-applied the fallback on every
+// keystroke and you had to delete the digit again for each one you typed.
+const durationField = phonePage.getByLabel(/^Duration of .* in minutes$/).first()
+await durationField.fill('')
+const clearedTo = await durationField.inputValue()
+await durationField.pressSequentially('25')
+const typedTo = await durationField.inputValue()
+await durationField.blur()
+check(
+  'a duration field can be cleared and retyped',
+  clearedTo === '' && typedTo === '25',
+  `cleared to "${clearedTo}", then typed "${typedTo}"`,
 )
 
 // Removing a block is one of the most common actions in the planner, so the

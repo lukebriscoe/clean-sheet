@@ -8,7 +8,7 @@ import { AGE_GROUPS, THEMES, LIMITS, labelFor } from '../lib/taxonomy.js'
 import BlockRow from '../components/planner/BlockRow.jsx'
 import BlockPicker from '../components/planner/BlockPicker.jsx'
 import { ShapeStrip, RailFinish } from '../components/planner/TouchlineRail.jsx'
-import { EmptyState, ErrorNote, Field } from '../components/ui/Bits.jsx'
+import { EmptyState, ErrorNote, Field, NumberField } from '../components/ui/Bits.jsx'
 
 export default function Planner() {
   const {
@@ -107,17 +107,17 @@ export default function Planner() {
                 </select>
               </Field>
               <Field label="Players">
-                <input
-                  type="number" min="1" max="60" className="field"
+                <NumberField
+                  min={1} max={60} fallback={12}
                   value={session.playerCount}
-                  onChange={event => setField('playerCount', Number(event.target.value) || 1)}
+                  onCommit={n => setField('playerCount', n)}
                 />
               </Field>
               <Field label="Total mins">
-                <input
-                  type="number" min="5" max="240" step="5" className="field"
+                <NumberField
+                  min={5} max={240} step="5" fallback={90}
                   value={session.durationMins}
-                  onChange={event => setField('durationMins', Number(event.target.value) || 5)}
+                  onCommit={n => setField('durationMins', n)}
                 />
               </Field>
               <Field label="Kick-off" hint="Optional">

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { renderMarkdown } from '../../lib/markdown.js'
 
 // Small shared pieces. Kept in one file rather than eight — they are a handful of
@@ -16,6 +17,66 @@ export function Chip({ active = false, onClick, children, count, title }) {
       {children}
       {count != null && <span className="tnum text-xs opacity-60">{count}</span>}
     </Element>
+  )
+}
+
+/**
+ * A number input you can actually clear.
+ *
+ * The obvious `Number(e.target.value) || fallback` re-stamps the fallback on
+ * every keystroke, so clearing the field to type a new value snaps it straight
+ * back to 1 — you then have to select-all or backspace again for every digit.
+ * On a phone that is genuinely infuriating.
+ *
+ * Instead the field keeps its own draft string, is allowed to sit empty while
+ * you type, and only falls back to a sensible value on blur. Clamping also
+ * waits for blur: clamping as you type means a field with min=5 jumps to 5 the
+ * moment you type the "1" of "15".
+ */
+export function NumberField({
+  value,
+  onCommit,
+  min = 0,
+  max = Number.MAX_SAFE_INTEGER,
+  fallback = min,
+  className = 'field',
+  ...rest
+}) {
+  const [draft, setDraft] = useState(String(value ?? ''))
+  const [editing, setEditing] = useState(false)
+
+  // Follow external changes (a reset, a loaded draft) but never fight the user
+  // while they are mid-edit.
+  useEffect(() => {
+    if (!editing) setDraft(String(value ?? ''))
+  }, [value, editing])
+
+  const clamp = n => Math.min(max, Math.max(min, n))
+
+  return (
+    <input
+      type="number"
+      inputMode="numeric"
+      value={draft}
+      min={min}
+      max={max}
+      className={className}
+      onFocus={() => setEditing(true)}
+      onChange={event => {
+        const next = event.target.value
+        setDraft(next) // may be '' — that is the whole point
+        const parsed = Number(next)
+        if (next !== '' && Number.isFinite(parsed)) onCommit(parsed)
+      }}
+      onBlur={() => {
+        setEditing(false)
+        const parsed = Number(draft)
+        const settled = draft === '' || !Number.isFinite(parsed) ? fallback : clamp(parsed)
+        setDraft(String(settled))
+        onCommit(settled)
+      }}
+      {...rest}
+    />
   )
 }
 

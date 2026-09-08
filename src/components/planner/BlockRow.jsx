@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { PHASES, labelFor, LIMITS } from '../../lib/taxonomy.js'
-import { Markdown } from '../ui/Bits.jsx'
+import { Markdown, NumberField } from '../ui/Bits.jsx'
 import PitchDiagram from '../ui/PitchDiagram.jsx'
 import TouchlineRail from './TouchlineRail.jsx'
 
@@ -90,13 +90,13 @@ export default function BlockRow({
         <div className="mt-1.5 flex items-center gap-1">
           <label className="flex shrink-0 items-center gap-1.5">
             <span className="sr-only">Minutes</span>
-            <input
-              type="number"
-              min="1"
-              max="120"
+            <NumberField
+              min={1}
+              max={120}
               step="5"
+              fallback={15}
               value={block.durationMins}
-              onChange={event => onUpdate(block.id, { durationMins: Number(event.target.value) || 1 })}
+              onCommit={n => onUpdate(block.id, { durationMins: n })}
               aria-label={`Duration of ${snapshot.name || 'this block'} in minutes`}
               className="tnum h-11 w-14 rounded-md border border-line bg-chalk px-1 text-center font-display font-bold focus:border-pitch focus:outline-none"
             />

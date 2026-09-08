@@ -19,6 +19,7 @@ export default function SessionView() {
   const { session, state } = useSharedSession(shareId)
   const navigate = useNavigate()
   const [copied, setCopied] = useState(false)
+  const [allDetail, setAllDetail] = useState(false)
 
   const copyLink = async () => {
     try {
@@ -71,11 +72,19 @@ export default function SessionView() {
           ← Drill library
         </Link>
         <div className="ml-auto flex gap-2">
-          <button type="button" onClick={copyLink} className="btn-ghost text-sm">
-            {copied ? '✓ Link copied' : 'Copy link'}
+          <button
+            type="button"
+            onClick={() => setAllDetail(open => !open)}
+            aria-pressed={allDetail}
+            className="btn-quiet whitespace-nowrap text-sm"
+          >
+            {allDetail ? 'Hide detail' : 'All detail'}
           </button>
-          <button type="button" onClick={() => window.print()} className="btn-primary text-sm">
-            Print / save as PDF
+          <button type="button" onClick={copyLink} className="btn-ghost whitespace-nowrap text-sm">
+            {copied ? '✓ Copied' : 'Copy link'}
+          </button>
+          <button type="button" onClick={() => window.print()} className="btn-primary whitespace-nowrap text-sm">
+            Print<span className="hidden sm:inline"> / save as PDF</span>
           </button>
         </div>
       </div>
@@ -121,86 +130,15 @@ export default function SessionView() {
 
       {/* ---- running order ---- */}
       <ol className="mt-5">
-        {ordered.map((block, index) => {
-          const snapshot = block.drillSnapshot ?? {}
-          return (
-            <li key={block.id} className="print-block flex gap-2 py-4">
-              <TouchlineRail
-                startMin={block.startMin}
-                startTime={session.startTime}
-                isFirst={index === 0}
-                isLast={false}
-              />
-
-              <div className="min-w-0 flex-1 space-y-3 pt-0.5">
-                <div>
-                  <div className="flex flex-wrap items-baseline gap-x-2">
-                    <span className="label-sm">{labelFor('phase', block.phase)}</span>
-                    <span className="tnum ml-auto text-sm font-semibold text-mist">
-                      {block.durationMins} min
-                    </span>
-                  </div>
-                  <h2 className="font-display text-xl font-bold leading-snug text-pitch">
-                    {snapshot.name || labelFor('phase', block.phase)}
-                  </h2>
-                </div>
-                {snapshot.summary && <p className="max-w-prose text-mist">{snapshot.summary}</p>}
-
-                {snapshot.diagram && (
-                  <PitchDiagram diagram={snapshot.diagram} drillName={snapshot.name} />
-                )}
-
-                {snapshot.setup && (
-                  <section>
-                    <h3 className="label-sm mb-1.5">Set-up</h3>
-                    <Markdown source={snapshot.setup} />
-                  </section>
-                )}
-
-                {snapshot.description && (
-                  <section>
-                    <h3 className="label-sm mb-1.5">What happens</h3>
-                    <Markdown source={snapshot.description} />
-                  </section>
-                )}
-
-                {snapshot.coachingPoints?.length > 0 && (
-                  <section>
-                    <h3 className="label-sm mb-1.5">Coaching points</h3>
-                    <ul className="space-y-1.5">
-                      {snapshot.coachingPoints.map((point, index) => (
-                        <li key={index} className="flex gap-2.5 text-sm leading-relaxed text-mist">
-                          <span aria-hidden className="tnum text-pitch-mid">
-                            →
-                          </span>
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                )}
-
-                {(snapshot.progressions?.length > 0 || snapshot.regressions?.length > 0) && (
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    {snapshot.progressions?.length > 0 && (
-                      <MiniList title="Make it harder" items={snapshot.progressions} marker="↑" />
-                    )}
-                    {snapshot.regressions?.length > 0 && (
-                      <MiniList title="Make it easier" items={snapshot.regressions} marker="↓" />
-                    )}
-                  </div>
-                )}
-
-                {block.notes && (
-                  <section className="rounded-md border-l-4 border-hivis bg-paper px-3 py-2.5">
-                    <h3 className="label-sm mb-1">Note for tonight</h3>
-                    <p className="text-sm font-semibold text-ink">{block.notes}</p>
-                  </section>
-                )}
-              </div>
-            </li>
-          )
-        })}
+        {ordered.map((block, index) => (
+          <PlanBlock
+            key={block.id}
+            block={block}
+            isFirst={index === 0}
+            startTime={session.startTime}
+            forceOpen={allDetail}
+          />
+        ))}
       </ol>
       <RailFinish totalMin={planned} startTime={session.startTime} />
 
@@ -216,6 +154,130 @@ export default function SessionView() {
         </p>
       </footer>
     </div>
+  )
+}
+
+/**
+ * One block of the running order.
+ *
+ * The plan is meant to be glanceable — you read it standing on grass holding a
+ * ball. So the block shows only what you need mid-session: when, how long, which
+ * drill, and the points you are actually going to coach. Set-up, the diagram,
+ * the full description and the harder/easier variations are the things you read
+ * once before training, and they made a six-block session several screens long,
+ * so they sit behind a tap.
+ *
+ * Print is the exception and always shows everything: paper has no tap, and the
+ * printed plan is the one you take out when you have forgotten how it starts.
+ * Hence `hidden print:block` rather than unmounting the panel.
+ */
+function PlanBlock({ block, isFirst, startTime, forceOpen }) {
+  const [open, setOpen] = useState(false)
+  const snapshot = block.drillSnapshot ?? {}
+  const shown = open || forceOpen
+
+  const hasDetail = Boolean(
+    snapshot.diagram ||
+      snapshot.setup ||
+      snapshot.description ||
+      snapshot.progressions?.length ||
+      snapshot.regressions?.length,
+  )
+
+  return (
+    <li className="print-block flex gap-2 py-4">
+      <TouchlineRail startMin={block.startMin} startTime={startTime} isFirst={isFirst} isLast={false} />
+
+      <div className="min-w-0 flex-1 space-y-3 pt-0.5">
+        <div>
+          <div className="flex flex-wrap items-baseline gap-x-2">
+            <span className="label-sm">{labelFor('phase', block.phase)}</span>
+            <span className="tnum ml-auto text-sm font-semibold text-mist">
+              {block.durationMins} min
+            </span>
+          </div>
+          <h2 className="font-display text-xl font-bold leading-snug text-pitch">
+            {snapshot.name || labelFor('phase', block.phase)}
+          </h2>
+        </div>
+
+        {snapshot.summary && <p className="max-w-prose text-mist">{snapshot.summary}</p>}
+
+        {/* Coaching points stay on the glance layer — they are the thing you say
+            out loud, and the reason you are looking at the plan at all. */}
+        {snapshot.coachingPoints?.length > 0 && (
+          <section>
+            <h3 className="label-sm mb-1.5">Coaching points</h3>
+            <ul className="space-y-1.5">
+              {snapshot.coachingPoints.map((point, index) => (
+                <li key={index} className="flex gap-2.5 text-sm leading-relaxed text-mist">
+                  <span aria-hidden className="tnum text-pitch-mid">
+                    &rarr;
+                  </span>
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {/* Tonight's note is specific to this session and can change what you do,
+            so it never hides. */}
+        {block.notes && (
+          <section className="rounded-md border-l-4 border-hivis bg-paper px-3 py-2.5">
+            <h3 className="label-sm mb-1">Note for tonight</h3>
+            <p className="text-sm font-semibold text-ink">{block.notes}</p>
+          </section>
+        )}
+
+        {hasDetail && (
+          <>
+            {!forceOpen && (
+              <button
+                type="button"
+                onClick={() => setOpen(value => !value)}
+                aria-expanded={open}
+                className="no-print btn-quiet w-full justify-between text-sm sm:w-auto sm:justify-start sm:gap-2"
+              >
+                {open ? 'Hide set-up & detail' : 'Set-up & detail'}
+                <span aria-hidden>{open ? '\u2191' : '\u2193'}</span>
+              </button>
+            )}
+
+            <div className={`space-y-3 ${shown ? '' : 'hidden print:block'}`}>
+              {snapshot.diagram && (
+                <PitchDiagram diagram={snapshot.diagram} drillName={snapshot.name} />
+              )}
+
+              {snapshot.setup && (
+                <section>
+                  <h3 className="label-sm mb-1.5">Set-up</h3>
+                  <Markdown source={snapshot.setup} />
+                </section>
+              )}
+
+              {snapshot.description && (
+                <section>
+                  <h3 className="label-sm mb-1.5">What happens</h3>
+                  <Markdown source={snapshot.description} />
+                </section>
+              )}
+
+              {(snapshot.progressions?.length > 0 || snapshot.regressions?.length > 0) && (
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {snapshot.progressions?.length > 0 && (
+                    <MiniList title="Make it harder" items={snapshot.progressions} marker="&uarr;" />
+                  )}
+                  {snapshot.regressions?.length > 0 && (
+                    <MiniList title="Make it easier" items={snapshot.regressions} marker="&darr;" />
+                  )}
+                </div>
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    </li>
   )
 }
 

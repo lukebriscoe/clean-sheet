@@ -1,41 +1,77 @@
-import { AGE_GROUPS, THEMES, PHASES, EQUIPMENT } from '../../lib/taxonomy.js'
+import { AGE_GROUPS, THEMES, PHASES, EQUIPMENT, labelFor } from '../../lib/taxonomy.js'
 import { toggleFacet, hasActiveFilters, facetCounts, EMPTY_FILTERS } from '../../lib/filters.js'
 import { Chip } from '../ui/Bits.jsx'
 
+/** How many facets are actually narrowing the list. */
+export function activeFilterCount(filters) {
+  return (
+    filters.themes.length +
+    filters.ageGroups.length +
+    filters.phases.length +
+    filters.equipment.length +
+    (filters.players != null ? 1 : 0) +
+    (filters.maxDuration != null ? 1 : 0)
+  )
+}
+
 /**
- * The one-line filter bar: search plus the three facets a coach uses every time.
- * Everything else lives behind "More filters" so the bar stays a single line on a
- * phone rather than becoming a wall of chips above the results.
+ * The filter bar.
+ *
+ * On a phone this is search plus a single Filters button, and nothing else. The
+ * previous version showed seven chips inline, which came to 270px of a 844px
+ * screen — the first drill started 605px down and only two were visible, so
+ * finding anything meant scrolling past the controls every time.
+ *
+ * Desktop keeps the quick chips inline, where there is room for them and they
+ * save a tap.
  */
-export function QuickFilters({
-  filters,
-  onChange,
-  drills,
-  resultCount,
-  moreOpen,
-  onToggleMore,
-}) {
+export function QuickFilters({ filters, onChange, drills, resultCount, moreOpen, onToggleMore }) {
   const counts = {
     themes: facetCounts(drills, 'themes'),
     ageGroups: facetCounts(drills, 'ageGroups'),
   }
   const topThemes = THEMES.slice(0, 4)
   const commonAges = AGE_GROUPS.filter(age => ['u9', 'u10', 'u11'].includes(age.key))
+  const active = activeFilterCount(filters)
+
+  // Each active facet, as something you can tap to clear individually.
+  const activeChips = [
+    ...filters.themes.map(k => ({ key: `t-${k}`, label: labelFor('theme', k), clear: () => onChange(toggleFacet(filters, 'themes', k)) })),
+    ...filters.ageGroups.map(k => ({ key: `a-${k}`, label: labelFor('ageGroup', k), clear: () => onChange(toggleFacet(filters, 'ageGroups', k)) })),
+    ...filters.phases.map(k => ({ key: `p-${k}`, label: labelFor('phase', k), clear: () => onChange(toggleFacet(filters, 'phases', k)) })),
+    ...filters.equipment.map(k => ({ key: `e-${k}`, label: labelFor('equipment', k), clear: () => onChange(toggleFacet(filters, 'equipment', k)) })),
+    ...(filters.players != null ? [{ key: 'players', label: `${filters.players} players`, clear: () => onChange({ ...filters, players: null }) }] : []),
+    ...(filters.maxDuration != null ? [{ key: 'dur', label: `under ${filters.maxDuration} min`, clear: () => onChange({ ...filters, maxDuration: null }) }] : []),
+  ]
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      <label className="relative min-w-[12rem] flex-1">
-        <span className="sr-only">Search drills</span>
-        <input
-          type="search"
-          value={filters.query}
-          onChange={event => onChange({ ...filters, query: event.target.value })}
-          placeholder="Search drills…"
-          className="field"
-        />
-      </label>
+    <div className="space-y-2">
+      <div className="flex items-center gap-2">
+        <label className="min-w-0 flex-1">
+          <span className="sr-only">Search drills</span>
+          <input
+            type="search"
+            value={filters.query}
+            onChange={event => onChange({ ...filters, query: event.target.value })}
+            placeholder={`Search ${drills.length} drills…`}
+            className="field"
+          />
+        </label>
 
-      <div className="flex flex-wrap items-center gap-1.5">
+        <button
+          type="button"
+          onClick={onToggleMore}
+          aria-expanded={moreOpen}
+          className={`${active > 0 || moreOpen ? 'chip-on' : 'chip-off'} shrink-0 font-semibold`}
+        >
+          Filters
+          {active > 0 && <span className="tnum">{active}</span>}
+          <span aria-hidden>{moreOpen ? '↑' : '↓'}</span>
+        </button>
+      </div>
+
+      {/* Quick chips are a desktop convenience only. */}
+      <div className="hidden flex-wrap items-center gap-1.5 lg:flex">
         {topThemes.map(theme => (
           <Chip
             key={theme.key}
@@ -56,19 +92,33 @@ export function QuickFilters({
             {age.label}
           </Chip>
         ))}
+        <span className="tnum ml-auto text-sm text-mist">{resultCount}</span>
       </div>
 
-      <button
-        type="button"
-        onClick={onToggleMore}
-        aria-expanded={moreOpen}
-        className="chip-off font-semibold"
-      >
-        {moreOpen ? 'Fewer filters' : 'More filters'}
-        <span aria-hidden>{moreOpen ? '↑' : '↓'}</span>
-      </button>
-
-      <span className="tnum ml-auto text-sm text-mist">{resultCount}</span>
+      {/* What is currently on, and a one-tap way to take each one off. */}
+      {active > 0 && (
+        <div className="flex flex-wrap items-center gap-1.5 lg:hidden">
+          {activeChips.map(chip => (
+            <button
+              key={chip.key}
+              type="button"
+              onClick={chip.clear}
+              aria-label={`Remove filter: ${chip.label}`}
+              className="inline-flex min-h-[2rem] items-center gap-1.5 rounded-md border border-pitch bg-pitch px-2.5 text-xs text-chalk"
+            >
+              {chip.label}
+              <span aria-hidden className="text-sm leading-none">×</span>
+            </button>
+          ))}
+          <button
+            type="button"
+            onClick={() => onChange(EMPTY_FILTERS)}
+            className="min-h-[2rem] px-1 text-xs font-semibold text-mist underline underline-offset-2"
+          >
+            Clear all
+          </button>
+        </div>
+      )}
     </div>
   )
 }

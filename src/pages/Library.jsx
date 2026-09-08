@@ -66,15 +66,37 @@ export default function Library() {
 
   return (
     <div>
-      <header className="mb-5">
-        <h1 className="font-display text-3xl leading-tight sm:text-4xl">
+
+      {/* On a phone the heading and blurb cost 153px above a list you came here to
+          scroll — and both are redundant: the nav says Drills and the search box
+          says how many there are. Kept for screen readers and for desktop, where
+          the space is free. */}
+      <header className="mb-0 sm:mb-5">
+        <h1 className="sr-only font-display leading-tight sm:not-sr-only sm:text-4xl">
           Search our drills to build your session
         </h1>
-        <p className="mt-1.5 max-w-prose text-mist">
+        <p className="mt-1.5 hidden max-w-prose text-mist sm:block">
           Filter by what you&rsquo;re working on, who&rsquo;s turned up, and the kit you have available. 
           Click the plus sign to add a drill to your plan.
         </p>
       </header>
+
+      <div className="mb-4 flex flex-wrap items-center gap-2">
+        <button type="button" onClick={() => setAdding(true)} className="btn-ghost">
+          Add a drill
+        </button>
+        <button type="button" onClick={() => navigate('/plan')} className="btn-primary">
+          Build a session
+          {session.blocks.length > 0 && (
+            <span className="tnum rounded bg-chalk/20 px-1.5 text-xs">
+              {session.blocks.length}
+            </span>
+          )}
+        </button>
+        <span className="tnum ml-auto text-sm text-mist lg:hidden">
+          {visible.length} {visible.length === 1 ? 'drill' : 'drills'}
+        </span>
+      </div>
 
       {/* Sticky quick filters — the three facets that get used every time. The
           rest live behind the disclosure so the bar stays one line on a phone. */}
@@ -94,19 +116,6 @@ export default function Library() {
         )}
       </div>
 
-      <div className="mb-4 flex flex-wrap items-center gap-2">
-        <button type="button" onClick={() => setAdding(true)} className="btn-ghost">
-          Add a drill
-        </button>
-        <button type="button" onClick={() => navigate('/plan')} className="btn-primary">
-          Build a session
-          {session.blocks.length > 0 && (
-            <span className="tnum rounded bg-chalk/20 px-1.5 text-xs">
-              {session.blocks.length}
-            </span>
-          )}
-        </button>
-      </div>
 
       {justAdded && (
         <div
