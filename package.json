@@ -20,7 +20,8 @@
     "motion:derive": "node scripts/derive-motion.mjs",
     "motion:narrate": "node scripts/narrate-motion.mjs",
     "video:link": "node scripts/set-video-ids.mjs",
-    "build:render": "BUILD_RENDER=1 vite build"
+    "build:render": "BUILD_RENDER=1 vite build",
+    "video:listings": "node scripts/video-listings.mjs"
   },
   "dependencies": {
     "dompurify": "^3.2.3",
