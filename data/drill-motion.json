@@ -324,6 +324,45 @@
       }
     ]
   },
+  "bulldog": {
+    "shapeFingerprint": "faece189",
+    "script": "Balls on one line, bulldogs waiting in the middle. On the shout, one runner commits and drives through. Another shifts their angle, using space away from trouble.",
+    "steps": [
+      {
+        "say": "Balls on one line, bulldogs waiting in the middle.",
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": "On the shout, one runner commits and drives through.",
+        "moves": [
+          {
+            "ref": 2,
+            "to": [
+              12,
+              84
+            ],
+            "carry": 3
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": "Another shifts their angle, using space away from trouble.",
+        "moves": [
+          {
+            "ref": 6,
+            "to": [
+              72,
+              84
+            ],
+            "carry": 7
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
   "chip-or-go-round": {
     "shapeFingerprint": "5b438d4d",
     "script": null,
@@ -1113,15 +1152,15 @@
   },
   "locked-in-quarters": {
     "shapeFingerprint": "a0758445",
-    "script": null,
+    "script": "Keepers at both ends, every zone its own duel. Ball switches across; nobody can drift over to help.",
     "steps": [
       {
-        "say": null,
+        "say": "Keepers at both ends, every zone its own duel.",
         "moves": [],
         "hold": 1.2
       },
       {
-        "say": null,
+        "say": "Ball switches across; nobody can drift over to help.",
         "moves": [
           {
             "ref": 16,
@@ -1583,15 +1622,15 @@
   },
   "rondo-4v1": {
     "shapeFingerprint": "b6ceb1c2",
-    "script": null,
+    "script": "Four on the edges, one working inside the square. A long pass splits the square — defender chases. Quick switch away from pressure keeps the ball safe.",
     "steps": [
       {
-        "say": null,
+        "say": "Four on the edges, one working inside the square.",
         "moves": [],
         "hold": 1.2
       },
       {
-        "say": null,
+        "say": "A long pass splits the square — defender chases.",
         "moves": [
           {
             "ref": 9,
@@ -1604,7 +1643,7 @@
         "hold": 0.6
       },
       {
-        "say": null,
+        "say": "Quick switch away from pressure keeps the ball safe.",
         "moves": [
           {
             "ref": 9,
@@ -1806,45 +1845,6 @@
       }
     ]
   },
-  "bulldog": {
-    "shapeFingerprint": "faece189",
-    "script": null,
-    "steps": [
-      {
-        "say": null,
-        "moves": [],
-        "hold": 1.2
-      },
-      {
-        "say": null,
-        "moves": [
-          {
-            "ref": 2,
-            "to": [
-              12,
-              84
-            ],
-            "carry": 3
-          }
-        ],
-        "hold": 0.6
-      },
-      {
-        "say": null,
-        "moves": [
-          {
-            "ref": 6,
-            "to": [
-              72,
-              84
-            ],
-            "carry": 7
-          }
-        ],
-        "hold": 0.6
-      }
-    ]
-  },
   "shooting-ladder": {
     "shapeFingerprint": "d17e7b29",
     "script": null,
@@ -2007,15 +2007,15 @@
   },
   "thirty-second-duel": {
     "shapeFingerprint": "eeb4bb9e",
-    "script": null,
+    "script": "Pairs scattered across one grid, a ball between each. The defender steals it and drives clear, body shielding.",
     "steps": [
       {
-        "say": null,
+        "say": "Pairs scattered across one grid, a ball between each.",
         "moves": [],
         "hold": 1.2
       },
       {
-        "say": null,
+        "say": "The defender steals it and drives clear, body shielding.",
         "moves": [
           {
             "ref": 1,

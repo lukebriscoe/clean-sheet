@@ -46,7 +46,9 @@ Rules for each line:
 - Present tense, describing the picture. No "you will see", no "in this drill", no numbering.
 - Beat 0 is the set-up, held still before anything moves — introduce the picture.
 - Do not repeat the drill name. It is already on screen.
-- Vary the openings across beats. Do not start every line the same way.`
+- Vary the openings across beats. Do not start every line the same way.
+- Refer to players as "they", or by their role ("the runner", "the defender"). Never "he", "she", "his" or "her" — these are mixed teams and the rest of the library is written that way.
+- The directions in the beats below describe WHERE THINGS SIT IN THE DRAWING, not directions of play. Do not repeat them literally. A square possession drill has no "forward" or "back"; say what the movement means in football terms, or leave direction out entirely.`
 
 const SCHEMA = {
   type: 'object',
@@ -85,13 +87,21 @@ function describeBeats(drill, motion) {
   })
 }
 
-/** Plain-English direction, so the model is not asked to read coordinates. */
+/**
+ * Where a move goes, in terms of the DRAWING rather than the pitch.
+ *
+ * "forward" and "back" were a mistake here: y is just a screen axis, and a
+ * possession square has no direction of play, so the model faithfully wrote
+ * "long pass back right" about a rondo where back means nothing. Naming the
+ * diagram explicitly — and telling the model so in the system prompt — keeps
+ * the geometry as a hint rather than something to repeat.
+ */
 function direction(from, to) {
   const dx = to[0] - from[0]
   const dy = to[1] - from[1]
   const far = Math.hypot(dx, dy) > 30 ? 'a long way ' : ''
   const words = []
-  if (Math.abs(dy) > 8) words.push(dy < 0 ? 'forward' : 'back')
+  if (Math.abs(dy) > 8) words.push(dy < 0 ? 'towards the top of the diagram' : 'towards the bottom of the diagram')
   if (Math.abs(dx) > 8) words.push(dx > 0 ? 'to the right' : 'to the left')
   return words.length ? `${far}${words.join(' and ')}` : 'a short distance'
 }
@@ -141,11 +151,26 @@ if (dryRun) {
   process.exit(0)
 }
 
+// Read .env if the key is not already exported. .env is gitignored, so the key
+// lives in one place and no one has to remember an export before every run.
+// Only non-VITE_ names are used here — Vite never bundles those, so the key
+// cannot reach the browser.
 if (!process.env.ANTHROPIC_API_KEY) {
-  console.error('\n✗ ANTHROPIC_API_KEY is not set.\n')
-  console.error('  export ANTHROPIC_API_KEY=sk-ant-...')
-  console.error('  npm run motion:narrate\n')
-  console.error('  (npm run motion:narrate -- --dry-run prints the prompt without calling anything.)\n')
+  try {
+    process.loadEnvFile(new URL('../.env', import.meta.url))
+  } catch {
+    /* no .env — fall through to the message below */
+  }
+}
+
+if (!process.env.ANTHROPIC_API_KEY) {
+  console.error('\n✗ No ANTHROPIC_API_KEY found.\n')
+  console.error('  1. Create a key at https://console.anthropic.com/settings/keys')
+  console.error('  2. Add this line to .env (already gitignored):\n')
+  console.error('       ANTHROPIC_API_KEY=sk-ant-...\n')
+  console.error('  3. npm run motion:narrate\n')
+  console.error('  An export works too. To see the prompt without calling anything:')
+  console.error('       npm run motion:narrate -- --dry-run\n')
   process.exit(1)
 }
 
