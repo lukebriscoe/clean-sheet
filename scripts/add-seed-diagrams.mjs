@@ -60,9 +60,9 @@ const DIAGRAMS = {
     ],
   },
 
-  'Sharks and Minnows': {
+  'Bulldog': {
     area: area(20, 25),
-    caption: 'Minnows dribble across; sharks try to win the balls.',
+    caption: 'Runners dribble across; bulldogs try to win the balls.',
     shapes: [
       zone(0, 0, 100, 14, 'START'), zone(0, 86, 100, 14, 'SAFE'),
       A(15, 7), ball(15, 12), A(38, 7), ball(38, 12),

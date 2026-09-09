@@ -1,5 +1,15 @@
 import { useMemo } from 'react'
 import { normaliseDiagram, diagramHeight, areaLabel, describeDiagram } from '../../lib/diagram.js'
+import {
+  PLAYER_R as R,
+  BALL_R,
+  BALL_DOT_R,
+  conePath,
+  gatePaths,
+  goalPath,
+  wavyPath,
+  playerMarks,
+} from '../../lib/diagram-shapes.js'
 
 // Renders a stored diagram as inline SVG.
 //
@@ -8,7 +18,8 @@ import { normaliseDiagram, diagramHeight, areaLabel, describeDiagram } from '../
 // no separate print variant to maintain. Team A is filled and team B is outlined
 // rather than orange-vs-blue, so the distinction survives both.
 
-const R = 3.2 // player radius, in viewBox units — constant regardless of aspect
+// The shape geometry lives in lib/diagram-shapes.js so the video renderer draws
+// the same marks from the same maths. Change a mark there, not here.
 
 export default function PitchDiagram({ diagram, drillName = 'this drill', className = '' }) {
   const d = useMemo(() => normaliseDiagram(diagram), [diagram])
@@ -93,7 +104,7 @@ export default function PitchDiagram({ diagram, drillName = 'this drill', classN
                 return (
                   <path
                     key={`c${i}`}
-                    d={`M${s.x},${sy(s.y) - 2.6} L${s.x + 2.3},${sy(s.y) + 1.8} L${s.x - 2.3},${sy(s.y) + 1.8} z`}
+                    d={conePath(s.x, sy(s.y))}
                     fill="currentColor"
                     className="text-hivis print:text-black"
                   />
@@ -104,8 +115,7 @@ export default function PitchDiagram({ diagram, drillName = 'this drill', classN
                 return (
                   <g key={`g${i}`} className="text-hivis print:text-black" fill="currentColor"
                      transform={`rotate(${s.angle} ${s.x} ${sy(s.y)})`}>
-                    <path d={`M${s.x - 4},${sy(s.y) - 2.6} l2.3,4.4 l-4.6,0 z`} />
-                    <path d={`M${s.x + 4},${sy(s.y) - 2.6} l2.3,4.4 l-4.6,0 z`} />
+                    {gatePaths(s.x, sy(s.y)).map((d, n) => <path key={n} d={d} />)}
                   </g>
                 )
 
@@ -116,50 +126,41 @@ export default function PitchDiagram({ diagram, drillName = 'this drill', classN
                 return (
                   <g key={`b${i}`}>
                     <circle
-                      cx={s.x} cy={sy(s.y)} r="2"
+                      cx={s.x} cy={sy(s.y)} r={BALL_R}
                       fill="none" stroke="currentColor" strokeWidth="1"
                       className="text-pitch print:text-black"
                     />
                     <circle
-                      cx={s.x} cy={sy(s.y)} r="0.7"
+                      cx={s.x} cy={sy(s.y)} r={BALL_DOT_R}
                       fill="currentColor" className="text-pitch print:text-black"
                     />
                   </g>
                 )
 
-              case 'goal': {
+              case 'goal':
                 // Posts as well as a goal line, so it reads as a goal rather than
                 // a stray dash. The stubs point into the pitch.
-                const into = s.facing === 'down' ? -1 : s.facing === 'up' ? 1 : 0
-                const side = s.facing === 'right' ? -1 : s.facing === 'left' ? 1 : 0
-                const half = 7
-                const depth = 2.6
-                const x = s.x
-                const y = sy(s.y)
-                const path = into
-                  ? `M${x - half},${y + into * depth} L${x - half},${y} L${x + half},${y} L${x + half},${y + into * depth}`
-                  : `M${x + side * depth},${y - half} L${x},${y - half} L${x},${y + half} L${x + side * depth},${y + half}`
                 return (
                   <path
-                    key={`gl${i}`} d={path}
+                    key={`gl${i}`} d={goalPath(s.x, sy(s.y), s.facing)}
                     fill="none" stroke="currentColor" strokeWidth="1.3"
                     strokeLinejoin="round"
                     className="text-pitch print:text-black"
                   />
                 )
-              }
 
-              case 'player':
+              case 'player': {
+                // Filled vs outlined is the whole distinction — it survives
+                // greyscale printing and colourblindness.
+                const marks = playerMarks(s.team)
                 return (
                   <g key={`p${i}`}>
                     <circle
                       cx={s.x} cy={sy(s.y)} r={R}
-                      // Filled vs outlined is the whole distinction — it survives
-                      // greyscale printing and colourblindness.
-                      fill={s.team === 'a' ? 'currentColor' : 'none'}
+                      fill={marks.fill}
                       stroke="currentColor"
                       strokeWidth="0.9"
-                      strokeDasharray={s.team === 'n' ? '1.6 1.2' : undefined}
+                      strokeDasharray={marks.strokeDasharray}
                       className="text-pitch print:text-black"
                     />
                     {s.label && (
@@ -174,6 +175,7 @@ export default function PitchDiagram({ diagram, drillName = 'this drill', classN
                     )}
                   </g>
                 )
+              }
 
               case 'label':
                 return (
@@ -199,33 +201,6 @@ export default function PitchDiagram({ diagram, drillName = 'this drill', classN
       </figcaption>
     </figure>
   )
-}
-
-/** A dribble arrow: a sine wave along the line, which is how coaches draw it. */
-function wavyPath(x1, y1, x2, y2) {
-  const dx = x2 - x1
-  const dy = y2 - y1
-  const length = Math.hypot(dx, dy)
-  if (length < 1) return `M${x1},${y1} L${x2},${y2}`
-
-  // Unit vector along the line, and its perpendicular.
-  const ux = dx / length
-  const uy = dy / length
-  const px = -uy
-  const py = ux
-
-  const waves = Math.max(2, Math.round(length / 7))
-  const step = length / waves
-  let path = `M${x1},${y1}`
-  for (let i = 0; i < waves; i++) {
-    const side = i % 2 === 0 ? 1.8 : -1.8
-    const midDist = step * (i + 0.5)
-    const endDist = step * (i + 1)
-    path +=
-      ` Q${x1 + ux * midDist + px * side},${y1 + uy * midDist + py * side}` +
-      ` ${x1 + ux * endDist},${y1 + uy * endDist}`
-  }
-  return path
 }
 
 /** The key, shown once under the library grid rather than on every diagram. */

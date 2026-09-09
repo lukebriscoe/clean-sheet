@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Clean Sheet — frame renderer</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Chivo:wght@400;600;700;900&display=block"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* No Tailwind here. This page is a 1080x1920 canvas Playwright photographs,
+         not a responsive document — every size is absolute and deliberate. */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { background: #f1f3ef; }
+      /* The frame is exactly the video's pixel dimensions, pinned to the origin,
+         so a viewport screenshot needs no cropping or scaling. */
+      #root { width: 1080px; height: 1920px; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/render/main.jsx"></script>
+  </body>
+</html>

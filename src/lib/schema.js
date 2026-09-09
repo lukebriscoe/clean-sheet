@@ -37,6 +37,7 @@ export function emptyDrill() {
     intensity: 'medium',
     equipment: ['balls', 'cones'],
     imageUrl: null,
+    videoId: null,
     diagram: null,
     references: [],
     createdByName: '',
@@ -127,6 +128,14 @@ export function validateDrill(input) {
     intensity: VALID.intensities.includes(input.intensity) ? input.intensity : 'medium',
     equipment: (input.equipment ?? []).filter(item => VALID.equipment.includes(item)),
     imageUrl: isHttpUrl(input.imageUrl) ? input.imageUrl.trim() : null,
+    // Always null, never read from the input.
+    //
+    // This function is the community and AI submission path — it can only ever
+    // produce source 'community' or 'ai' (see `source` below), and videos are
+    // seed-only. The videoId on a seed drill is written by the seed script from
+    // data/seed-drills.json, which never passes through here. firestore.rules
+    // enforces the same thing server-side; this is the friendly half.
+    videoId: null,
     // Malformed shapes are dropped rather than rejected — a bad diagram should
     // cost you the diagram, not the whole submission.
     diagram: normaliseDiagram(input.diagram),
@@ -147,6 +156,55 @@ export function validateDrill(input) {
 
 function VALID_SOURCE(source) {
   return ['fa', 'fifa', 'other'].includes(source) ? source : 'other'
+}
+
+/**
+ * A YouTube video id, and nothing else.
+ *
+ * Same job as isHttpUrl above, for a different sink. A drill's videoId ends up
+ * inside an iframe src, and a session's blocks carry a frozen drillSnapshot that
+ * firestore.rules never looks inside (it only checks `blocks` is a list of 30 or
+ * fewer). So anything rendering a snapshot's videoId is handling anonymous input
+ * and has to check it here first — exactly as BlockDetail already does with
+ * references. Eleven characters of [A-Za-z0-9_-] cannot be anything but an id.
+ */
+export function isVideoId(value) {
+  return typeof value === 'string' && /^[A-Za-z0-9_-]{11}$/.test(value.trim())
+}
+
+/**
+ * Pull a video id out of whatever YouTube handed you — a bare id, a youtu.be
+ * link, a watch URL with tracking parameters, a /shorts/ link.
+ *
+ * Used by scripts/set-video-ids.mjs, because the realistic input is a URL copied
+ * out of YouTube Studio and asking someone to extract eleven characters by hand
+ * sixty-four times is how the wrong video ends up on a drill. Returns null for
+ * anything it cannot read as a YouTube id, so a bad paste fails loudly.
+ */
+export function parseVideoId(value) {
+  const raw = String(value ?? '').trim()
+  if (isVideoId(raw)) return raw
+
+  let url
+  try {
+    url = new URL(raw)
+  } catch {
+    return null
+  }
+
+  const host = url.hostname.replace(/^www\./, '')
+  if (host === 'youtu.be') {
+    const id = url.pathname.slice(1)
+    return isVideoId(id) ? id : null
+  }
+  if (host === 'youtube.com' || host === 'youtube-nocookie.com' || host === 'm.youtube.com') {
+    const v = url.searchParams.get('v')
+    if (isVideoId(v)) return v
+    // /shorts/<id> and /embed/<id>
+    const last = url.pathname.split('/').filter(Boolean).pop() ?? ''
+    return isVideoId(last) ? last : null
+  }
+  return null
 }
 
 /** Only http(s) — blocks javascript: and data: URIs reaching an href. */
@@ -209,6 +267,9 @@ export function blockFromDrill(drill, overrides = {}) {
       regressions: cleanList(drill.regressions),
       equipment: Array.isArray(drill.equipment) ? drill.equipment : [],
       references: Array.isArray(drill.references) ? drill.references : [],
+      // Eleven bytes, so snapshotting it costs nothing and a saved plan keeps
+      // its videos even if the library drill is later hidden.
+      videoId: isVideoId(drill.videoId) ? drill.videoId : null,
       // Snapshotted like everything else, so a printed plan keeps its diagram
       // even if the library drill is redrawn later.
       diagram: normaliseDiagram(drill.diagram),

@@ -14,7 +14,13 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "verify": "node scripts/verify-e2e.mjs",
-    "diagrams": "node scripts/add-seed-diagrams.mjs"
+    "diagrams": "node scripts/add-seed-diagrams.mjs",
+    "motion:check": "node scripts/check-motion.mjs",
+    "render": "npm run build:render && node scripts/render-videos.mjs",
+    "motion:derive": "node scripts/derive-motion.mjs",
+    "motion:narrate": "node scripts/narrate-motion.mjs",
+    "video:link": "node scripts/set-video-ids.mjs",
+    "build:render": "BUILD_RENDER=1 vite build"
   },
   "dependencies": {
     "dompurify": "^3.2.3",
@@ -25,6 +31,7 @@
     "react-router-dom": "^7.1.1"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^0.124.0",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
     "concurrently": "^9.1.2",

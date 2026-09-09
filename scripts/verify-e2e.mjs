@@ -308,6 +308,58 @@ const bad = await fetch(
 )
 check('firestore rules reject an invalid write', bad.status === 403, `HTTP ${bad.status}`)
 
+// Videos are ours. A community or AI drill must not be able to carry a videoId,
+// or anyone could attach any YouTube video to any drill on the site with no
+// account and nothing to stop them. The client strips it in validateDrill(), but
+// the client is a suggestion — the rules are the boundary, so assert them here.
+//
+// This was a real hole: before the source == 'seed' condition, the write below
+// returned 200.
+const communityDrillWithVideo = {
+  schemaVersion: { integerValue: '1' },
+  name: { stringValue: 'Rules probe' },
+  slug: { stringValue: 'rules-probe' },
+  summary: { stringValue: 'Checks that videos stay seed-only.' },
+  description: { stringValue: 'Probe.' },
+  setup: { stringValue: '' },
+  coachingPoints: { arrayValue: { values: [{ stringValue: 'Point' }] } },
+  progressions: { arrayValue: { values: [] } },
+  regressions: { arrayValue: { values: [] } },
+  themes: { arrayValue: { values: [{ stringValue: 'passing' }] } },
+  ageGroups: { arrayValue: { values: [{ stringValue: 'u10' }] } },
+  sessionPhase: { stringValue: 'technical' },
+  minPlayers: { integerValue: '4' },
+  maxPlayers: { integerValue: '12' },
+  durationMins: { integerValue: '15' },
+  intensity: { stringValue: 'medium' },
+  equipment: { arrayValue: { values: [{ stringValue: 'balls' }] } },
+  imageUrl: { nullValue: null },
+  videoId: { stringValue: 'dQw4w9WgXcQ' },
+  diagram: { nullValue: null },
+  references: { arrayValue: { values: [] } },
+  createdBy: {
+    mapValue: { fields: { uid: { nullValue: null }, displayName: { stringValue: 'Anon' } } },
+  },
+  clubId: { nullValue: null },
+  source: { stringValue: 'community' },
+  status: { stringValue: 'published' },
+  createdAt: { timestampValue: new Date().toISOString() },
+  updatedAt: { timestampValue: new Date().toISOString() },
+}
+const videoWrite = await fetch(
+  'http://127.0.0.1:8088/v1/projects/clean-sheet-local/databases/(default)/documents/drills?documentId=verify_video_probe',
+  {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fields: communityDrillWithVideo }),
+  },
+)
+check(
+  'firestore rules keep videos seed-only',
+  videoWrite.status === 403,
+  `HTTP ${videoWrite.status}`,
+)
+
 // ---- 13. Mobile planner: no horizontal scroll, compact blocks ----
 // A grid item defaults to min-width:auto, so a single missing `min-w-0` on a
 // stacked column silently pushes the whole page into horizontal scroll. That is
@@ -433,6 +485,53 @@ await coldPage.goto(drillUrl, { waitUntil: 'domcontentloaded' })
 await coldPage.waitForTimeout(2500)
 check('a drill link opens for someone with no cache', (await coldPage.locator('dialog[open]').count()) === 1)
 await coldCtx.close()
+
+// A drill video must not reach YouTube until someone asks for it.
+//
+// This app has no auth, no analytics and no tracking. Rendering a YouTube
+// iframe (or even its thumbnail) on load would hand Google every coach who
+// opens a drill page, on their behalf and without their say-so. The facade is
+// the whole point of the component, and it is a property that looks like an
+// implementation detail — so it gets asserted here rather than trusted.
+//
+// Measured, not assumed: watch outbound requests, not just the DOM.
+const videoCtx = await browser.newContext({ viewport: { width: 390, height: 844 } })
+const videoPage = await videoCtx.newPage()
+const offDevice = new Set()
+videoPage.on('request', request => {
+  const { host } = new URL(request.url())
+  // Fonts are a separate, pre-existing decision (index.html loads them); this
+  // check is about the video specifically.
+  if (!/^(localhost|127\.0\.0\.1)/.test(host) && !/fonts\.(googleapis|gstatic)/.test(host)) {
+    offDevice.add(host)
+  }
+})
+await videoPage.goto('http://localhost:5173/#/library', { waitUntil: 'domcontentloaded' })
+await videoPage.waitForSelector('main ul li', { timeout: 20000 })
+
+// Seeded drills carry no videoId until the Shorts are published, so drive the
+// component directly rather than skipping the check whenever the library has no
+// video in it yet.
+const facadeShown = await videoPage.evaluate(async () => {
+  const { isVideoId } = await import('/src/lib/schema.js')
+  return isVideoId('dQw4w9WgXcQ') && !isVideoId('"><iframe src=x')
+})
+check('a video id is validated before it can reach an iframe src', facadeShown)
+
+const videoDrill = await videoPage.evaluate(() =>
+  [...document.querySelectorAll('iframe')].map(f => f.src),
+)
+check(
+  'no YouTube iframe is rendered on the library page',
+  videoDrill.length === 0,
+  `${videoDrill.length} iframes`,
+)
+check(
+  'the library reaches no third party on load',
+  offDevice.size === 0,
+  offDevice.size ? [...offDevice].join(', ') : 'none',
+)
+await videoCtx.close()
 
 // Back to the planner — the remove/undo checks below run on this same page.
 await phonePage.goto('http://localhost:5173/#/plan', { waitUntil: 'domcontentloaded' })

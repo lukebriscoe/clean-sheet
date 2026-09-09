@@ -120,7 +120,7 @@ async function confirmProd(count) {
 }
 
 async function main() {
-  const { drills } = JSON.parse(await readFile(SEED_FILE, 'utf8'))
+  const { drills, retired = [] } = JSON.parse(await readFile(SEED_FILE, 'utf8'))
   if (!Array.isArray(drills) || !drills.length) {
     console.error(`No drills found in ${SEED_FILE}`)
     process.exit(1)
@@ -176,6 +176,43 @@ async function main() {
   await batch.commit()
   const added = drills.length - alreadyThere.size
   console.log(`✓ Seeded ${drills.length} drills (${added} new, ${alreadyThere.size} updated).`)
+
+  // Retire documents whose drill has been RENAMED.
+  //
+  // A document id is seed_<slug-of-name>, so renaming a drill writes a new
+  // document and leaves the old one behind — the library would then show the
+  // same drill twice, under both names. Seeding alone cannot notice this,
+  // because the old slug simply is not in the file any more.
+  //
+  // Hidden rather than deleted: `status: 'hidden'` is how this project retires
+  // content (filters.js drops it from the library), deletes are forbidden by
+  // firestore.rules, and any saved session that referenced the old drill keeps
+  // working off its frozen drillSnapshot regardless.
+  if (retired.length) {
+    const retiredRefs = retired.map(entry =>
+      db.collection('drills').doc(`seed_${slugify(entry.slug ?? entry)}`),
+    )
+    const found = (await db.getAll(...retiredRefs)).filter(snapshot => snapshot.exists)
+
+    if (found.length) {
+      const hide = db.batch()
+      for (const snapshot of found) {
+        hide.set(
+          snapshot.ref,
+          { status: 'hidden', updatedAt: FieldValue.serverTimestamp() },
+          { merge: true },
+        )
+      }
+      await hide.commit()
+      console.log(
+        `✓ Retired ${found.length} renamed drill${found.length === 1 ? '' : 's'}: ` +
+          found.map(s => s.id).join(', '),
+      )
+    } else {
+      console.log(`· ${retired.length} retired slug(s) listed, none present — nothing to hide.`)
+    }
+  }
+
   process.exit(0)
 }
 

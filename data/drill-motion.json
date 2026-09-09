@@ -1,0 +1,2345 @@
+{
+  "1v1-gate-duels": {
+    "shapeFingerprint": "cd6cd7a2",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 4,
+            "to": [
+              20,
+              14
+            ],
+            "carry": 5
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 3,
+            "to": [
+              30,
+              22
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "2v2-continuous-duels": {
+    "shapeFingerprint": "f43477c5",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 2,
+            "to": [
+              42,
+              22
+            ],
+            "carry": 4
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 3,
+            "to": [
+              66,
+              20
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "3v3-end-zone-game": {
+    "shapeFingerprint": "a6874c76",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 8,
+            "to": [
+              56,
+              30
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 4,
+            "to": [
+              66,
+              14
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "4v4-four-goal-game": {
+    "shapeFingerprint": "22d276fb",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 12,
+            "to": [
+              66,
+              30
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 7,
+            "to": [
+              74,
+              24
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "5v5-two-touch-game": {
+    "shapeFingerprint": "7f352a7e",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 12,
+            "to": [
+              58,
+              32
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 12,
+            "to": [
+              50,
+              16
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "attack-then-defend": {
+    "shapeFingerprint": "4a1e1db9",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 3,
+            "to": [
+              34,
+              16
+            ],
+            "carry": 4
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 2,
+            "to": [
+              42,
+              22
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "attacking-wide-areas-7v5": {
+    "shapeFingerprint": "d0c888c3",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 4,
+            "to": [
+              9,
+              24
+            ],
+            "carry": 5
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 5,
+            "to": [
+              44,
+              26
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 10,
+            "to": [
+              50,
+              30
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "ball-mastery-grid": {
+    "shapeFingerprint": "7b3134f2",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 14,
+            "to": [
+              84,
+              68
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "beat-the-defender-channels": {
+    "shapeFingerprint": "05a5cbdd",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 3,
+            "to": [
+              17,
+              12
+            ],
+            "carry": 4
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "chip-or-go-round": {
+    "shapeFingerprint": "5b438d4d",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 4,
+            "to": [
+              56,
+              50
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 4,
+            "to": [
+              14,
+              48
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 2,
+            "to": [
+              16,
+              62
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "conditioned-match-three-passes": {
+    "shapeFingerprint": "66a85205",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 14,
+            "to": [
+              50,
+              40
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 14,
+            "to": [
+              72,
+              44
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 14,
+            "to": [
+              52,
+              16
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "corner-gates-possession": {
+    "shapeFingerprint": "777b3183",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 10,
+            "to": [
+              24,
+              24
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "corner-relay": {
+    "shapeFingerprint": "05280917",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 4,
+            "to": [
+              76,
+              24
+            ],
+            "carry": 5
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 8,
+            "to": [
+              26,
+              78
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "cross-and-finish-waves": {
+    "shapeFingerprint": "7b4d6946",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 2,
+            "to": [
+              14,
+              22
+            ],
+            "carry": 3
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 3,
+            "to": [
+              40,
+              22
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 4,
+            "to": [
+              38,
+              26
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 5,
+            "to": [
+              66,
+              30
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "crossbar-challenge": {
+    "shapeFingerprint": "42a132e3",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 7,
+            "to": [
+              46,
+              36
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 5,
+            "to": [
+              14,
+              48
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "crossing-the-grid": {
+    "shapeFingerprint": "d13a6ba5",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 2,
+            "to": [
+              40,
+              26
+            ],
+            "carry": 3
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 9,
+            "to": [
+              58,
+              66
+            ],
+            "carry": 10
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "defending-the-middle-third": {
+    "shapeFingerprint": "4e24d0ae",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 6,
+            "to": [
+              26,
+              70
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 7,
+            "to": [
+              52,
+              60
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 5,
+            "to": [
+              66,
+              44
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "diagonal-goals-1v1": {
+    "shapeFingerprint": "8ef57d50",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 6,
+            "to": [
+              24,
+              20
+            ],
+            "carry": 7
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 8,
+            "to": [
+              76,
+              84
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "finishing-bingo": {
+    "shapeFingerprint": "9327e2f0",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 10,
+            "to": [
+              58,
+              40
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "first-touch-turn-gates": {
+    "shapeFingerprint": "87141f68",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 5,
+            "to": [
+              50,
+              54
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 3,
+            "to": [
+              22,
+              16
+            ],
+            "carry": 5
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "forward-only": {
+    "shapeFingerprint": "57846f3e",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 12,
+            "to": [
+              52,
+              40
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 7,
+            "to": [
+              70,
+              24
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "free-in-the-channel": {
+    "shapeFingerprint": "9ec63f7f",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 6,
+            "to": [
+              8,
+              30
+            ],
+            "carry": 7
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 7,
+            "to": [
+              40,
+              34
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "gate-and-strike": {
+    "shapeFingerprint": "966d8995",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 5,
+            "to": [
+              30,
+              52
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 5,
+            "to": [
+              22,
+              14
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "guard-the-gates": {
+    "shapeFingerprint": "33a4ea9e",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 12,
+            "to": [
+              28,
+              14
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 15,
+            "to": [
+              74,
+              12
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "half-court-2v2": {
+    "shapeFingerprint": "2a81aa51",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 12,
+            "to": [
+              58,
+              30
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 13,
+            "to": [
+              34,
+              68
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "halfway-there": {
+    "shapeFingerprint": "7e8bc6bf",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 6,
+            "to": [
+              44,
+              56
+            ],
+            "carry": 14
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "in-line-with-your-partner": {
+    "shapeFingerprint": "88d12377",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 4,
+            "to": [
+              24,
+              44
+            ],
+            "carry": 5
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 6,
+            "to": [
+              24,
+              56
+            ],
+            "carry": 7
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "knockout-goals": {
+    "shapeFingerprint": "5faeb7bf",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 10,
+            "to": [
+              60,
+              40
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "ladder-zones-2v2": {
+    "shapeFingerprint": "411480f6",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 15,
+            "to": [
+              44,
+              36
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "line-stealers": {
+    "shapeFingerprint": "551cb3ab",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 4,
+            "to": [
+              14,
+              84
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 9,
+            "to": [
+              62,
+              20
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "locked-in-quarters": {
+    "shapeFingerprint": "a0758445",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 16,
+            "to": [
+              68,
+              36
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "name-your-route": {
+    "shapeFingerprint": "a99e97d5",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 11,
+            "to": [
+              30,
+              34
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "one-per-box": {
+    "shapeFingerprint": "1feb6ac1",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 5,
+            "to": [
+              68,
+              20
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 7,
+            "to": [
+              46,
+              58
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "out-and-back": {
+    "shapeFingerprint": "3bd3c4d3",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 9,
+            "to": [
+              12,
+              12
+            ],
+            "carry": 10
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 12,
+            "to": [
+              50,
+              90
+            ],
+            "carry": 13
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "outside-in-possession": {
+    "shapeFingerprint": "13834de3",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 8,
+            "to": [
+              34,
+              30
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 8,
+            "to": [
+              88,
+              48
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 13,
+            "to": [
+              56,
+              56
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "overload-4v2-to-goal": {
+    "shapeFingerprint": "4cb2b07d",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 8,
+            "to": [
+              60,
+              48
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 8,
+            "to": [
+              84,
+              36
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "pairs-through-the-gates": {
+    "shapeFingerprint": "46e339b4",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 4,
+            "to": [
+              18,
+              14
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 5,
+            "to": [
+              80,
+              14
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "pass-and-follow-triangle": {
+    "shapeFingerprint": "acb81a0c",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 6,
+            "to": [
+              22,
+              70
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 3,
+            "to": [
+              80,
+              68
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 6,
+            "to": [
+              78,
+              80
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "passing-gates": {
+    "shapeFingerprint": "923b45e3",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 7,
+            "to": [
+              42,
+              20
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 10,
+            "to": [
+              57,
+              72
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "playing-out-from-the-back-6v4": {
+    "shapeFingerprint": "082ff3ff",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 2,
+            "to": [
+              20,
+              40
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 2,
+            "to": [
+              46,
+              60
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "press-the-cone": {
+    "shapeFingerprint": "d40dc057",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 2,
+            "to": [
+              50,
+              46
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 2,
+            "to": [
+              50,
+              32
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "raid-the-zone": {
+    "shapeFingerprint": "0ddedbbd",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 10,
+            "to": [
+              24,
+              20
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 14,
+            "to": [
+              58,
+              66
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "retreat-or-press": {
+    "shapeFingerprint": "d0f6fbcb",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 11,
+            "to": [
+              24,
+              44
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "rondo-4v1": {
+    "shapeFingerprint": "b6ceb1c2",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 9,
+            "to": [
+              86,
+              48
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 9,
+            "to": [
+              54,
+              88
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "run-the-lines": {
+    "shapeFingerprint": "d76cff4f",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 6,
+            "to": [
+              60,
+              54
+            ],
+            "carry": 7
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 6,
+            "to": [
+              44,
+              30
+            ],
+            "carry": 7
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "score-from-the-box": {
+    "shapeFingerprint": "6de9496e",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 18,
+            "to": [
+              48,
+              34
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 18,
+            "to": [
+              82,
+              28
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "score-in-any-goal": {
+    "shapeFingerprint": "75d8cf75",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 4,
+            "to": [
+              34,
+              70
+            ],
+            "carry": 10
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "share-or-beat": {
+    "shapeFingerprint": "05d0079d",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 7,
+            "to": [
+              64,
+              50
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 5,
+            "to": [
+              40,
+              26
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "share-the-ball": {
+    "shapeFingerprint": "973e18ff",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 1,
+            "to": [
+              48,
+              18
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 6,
+            "to": [
+              64,
+              50
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 8,
+            "to": [
+              60,
+              66
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "bulldog": {
+    "shapeFingerprint": "faece189",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 2,
+            "to": [
+              12,
+              84
+            ],
+            "carry": 3
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 6,
+            "to": [
+              72,
+              84
+            ],
+            "carry": 7
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "shooting-ladder": {
+    "shapeFingerprint": "d17e7b29",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 4,
+            "to": [
+              50,
+              16
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "stop-it-on-a-cone": {
+    "shapeFingerprint": "1302a70a",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 11,
+            "to": [
+              10,
+              28
+            ],
+            "carry": 12
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "tag-and-rescue": {
+    "shapeFingerprint": "d3963b4e",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 1,
+            "to": [
+              56,
+              20
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 9,
+            "to": [
+              52,
+              76
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "target-player-game": {
+    "shapeFingerprint": "9af7a526",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 14,
+            "to": [
+              34,
+              24
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 7,
+            "to": [
+              46,
+              28
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "third-man-runs-in-a-diamond": {
+    "shapeFingerprint": "ed722217",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 4,
+            "to": [
+              18,
+              56
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 4,
+            "to": [
+              46,
+              20
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "thirty-second-duel": {
+    "shapeFingerprint": "eeb4bb9e",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 1,
+            "to": [
+              16,
+              48
+            ],
+            "carry": 2
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "through-around-or-over": {
+    "shapeFingerprint": "c4c95e9c",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 10,
+            "to": [
+              50,
+              26
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "traffic-lights": {
+    "shapeFingerprint": "84b790dd",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 0,
+            "to": [
+              45,
+              38
+            ],
+            "carry": 1
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 2,
+            "to": [
+              80,
+              34
+            ],
+            "carry": 3
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "two-goal-1v1": {
+    "shapeFingerprint": "22574b52",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 6,
+            "to": [
+              50,
+              34
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 7,
+            "to": [
+              50,
+              32
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 5,
+            "to": [
+              22,
+              50
+            ],
+            "carry": 6
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "two-touch-passing-squares": {
+    "shapeFingerprint": "d1ec43da",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 8,
+            "to": [
+              80,
+              12
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 8,
+            "to": [
+              90,
+              80
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "two-ways-across": {
+    "shapeFingerprint": "24b1f38e",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 8,
+            "to": [
+              50,
+              12
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "wave-attack": {
+    "shapeFingerprint": "912f24c6",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 11,
+            "to": [
+              62,
+              48
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 5,
+            "to": [
+              54,
+              28
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "win-it-and-go": {
+    "shapeFingerprint": "6579492f",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 7,
+            "to": [
+              38,
+              56
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 10,
+            "to": [
+              58,
+              34
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  },
+  "y-drill-combination": {
+    "shapeFingerprint": "064481a4",
+    "script": null,
+    "steps": [
+      {
+        "say": null,
+        "moves": [],
+        "hold": 1.2
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 5,
+            "to": [
+              50,
+              48
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 5,
+            "to": [
+              26,
+              58
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 5,
+            "to": [
+              46,
+              34
+            ]
+          }
+        ],
+        "hold": 0.6
+      },
+      {
+        "say": null,
+        "moves": [
+          {
+            "ref": 4,
+            "to": [
+              56,
+              40
+            ]
+          }
+        ],
+        "hold": 0.6
+      }
+    ]
+  }
+}

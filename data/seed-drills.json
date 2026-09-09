@@ -12,6 +12,13 @@
     "References deliberately point at section landing pages rather than deep article",
     "URLs, which rot quickly and would send coaches to a 404 mid-session."
   ],
+  "retired": [
+    {
+      "slug": "sharks-and-minnows",
+      "renamedTo": "bulldog",
+      "note": "Renamed to Bulldog. The old document is hidden, not deleted — saved sessions keep working from their frozen snapshot."
+    }
+  ],
   "drills": [
     {
       "name": "Traffic Lights",
@@ -158,7 +165,8 @@
             ]
           }
         ]
-      }
+      },
+      "videoId": "70qu46K2SsM"
     },
     {
       "name": "Passing Gates",
@@ -307,24 +315,24 @@
       }
     },
     {
-      "name": "Sharks and Minnows",
-      "summary": "Dribble across the area without losing your ball to the sharks.",
-      "description": "The minnows line up on one side with a ball each. One or two sharks start in the middle with no ball. On the call, the minnows dribble to the far side. Sharks try to kick the balls out of the area.\n\nA minnow who loses their ball becomes a shark, so the game gets harder as it goes and the last player standing has earned it. Everyone is involved the whole time — nobody is queuing.",
-      "setup": "A 20x25 yard area. One ball per minnow. Start with one shark for every eight players.",
+      "name": "Bulldog",
+      "summary": "Dribble from end to end without losing your ball to the bulldogs.",
+      "description": "The runners line up on one end line with a ball each. One or two bulldogs start in the middle with no ball. On the shout of \"Bulldog!\" the runners dribble to the far end line. The bulldogs try to kick the balls out of the area.\n\nA runner who loses their ball becomes a bulldog, so the middle fills up and every crossing gets harder. The last player still dribbling has earned it. Everyone is involved the whole time — nobody is queuing.",
+      "setup": "A 20x25 yard area with a safe end line at each end. One ball per runner. Start with one bulldog for every eight players.",
       "coachingPoints": [
-        "Keep the ball close when a shark is near, push it further when the path is clear",
+        "Keep the ball close when a bulldog is near, push it further when the path is clear",
         "Look up and pick the gap before you set off",
-        "Use your body between the shark and the ball",
+        "Use your body between the bulldog and the ball",
         "Change direction rather than running into trouble"
       ],
       "progressions": [
-        "Sharks must dribble the won ball out rather than just kicking it away",
+        "Bulldogs must dribble the won ball out rather than just kicking it away",
         "Narrow the area so there is less space to escape into"
       ],
       "regressions": [
         "Widen the area",
-        "Sharks can only move sideways along the middle line",
-        "A player who loses the ball can retrieve it and rejoin as a minnow"
+        "Bulldogs can only move sideways along the middle line",
+        "A player who loses the ball can retrieve it and rejoin as a runner"
       ],
       "themes": [
         "dribbling",
@@ -354,7 +362,7 @@
           "h": 25,
           "unit": "yd"
         },
-        "caption": "Minnows dribble across; sharks try to win the balls.",
+        "caption": "Runners dribble across; bulldogs try to win the balls.",
         "shapes": [
           {
             "t": "zone",

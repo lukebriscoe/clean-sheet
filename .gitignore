@@ -25,6 +25,11 @@ worker/node_modules
 # Screenshots from `npm run verify`
 .verify-shots
 
+# Rendered videos, their voiceovers, and the up-to-date stamps. All rebuildable
+# from data/drill-motion.json — the motion data is the artefact worth keeping in
+# git, not the hundreds of megabytes of mp4 it expands into.
+build
+
 # Scratch space for source material used when writing drills. Never committed —
 # the screenshots are someone else's; only our own rewritten drills ship.
 .drill-sources

@@ -5,6 +5,7 @@ import { formatClock, formatDuration, formatOffset } from '../../lib/timings.js'
 import { isHttpUrl } from '../../lib/schema.js'
 import { Markdown, PhaseMark } from '../ui/Bits.jsx'
 import PitchDiagram from '../ui/PitchDiagram.jsx'
+import DrillVideo from '../ui/DrillVideo.jsx'
 
 /**
  * One block of a shared plan, opened out in full.
@@ -120,6 +121,14 @@ export default function BlockDetail({ block, index, total, startTime, onClose, o
             {snapshot.diagram && (
               <Section title="How it looks">
                 <PitchDiagram diagram={snapshot.diagram} drillName={name} />
+              </Section>
+            )}
+
+            {/* snapshot.videoId is anonymous input, same as references above —
+                DrillVideo runs it through isVideoId() before it reaches a src. */}
+            {snapshot.videoId && (
+              <Section title="Watch it run">
+                <DrillVideo videoId={snapshot.videoId} drillName={name} />
               </Section>
             )}
 

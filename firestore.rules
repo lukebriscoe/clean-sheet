@@ -78,6 +78,20 @@ service cloud.firestore {
         && d.intensity in ['low', 'medium', 'high']
         && isStringList(d.equipment, 8)
         && isOptionalString(d, 'imageUrl', 500)
+        // SEED DRILLS ONLY. Videos are ours: written, choreographed, rendered and
+        // published by us from data/drill-motion.json. A community or AI drill
+        // must never carry one — otherwise anyone can attach any YouTube video to
+        // any drill on the site, with no account and nothing to stop them. Since
+        // `create` already forbids source == 'seed' below, this makes a
+        // community drill with a video unwritable rather than merely unexpected.
+        //
+        // The shape is pinned exactly rather than length-checked, because the
+        // value ends up in an iframe src — 11 characters of [A-Za-z0-9_-] leaves
+        // nothing to smuggle. Mirrors isVideoId() in src/lib/schema.js.
+        && (!('videoId' in d) || d.videoId == null
+            || (d.source == 'seed'
+                && d.videoId is string
+                && d.videoId.matches('^[A-Za-z0-9_-]{11}$')))
         // Diagrams are data, not images. Bound the shape count; per-shape validity
         // is normalised client-side (rules have no iteration) and a malformed
         // shape is dropped at render time rather than breaking the page.
@@ -94,8 +108,8 @@ service cloud.firestore {
              'schemaVersion', 'name', 'slug', 'summary', 'description', 'setup',
              'coachingPoints', 'progressions', 'regressions', 'themes', 'ageGroups',
              'sessionPhase', 'minPlayers', 'maxPlayers', 'durationMins', 'intensity',
-             'equipment', 'imageUrl', 'diagram', 'references', 'createdBy', 'clubId',
-             'source', 'status', 'createdAt', 'updatedAt'
+             'equipment', 'imageUrl', 'videoId', 'diagram', 'references', 'createdBy',
+             'clubId', 'source', 'status', 'createdAt', 'updatedAt'
            ]);
     }
 

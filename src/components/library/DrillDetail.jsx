@@ -3,6 +3,7 @@ import { labelFor, sentenceList } from '../../lib/taxonomy.js'
 import { formatDuration } from '../../lib/timings.js'
 import { Markdown, PhaseMark } from '../ui/Bits.jsx'
 import PitchDiagram from '../ui/PitchDiagram.jsx'
+import DrillVideo from '../ui/DrillVideo.jsx'
 
 /**
  * Full drill detail, in a dialog.
@@ -69,6 +70,12 @@ export default function DrillDetail({ drill, onClose, onAdd, isAdded }) {
             {drill.diagram && (
               <Section title="How it looks">
                 <PitchDiagram diagram={drill.diagram} drillName={drill.name} />
+              </Section>
+            )}
+
+            {drill.videoId && (
+              <Section title="Watch it run">
+                <DrillVideo videoId={drill.videoId} drillName={drill.name} />
               </Section>
             )}
 
