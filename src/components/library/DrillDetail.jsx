@@ -67,15 +67,19 @@ export default function DrillDetail({ drill, onClose, onAdd, isAdded }) {
               />
             </dl>
 
-            {drill.diagram && (
-              <Section title="How it looks">
-                <PitchDiagram diagram={drill.diagram} drillName={drill.name} />
-              </Section>
-            )}
-
+            {/* Video first, diagram second. Watching the drill run is the
+                quickest way to understand it, and the diagram then reads as the
+                thing you take to the pitch — it is also what survives into
+                print, where the video cannot follow. */}
             {drill.videoId && (
               <Section title="Watch it run">
                 <DrillVideo videoId={drill.videoId} drillName={drill.name} />
+              </Section>
+            )}
+
+            {drill.diagram && (
+              <Section title="How it looks">
+                <PitchDiagram diagram={drill.diagram} drillName={drill.name} />
               </Section>
             )}
 

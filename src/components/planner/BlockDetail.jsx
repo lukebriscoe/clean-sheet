@@ -118,17 +118,19 @@ export default function BlockDetail({ block, index, total, startTime, onClose, o
               </Section>
             )}
 
-            {snapshot.diagram && (
-              <Section title="How it looks">
-                <PitchDiagram diagram={snapshot.diagram} drillName={name} />
-              </Section>
-            )}
-
-            {/* snapshot.videoId is anonymous input, same as references above —
-                DrillVideo runs it through isVideoId() before it reaches a src. */}
+            {/* Video above the diagram, matching DrillDetail — a coach opening
+                either surface should find the same thing in the same place.
+                snapshot.videoId is anonymous input, same as references above,
+                so DrillVideo runs it through isVideoId() before it reaches a src. */}
             {snapshot.videoId && (
               <Section title="Watch it run">
                 <DrillVideo videoId={snapshot.videoId} drillName={name} />
+              </Section>
+            )}
+
+            {snapshot.diagram && (
+              <Section title="How it looks">
+                <PitchDiagram diagram={snapshot.diagram} drillName={name} />
               </Section>
             )}
 
