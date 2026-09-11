@@ -92,6 +92,9 @@ Longer tour: [`docs/data-model.md`](docs/data-model.md). If something in here lo
 odd, [`docs/v1-tradeoffs.md`](docs/v1-tradeoffs.md) probably explains why, and
 `CLAUDE.md` carries the working notes and the design rules.
 
+What's next is in [`docs/backlog.md`](docs/backlog.md) — features, accounts,
+security and monetisation, with what each one is blocked on.
+
 ---
 
 ## Contributing a drill
